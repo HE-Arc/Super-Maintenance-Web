@@ -8,7 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import Vuetify from '../plugins/vuetify'
+import vuetify from '../plugins/vuetify' // path to vuetify export
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,7 +20,6 @@ import Vuetify from '../plugins/vuetify'
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-Vue.use(Vuetify)
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**
@@ -30,6 +29,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    Vuetify,
+    vuetify,
     el: '#app',
 });

@@ -1924,9 +1924,116 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  data: function data() {
+    return {
+      type: 'month',
+      types: ['month', 'week', 'day', '4day'],
+      mode: 'stack',
+      modes: ['stack', 'column'],
+      weekday: [0, 1, 2, 3, 4, 5, 6],
+      weekdays: [{
+        text: 'Sun - Sat',
+        value: [0, 1, 2, 3, 4, 5, 6]
+      }, {
+        text: 'Mon - Sun',
+        value: [1, 2, 3, 4, 5, 6, 0]
+      }, {
+        text: 'Mon - Fri',
+        value: [1, 2, 3, 4, 5]
+      }, {
+        text: 'Mon, Wed, Fri',
+        value: [1, 3, 5]
+      }],
+      value: '',
+      events: [],
+      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
+      names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party']
+    };
+  },
+  methods: {
+    getEvents: function getEvents(_ref) {
+      var start = _ref.start,
+          end = _ref.end;
+      var events = [];
+      var min = new Date("".concat(start.date, "T00:00:00"));
+      var max = new Date("".concat(end.date, "T23:59:59"));
+      var days = (max.getTime() - min.getTime()) / 86400000;
+      var eventCount = this.rnd(days, days + 20);
+
+      for (var i = 0; i < eventCount; i++) {
+        var allDay = this.rnd(0, 3) === 0;
+        var firstTimestamp = this.rnd(min.getTime(), max.getTime());
+        var first = new Date(firstTimestamp - firstTimestamp % 900000);
+        var secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
+        var second = new Date(first.getTime() + secondTimestamp);
+        events.push({
+          name: this.names[this.rnd(0, this.names.length - 1)],
+          start: first,
+          end: second,
+          color: this.colors[this.rnd(0, this.colors.length - 1)],
+          timed: !allDay
+        });
+      }
+
+      this.events = events;
+    },
+    getEventColor: function getEventColor(event) {
+      return event.color;
+    },
+    rnd: function rnd(a, b) {
+      return Math.floor((b - a + 1) * Math.random()) + a;
+    }
   }
 });
 
@@ -38129,32 +38236,133 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    [
+      _c(
+        "v-sheet",
+        { staticClass: "d-flex", attrs: { tile: "", height: "54" } },
+        [
+          _c(
+            "v-btn",
+            {
+              staticClass: "ma-2",
+              attrs: { icon: "" },
+              on: {
+                click: function($event) {
+                  return _vm.$refs.calendar.prev()
+                }
+              }
+            },
+            [_c("v-icon", [_vm._v("mdi-chevron-left")])],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-select", {
+            staticClass: "ma-2",
+            attrs: {
+              items: _vm.types,
+              dense: "",
+              outlined: "",
+              "hide-details": "",
+              label: "type"
+            },
+            model: {
+              value: _vm.type,
+              callback: function($$v) {
+                _vm.type = $$v
+              },
+              expression: "type"
+            }
+          }),
+          _vm._v(" "),
+          _c("v-select", {
+            staticClass: "ma-2",
+            attrs: {
+              items: _vm.modes,
+              dense: "",
+              outlined: "",
+              "hide-details": "",
+              label: "event-overlap-mode"
+            },
+            model: {
+              value: _vm.mode,
+              callback: function($$v) {
+                _vm.mode = $$v
+              },
+              expression: "mode"
+            }
+          }),
+          _vm._v(" "),
+          _c("v-select", {
+            staticClass: "ma-2",
+            attrs: {
+              items: _vm.weekdays,
+              dense: "",
+              outlined: "",
+              "hide-details": "",
+              label: "weekdays"
+            },
+            model: {
+              value: _vm.weekday,
+              callback: function($$v) {
+                _vm.weekday = $$v
+              },
+              expression: "weekday"
+            }
+          }),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              staticClass: "ma-2",
+              attrs: { icon: "" },
+              on: {
+                click: function($event) {
+                  return _vm.$refs.calendar.next()
+                }
+              }
+            },
+            [_c("v-icon", [_vm._v("mdi-chevron-right")])],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-sheet",
+        { attrs: { height: "600" } },
+        [
+          _c("v-calendar", {
+            ref: "calendar",
+            attrs: {
+              weekdays: _vm.weekday,
+              type: _vm.type,
+              events: _vm.events,
+              "event-overlap-mode": _vm.mode,
+              "event-overlap-threshold": 30,
+              "event-color": _vm.getEventColor
+            },
+            on: { change: _vm.getEvents },
+            model: {
+              value: _vm.value,
+              callback: function($$v) {
+                _vm.value = $$v
+              },
+              expression: "value"
+            }
+          })
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              )
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -94124,6 +94332,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+ // path to vuetify export
 
 /**
  * The following block of code may be used to automatically register your
@@ -94135,7 +94344,6 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.use(_plugins_vuetify__WEBPACK_IMPORTED_MODULE_0__["default"]);
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -94144,7 +94352,7 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  */
 
 var app = new Vue({
-  Vuetify: _plugins_vuetify__WEBPACK_IMPORTED_MODULE_0__["default"],
+  vuetify: _plugins_vuetify__WEBPACK_IMPORTED_MODULE_0__["default"],
   el: '#app'
 });
 

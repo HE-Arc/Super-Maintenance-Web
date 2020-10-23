@@ -1,0 +1,4 @@
+tuto des migrations: https://laravel.com/docs/5.0/migrations
+
+php artisan make:migration create_task -> créer un migration pour une table task
+

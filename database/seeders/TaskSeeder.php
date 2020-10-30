@@ -21,18 +21,14 @@ class TaskSeeder extends Seeder
         $tasks[2] = "Réservoire d'huile";
         $tasks[3] = "Réservoire de lubrifiant";
         $tasks[4] = "Filtre à air";
-        $tasks[5] = "VSécurité des portes";
+        $tasks[5] = "Sécurité des portes";
         $tasks[6] = "Chariot";
         $tasks[7] = "Palette d'outils";
         $tasks[8] = "Evacuation des copeaux";
         $tasks[9] = "Broche";
-        $tasks[10] = "Broche";
-        $tasks[11] = "Broche";
-        $tasks[12] = "Broche";
-        $tasks[13] = "Broche";
-        $tasks[14] = "Broche";
-        // TODO
-
+        $tasks[10] = "Lampe";
+        $tasks[11] = "Ventilation";
+        $tasks[12] = "Commandes manuelles";
 
         foreach($tasks as $aTask)
         {

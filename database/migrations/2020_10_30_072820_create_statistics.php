@@ -15,6 +15,7 @@ class CreateStatistics extends Migration
     {
         Schema::create('statistics', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
             $table->dateTime('date');
             $table->integer('piece_made');
         });

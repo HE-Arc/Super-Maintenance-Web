@@ -15,6 +15,7 @@ class CreateMaintains extends Migration
     {
         Schema::create('maintains', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
             $table->dateTime('end_date');
             $table->dateTime('start_date');
         });

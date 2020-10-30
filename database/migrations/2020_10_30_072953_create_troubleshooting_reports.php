@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTroubleshootingReport extends Migration
+class CreateTroubleshootingReports extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateTroubleshootingReport extends Migration
      */
     public function up()
     {
-        Schema::create('troubleshooting_report', function (Blueprint $table) {
+        Schema::create('troubleshooting_reports', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
             $table->dateTime('end_date');
             $table->dateTime('start_date');
             $table->text('troubleshooting_description');
@@ -34,6 +35,6 @@ class CreateTroubleshootingReport extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('troubleshooting_report');
+        Schema::dropIfExists('troubleshooting_reports');
     }
 }

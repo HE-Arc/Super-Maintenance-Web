@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTask extends Migration
+class CreateStatistics extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateTask extends Migration
      */
     public function up()
     {
-        Schema::create('task', function (Blueprint $table) {
+        Schema::create('statistics', function (Blueprint $table) {
             $table->id();
-            $table->string('comment');
+            $table->dateTime('date');
+            $table->integer('piece_made');
         });
     }
 
@@ -26,6 +27,6 @@ class CreateTask extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task');
+        Schema::dropIfExists('statistics');
     }
 }

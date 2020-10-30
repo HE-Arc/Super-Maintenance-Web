@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTask extends Migration
+class CreateMaintains extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateTask extends Migration
      */
     public function up()
     {
-        Schema::create('task', function (Blueprint $table) {
+        Schema::create('maintains', function (Blueprint $table) {
             $table->id();
-            $table->string('comment');
+            $table->dateTime('end_date');
+            $table->dateTime('start_date');
         });
     }
 
@@ -26,6 +27,6 @@ class CreateTask extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task');
+        Schema::dropIfExists('maintains');
     }
 }

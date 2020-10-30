@@ -1974,6 +1974,142 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -38240,121 +38376,393 @@ var render = function() {
     "div",
     [
       _c(
-        "v-sheet",
-        { staticClass: "d-flex", attrs: { tile: "", height: "54" } },
+        "v-app-bar",
+        {
+          staticStyle: { "z-index": "999998 !important" },
+          attrs: { app: "", "clipped-left": "", color: "blue-grey", dark: "" }
+        },
         [
-          _c(
-            "v-btn",
-            {
-              staticClass: "ma-2",
-              attrs: { icon: "" },
-              on: {
-                click: function($event) {
-                  return _vm.$refs.calendar.prev()
-                }
-              }
-            },
-            [_c("v-icon", [_vm._v("mdi-chevron-left")])],
-            1
-          ),
+          _c("v-toolbar-title", [_vm._v("Mail Grade")]),
           _vm._v(" "),
-          _c("v-select", {
-            staticClass: "ma-2",
-            attrs: {
-              items: _vm.types,
-              dense: "",
-              outlined: "",
-              "hide-details": "",
-              label: "type"
-            },
-            model: {
-              value: _vm.type,
-              callback: function($$v) {
-                _vm.type = $$v
-              },
-              expression: "type"
-            }
-          }),
-          _vm._v(" "),
-          _c("v-select", {
-            staticClass: "ma-2",
-            attrs: {
-              items: _vm.modes,
-              dense: "",
-              outlined: "",
-              "hide-details": "",
-              label: "event-overlap-mode"
-            },
-            model: {
-              value: _vm.mode,
-              callback: function($$v) {
-                _vm.mode = $$v
-              },
-              expression: "mode"
-            }
-          }),
-          _vm._v(" "),
-          _c("v-select", {
-            staticClass: "ma-2",
-            attrs: {
-              items: _vm.weekdays,
-              dense: "",
-              outlined: "",
-              "hide-details": "",
-              label: "weekdays"
-            },
-            model: {
-              value: _vm.weekday,
-              callback: function($$v) {
-                _vm.weekday = $$v
-              },
-              expression: "weekday"
-            }
-          }),
-          _vm._v(" "),
-          _c("v-spacer"),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              staticClass: "ma-2",
-              attrs: { icon: "" },
-              on: {
-                click: function($event) {
-                  return _vm.$refs.calendar.next()
-                }
-              }
-            },
-            [_c("v-icon", [_vm._v("mdi-chevron-right")])],
-            1
-          )
+          _c("v-spacer")
         ],
         1
       ),
       _vm._v(" "),
       _c(
-        "v-sheet",
-        { attrs: { height: "600" } },
-        [
-          _c("v-calendar", {
-            ref: "calendar",
-            attrs: {
-              weekdays: _vm.weekday,
-              type: _vm.type,
-              events: _vm.events,
-              "event-overlap-mode": _vm.mode,
-              "event-overlap-threshold": 30,
-              "event-color": _vm.getEventColor
+        "v-navigation-drawer",
+        {
+          attrs: {
+            "mini-variant": "",
+            "mini-variant-width": "56",
+            link: "",
+            permanent: "",
+            app: "",
+            clipped: ""
+          },
+          model: {
+            value: _vm.drawer,
+            callback: function($$v) {
+              _vm.drawer = $$v
             },
-            on: { change: _vm.getEvents },
-            model: {
-              value: _vm.value,
-              callback: function($$v) {
-                _vm.value = $$v
-              },
-              expression: "value"
-            }
-          })
+            expression: "drawer"
+          }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "my-2" },
+            [
+              _c(
+                "v-list-item",
+                [
+                  _c(
+                    "v-list-item-action",
+                    [
+                      _c(
+                        "v-tooltip",
+                        {
+                          staticStyle: { "z-index": "99999" },
+                          attrs: { right: "" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-icon",
+                                    _vm._g(
+                                      _vm._b({}, "v-icon", attrs, false),
+                                      on
+                                    ),
+                                    [
+                                      _vm._v(
+                                        "\n                mdi-refresh\n              "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ])
+                        },
+                        [
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Rafraichir le tableur")])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                [
+                  _c(
+                    "v-list-item-action",
+                    [
+                      _c(
+                        "v-tooltip",
+                        {
+                          staticStyle: { "z-index": "99999" },
+                          attrs: { right: "" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-icon",
+                                    _vm._g(
+                                      _vm._b(
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              $event.stopPropagation()
+                                              _vm.showStudentsDialog = true
+                                            }
+                                          }
+                                        },
+                                        "v-icon",
+                                        attrs,
+                                        false
+                                      ),
+                                      on
+                                    ),
+                                    [
+                                      _vm._v(
+                                        "\n                mdi-account-multiple-plus-outline\n              "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ])
+                        },
+                        [
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Ajouter les étudiants")])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                [
+                  _c(
+                    "v-list-item-action",
+                    [
+                      _c(
+                        "v-tooltip",
+                        {
+                          staticStyle: { "z-index": "99999" },
+                          attrs: { right: "" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-icon",
+                                    _vm._g(
+                                      _vm._b(
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              $event.stopPropagation()
+                                              _vm.showMailDialog = true
+                                            }
+                                          }
+                                        },
+                                        "v-icon",
+                                        attrs,
+                                        false
+                                      ),
+                                      on
+                                    ),
+                                    [
+                                      _vm._v(
+                                        "\n                mdi-email-send-outline\n              "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ])
+                        },
+                        [
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Envoyer les emails")])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-divider"),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                [
+                  _c(
+                    "v-list-item-action",
+                    [
+                      _c(
+                        "v-tooltip",
+                        {
+                          staticStyle: { "z-index": "99999" },
+                          attrs: { right: "" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-icon",
+                                    _vm._g(
+                                      _vm._b({}, "v-icon", attrs, false),
+                                      on
+                                    ),
+                                    [
+                                      _vm._v(
+                                        "\n                mdi-folder-open-outline\n              "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ])
+                        },
+                        [
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Charger une évaluation")])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                [
+                  _c(
+                    "v-list-item-action",
+                    [
+                      _c(
+                        "v-tooltip",
+                        {
+                          staticStyle: { "z-index": "99999" },
+                          attrs: { right: "" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-icon",
+                                    _vm._g(
+                                      _vm._b({}, "v-icon", attrs, false),
+                                      on
+                                    ),
+                                    [
+                                      _vm._v(
+                                        "\n                mdi-content-save-outline\n              "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ])
+                        },
+                        [
+                          _vm._v(" "),
+                          _c("span", [_vm._v("Sauvegarder l'évaluation")])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-divider"),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                [
+                  _c(
+                    "v-list-item-action",
+                    [
+                      _c(
+                        "v-tooltip",
+                        {
+                          staticStyle: { "z-index": "99999" },
+                          attrs: { right: "" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "activator",
+                              fn: function(ref) {
+                                var on = ref.on
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-icon",
+                                    _vm._g(
+                                      _vm._b(
+                                        {
+                                          on: {
+                                            click: function($event) {
+                                              $event.stopPropagation()
+                                              _vm.showHelpDialog = true
+                                            }
+                                          }
+                                        },
+                                        "v-icon",
+                                        attrs,
+                                        false
+                                      ),
+                                      on
+                                    ),
+                                    [
+                                      _vm._v(
+                                        "\n                mdi-help-circle-outline\n              "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              }
+                            }
+                          ])
+                        },
+                        [_vm._v(" "), _c("span", [_vm._v("Aide")])]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "v-container",
+        { staticClass: "fill-height", staticStyle: {}, attrs: { fluid: "" } },
+        [_c("v-main")],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-footer",
+        {
+          staticClass: "white--text",
+          staticStyle: { "z-index": "999998 !important" },
+          attrs: { app: "", color: "blue-grey" }
+        },
+        [
+          _c("span", [_vm._v("HE-Arc")]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c("span", [
+            _vm._v(
+              "© " +
+                _vm._s(new Date().getFullYear()) +
+                " - tous droits réservés"
+            )
+          ])
         ],
         1
       )

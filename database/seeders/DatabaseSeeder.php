@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MachineSeeder::class);
         $this->call(StatisticSeeder::class);
         $this->call(TaskSeeder::class);
-        $this->call(TechnicienSeeder::class);
+        $this->call(MaintainerSeeder::class);
 
     }
 }

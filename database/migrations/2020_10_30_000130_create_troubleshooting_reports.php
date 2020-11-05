@@ -16,7 +16,7 @@ class CreateTroubleshootingReports extends Migration
         Schema::create('troubleshooting_reports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_machine');
-            $table->unsignedBigInteger('id_technicien');
+            $table->unsignedBigInteger('id_maintainer');
 
             $table->timestamps();
             $table->dateTime('end_date');
@@ -30,7 +30,7 @@ class CreateTroubleshootingReports extends Migration
             $table->boolean('resolved');
 
             $table->foreign('id_machine')->references('id')->on('machines');
-            $table->foreign('id_technicien')->references('id')->on('techniciens');
+            $table->foreign('id_maintainer')->references('id')->on('maintainers');
         });
     }
 

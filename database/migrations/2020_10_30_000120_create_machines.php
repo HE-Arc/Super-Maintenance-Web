@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMachine extends Migration
+class CreateMachines extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateMachine extends Migration
      */
     public function up()
     {
-        Schema::create('machine', function (Blueprint $table) {
-            $table->id();
+        Schema::create('machines', function (Blueprint $table) {
+            $table->id('id');
+            $table->timestamps();
             $table->string('name');
             $table->string('state');
             $table->string('location');
@@ -28,6 +29,6 @@ class CreateMachine extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('machine');
+        Schema::dropIfExists('machines');
     }
 }

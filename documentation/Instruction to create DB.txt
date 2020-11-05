@@ -1,6 +1,20 @@
+===== Creation =====
 tuto des migrations: https://laravel.com/docs/5.0/migrations
 types: https://laravel.com/docs/4.2/schema 
 
 php artisan make:migration create_task -> créer un migration pour une table task
 php artisan migrate -> exporte les tables dans la base de données
+php artisan migrate --force -> Solution à to
+===== Seeder =====
+php artisan make:seeder UserSeeder
+php artisan db:seed --class=UserSeeder
 
+
+
+===== Make Model =====
+php artisan make:model Flight
+
+
+===== Resum init database =====
+php artisan migrate
+php artisan db:seed

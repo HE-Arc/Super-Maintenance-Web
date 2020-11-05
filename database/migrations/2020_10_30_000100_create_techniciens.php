@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTechnicien extends Migration
+class CreateTechniciens extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateTechnicien extends Migration
      */
     public function up()
     {
-        Schema::create('technicien', function (Blueprint $table) {
+        Schema::create('techniciens', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
             $table->string('name');
             $table->string('first_name');
         });
@@ -27,6 +28,6 @@ class CreateTechnicien extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('technicien');
+        Schema::dropIfExists('techniciens');
     }
 }

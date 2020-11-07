@@ -20,7 +20,10 @@ import vuetify from '../plugins/vuetify' // path to vuetify export
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('vheader', require('./components/Header.vue').default);
+Vue.component('vleftnav', require('./components/LeftNav.vue').default);
+Vue.component('vfooter', require('./components/Footer.vue').default);
+Vue.component('home', require('./components/Home.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

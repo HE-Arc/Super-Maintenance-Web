@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Maintain extends Model
+class TroubleshootingReport extends Model
 {
     use HasFactory;
 }

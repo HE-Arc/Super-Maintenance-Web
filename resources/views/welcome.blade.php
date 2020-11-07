@@ -25,7 +25,7 @@
     <body class="antialiased">
         <div id="app">
             <v-app>
-                <example-component></example-component>
+                <home></home>
             </v-app>
         </div>
     </body>

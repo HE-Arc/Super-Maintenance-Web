@@ -16,7 +16,7 @@ class MaintainerController extends Controller{
     }
 
     public function updateMaintainer(Request $request, $id){
-        $maintainer  = DB::table('maintainers')->where('pid', $request->input('pid'))->get();
+        $maintainer  = DB::table('maintainers')->where('id', $request->input('id'))->get();
 
         $maintainer->lastname = $request->input('lastname');
         $maintainer->firstname = $request->input('firstname');
@@ -29,7 +29,7 @@ class MaintainerController extends Controller{
     }  
 
     public function deleteMaintainer($id){
-        $maintainer = DB::table('maintainers')->where('pid', $request->input('pid'))->get();
+        $maintainer = DB::table('maintainers')->where('id', $request->input('id'))->get();
         $maintainer->delete();
 
         return response()->json('Removed successfully.');

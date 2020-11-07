@@ -26,4 +26,6 @@ Route::get('maintainers',[MaintainerController::class], 'index'); // for retriev
 
 Route::get('tasks/{id_machine}', [TaskController::class, 'getTaskByMachineId']); // for retrieving all task of machine
 
+Route::post('maintain', [MaintainController::class, 'createMaintain']); // create maintain
+
 

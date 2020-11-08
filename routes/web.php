@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MaintainerController;
 use App\Http\Controllers\MaintainController;
+use App\Http\Controllers\TroubleshootingReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,20 @@ Route::post('maintain', [MaintainController::class, 'createMaintain']); // creat
 Route::post('maintain/{id}', [MaintainController::class, 'updateMaintain']); // update maintain
 Route::post('maintain_delete/{id}', [MaintainController::class, 'deleteMaintain']); // delete maintain
 Route::get('maintains', [MaintainController::class, 'index']); // create maintain
-Route::get('maintain/{id}', [MaintainController::class, 'getMaintainById']); // create maintain
+Route::get('maintain/{id}', [MaintainController::class, 'getMaintainById']); // get maintain by id
+
+Route::get('troubleshootingReport/{id}', [TroubleshootingReportController::class, 'getTroubleshootingReportById']); // get troubleshootingReport by id
+Route::get('troubleshootingReports', [TroubleshootingReportController::class, 'index']); // get all troubleshootingReports
+Route::post('troubleshootingReport', [TroubleshootingReportController::class, 'createTroubleshootingReport']); // create troubleshootingReport
+Route::post('troubleshootingReport_delete/{id}', [TroubleshootingReportController::class, 'deleteTroubleshootingReport']); // delete troubleshootingReport
+Route::post('troubleshootingReport/{id}', [TroubleshootingReportController::class, 'updateTroubleshootingReport']); // update troubleshootingReport
+
+
+
+
+
+
+
+
 
 

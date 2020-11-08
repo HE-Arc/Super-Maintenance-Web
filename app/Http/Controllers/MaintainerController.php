@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Maintainer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Maintainer;
 use DB;
 
 class MaintainerController extends Controller{

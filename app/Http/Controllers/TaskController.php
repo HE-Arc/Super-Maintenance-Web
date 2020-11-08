@@ -11,9 +11,7 @@ class TaskController extends Controller{
 
 	public function getTaskByMachineId(Request $request, $id_machine)
 	{
-		$tasks = DB::table('tasks')
-						->where('id_machine', $id_machine)
-						->get();
+		$tasks = DB::table('tasks')->where('id_machine', $id_machine)->get();
 
 		$response["tasks"] = $tasks;
 		$response["success"] = 1;

@@ -20,14 +20,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('maintainer',[MaintainerController::class], 'createMaintainer');   //for creating maintainer
-Route::post('maintainer/{id}',[MaintainerController::class], 'deleteMaintainer');  // for deleting maintainer
-Route::get('maintainer/{id}',[MaintainerController::class], 'updateMaintainer'); //for updating maintainer
-Route::get('maintainers',[MaintainerController::class], 'index'); // for retrieving maintainers
+Route::post('maintainer',[MaintainerController::class, 'createMaintainer']);   //for creating maintainer
+Route::post('maintainer/{id}',[MaintainerController::class, 'deleteMaintainer']);  // for deleting maintainer
+Route::get('maintainer/{id}',[MaintainerController::class, 'updateMaintainer']); //for updating maintainer
+Route::get('maintainers',[MaintainerController::class, 'index']); // for retrieving maintainers
 
 Route::get('tasks/{id_machine}', [TaskController::class, 'getTaskByMachineId']); // for retrieving all task of machine
 
 Route::post('maintain', [MaintainController::class, 'createMaintain']); // create maintain
 Route::post('maintain/{id}', [MaintainController::class, 'updateMaintain']); // update maintain
+Route::post('maintain_delete/{id}', [MaintainController::class, 'deleteMaintain']); // delete maintain
+Route::get('maintains', [MaintainController::class, 'index']); // create maintain
+Route::get('maintain/{id}', [MaintainController::class, 'getMaintainById']); // create maintain
 
 

@@ -25,8 +25,18 @@ class MaintainerSeeder extends Seeder
         $m->save();
 
         $m = new Maintainer();
+        $m->name = "RADON";
+        $m->first_name = "Michou";
+        $m->save();
+
+        $m = new Maintainer();
         $m->name = "NEYMARE";
         $m->first_name = "Jean";
+        $m->save();
+
+        $m = new Maintainer();
+        $m->name = "DE LA CRUZ";
+        $m->first_name = "Ernesto";
         $m->save();
     }
 }

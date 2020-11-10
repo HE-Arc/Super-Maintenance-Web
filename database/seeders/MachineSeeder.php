@@ -16,25 +16,25 @@ class MachineSeeder extends Seeder
     {
         $m = new Machine();
         $m->name = "AX35";
-        $m->state = "in_production";
+        $m->state = "ON";
         $m->location = "JU135";
         $m->save();
 
         $m = new Machine();
         $m->name = "AX36";
-        $m->state = "stopped";
+        $m->state = "OFF";
         $m->location = "JU136";
         $m->save();
 
         $m = new Machine();
         $m->name = "AX37";
-        $m->state = "in_production";
+        $m->state = "ON";
         $m->location = "JU136";
         $m->save();
 
         $m = new Machine();
         $m->name = "AX42";
-        $m->state = "in_production";
+        $m->state = "ON";
         $m->location = "JU134";
         $m->save();
     }

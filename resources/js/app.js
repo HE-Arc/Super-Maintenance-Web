@@ -24,6 +24,7 @@ Vue.component('vheader', require('./components/Header.vue').default);
 Vue.component('vleftnav', require('./components/LeftNav.vue').default);
 Vue.component('vfooter', require('./components/Footer.vue').default);
 Vue.component('home', require('./components/Home.vue').default);
+Vue.component('machines', require('./components/Machines.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

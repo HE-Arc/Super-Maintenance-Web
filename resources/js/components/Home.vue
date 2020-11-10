@@ -5,7 +5,7 @@
 
     <v-container class="fill-height" fluid style="padding=20px;">
       <v-main>
-        
+        <machines></machines>
       </v-main>
     </v-container>
 

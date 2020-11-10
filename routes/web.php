@@ -22,6 +22,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/task', function () {
+    return view('task');
+});
+
 Route::post('maintainer',[MaintainerController::class, 'createMaintainer']);   //for creating maintainer
 Route::post('maintainer/{id}',[MaintainerController::class, 'deleteMaintainer']);  // for deleting maintainer
 Route::get('maintainer/{id}',[MaintainerController::class, 'updateMaintainer']); //for updating maintainer

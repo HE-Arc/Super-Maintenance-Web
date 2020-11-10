@@ -21,13 +21,7 @@ class MaintainController extends Controller{
 
     public function createMaintain(Request $request)
     {
-        // $maintain = Maintain::create($request->all());
-        // return response()->json($maintain);
-        $maintain = new Maintain();
-        $maintain->id_machine = $request['id_machine'];
-        $maintain->id_maintainer = $request['id_maintainer'];
-        $maintain->start_date = $request['start_date'];
-        $maintain->end_date = $request['end_date'];
+        $maintain = new Maintain($request->all());
         $maintain->save();
 
         $response["maintains"] = $maintain;

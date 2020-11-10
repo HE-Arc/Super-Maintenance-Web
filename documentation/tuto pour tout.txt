@@ -21,3 +21,8 @@ php artisan make:model Flight
 ===== Resum init database =====
 php artisan migrate
 php artisan db:seed
+
+
+
+===== run frontend =====
+npm run watch

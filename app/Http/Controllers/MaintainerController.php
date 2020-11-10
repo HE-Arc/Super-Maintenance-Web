@@ -10,7 +10,8 @@ use DB;
 class MaintainerController extends Controller{
 
     public function createMaintainer(Request $request){
-        $maintainer = Maintainer::create($request->all());
+        $maintainer = new Maintainer($request->all());
+        $maintainer->save();
 
         return response()->json($maintainer);
     }

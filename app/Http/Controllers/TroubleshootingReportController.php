@@ -21,18 +21,7 @@ class TroubleshootingReportController extends Controller{
 	
 	public function createTroubleshootingReport(Request $request)
     {
-        $troubleshootingReport = new TroubleshootingReport();
-        $troubleshootingReport->id_machine = $request['id_machine'];
-        $troubleshootingReport->id_maintainer = $request['id_maintainer'];
-        $troubleshootingReport->start_date = $request['start_date'];
-		$troubleshootingReport->end_date = $request['end_date'];
-		$troubleshootingReport->troubleshooting_description = $request['troubleshooting_description'];
-		$troubleshootingReport->troubleshooting_hypotesis = $request['troubleshooting_hypotesis'];
-		$troubleshootingReport->troubleshooting_check = $request['troubleshooting_check'];
-		$troubleshootingReport->repairs_actions = $request['repairs_actions'];
-		$troubleshootingReport->piece_to_change = $request['piece_to_change'];
-		$troubleshootingReport->piece_photo = $request['piece_photo'];
-		$troubleshootingReport->resolved = $request['resolved'];
+        $troubleshootingReport = new TroubleshootingReport($request->all());
         $troubleshootingReport->save();
 
         $response["troubleshootingReport"] = $troubleshootingReport;

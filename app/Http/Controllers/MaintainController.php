@@ -32,14 +32,14 @@ class MaintainController extends Controller{
 
     public function updateMaintain(Request $request, $id)
     {
-        DB::table('maintains')->where('id', $id)->update([
+        $maintain = DB::table('maintains')->where('id', $id)->update([
             'id_machine' => $request['id_machine'],
             'id_maintainer' => $request['id_maintainer'],
             'start_date' => $request['start_date'],
             'end_date' => $request['end_date']
             ]);
 
-        $response["maintain"] = DB::table('maintains')->where('id', $id)->get();
+        $response["maintain"] = $maintain;
         $response["success"] = 1;
         return response()->json($response);
     }  

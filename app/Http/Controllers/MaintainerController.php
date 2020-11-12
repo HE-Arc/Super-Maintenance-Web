@@ -27,27 +27,25 @@ class MaintainerController extends Controller{
     }
 
     public function updateMaintainer(Request $request, $id){
-        $maintainer  = DB::table('maintainers')->where('id', $request->input('id'))->get();
+        $maintainer = DB::table('maintainers')->where('id', $id)->update([
+                        'name' => $request['name'],
+                        'first_name' => $request['first_name'],
+                        ]);
 
-        $maintainer->lastname = $request->input('lastname');
-        $maintainer->firstname = $request->input('firstname');
-        $maintainer->save();
-
-        $response["maintainers"] = $maintainer;
+        $response["maintainer"] = $maintainer;
         $response["success"] = 1;
 
         return response()->json($response);
     }  
 
     public function deleteMaintainer($id){
-        $maintainer = DB::table('maintainers')->where('id', $request->input('id'))->get();
-        $maintainer->delete();
+        $maintainer = DB::table('maintainers')->where('id', $id)->delete();
 
         return response()->json('Removed successfully.');
     }
 
     public function index(){
-        $maintainers  = Maintainer::all();
+        $maintainers = DB::table('maintainers')->get();
 
         $response["maintainers"] = $maintainers;
         $response["success"] = 1;

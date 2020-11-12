@@ -19,8 +19,8 @@ class CreateMaintains extends Migration
             $table->unsignedBigInteger('id_maintainer');
 
             $table->timestamps();
-            $table->dateTime('end_date');
-            $table->dateTime('start_date');
+            $table->dateTime('end_date')->nullable();
+            $table->dateTime('start_date')->nullable();
 
             $table->foreign('id_machine')->references('id')->on('machines');
             $table->foreign('id_maintainer')->references('id')->on('maintainers');

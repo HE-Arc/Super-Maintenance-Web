@@ -17,7 +17,7 @@ class CreateTasks extends Migration
             $table->id();
             $table->unsignedBigInteger('id_machine');
             $table->timestamps();
-            $table->string('comment');
+            $table->string('comment')->nullable();
 
             $table->foreign('id_machine')->references('id')->on('machines');
         });

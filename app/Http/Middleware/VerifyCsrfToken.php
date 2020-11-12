@@ -14,6 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         "maintainer",
         "maintainer/*", 
+        "maintainer_delete/*",
         
         "maintain",
         "maintain/*",

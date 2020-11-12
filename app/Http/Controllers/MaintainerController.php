@@ -9,6 +9,16 @@ use DB;
 
 class MaintainerController extends Controller{
 
+    public function getMaintainerById(Request $request, $id)
+    {
+        $maintainer = DB::table('maintainers')->where('id', $id)->get();
+
+        $response["maintainer"] = $maintainer;
+        $response["success"] = 1;
+
+        return response()->json($response);
+    }
+    
     public function createMaintainer(Request $request){
         $maintainer = new Maintainer($request->all());
         $maintainer->save();

@@ -6,6 +6,7 @@ use App\Http\Controllers\MaintainerController;
 use App\Http\Controllers\MaintainController;
 use App\Http\Controllers\TroubleshootingReportController;
 use App\Http\Controllers\MachineController;
+use App\Http\Controllers\StatisticController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,9 @@ Route::get('maintainers',[MaintainerController::class, 'index']); // for retriev
 
 Route::get('tasks/{id_machine}', [TaskController::class, 'getTaskByMachineId']); // for retrieving all task of machine
 
+Route::get('statistics/{id_machine}', [StatisticController::class, 'getStatisticByMachineId']); // get all statistics for machine id
+Route::get('statistic/{id}', [StatisticController::class, 'getStatisticById']); // get statistic by id
+
 Route::post('maintain', [MaintainController::class, 'createMaintain']); // create maintain
 Route::post('maintain/{id}', [MaintainController::class, 'updateMaintain']); // update maintain
 Route::post('maintain_delete/{id}', [MaintainController::class, 'deleteMaintain']); // delete maintain
@@ -47,7 +51,7 @@ Route::post('troubleshootingReport_delete/{id}', [TroubleshootingReportControlle
 Route::post('troubleshootingReport/{id}', [TroubleshootingReportController::class, 'updateTroubleshootingReport']); // update troubleshootingReport
 
 Route::get('machine/{id}', [MachineController::class, 'getMachineById']); // get machine by id
-Route::get('machines', [MachineController::class, 'index']); // get all machine
+Route::get('machines', [MachineController::class, 'index']); // get all machines
 
 
 

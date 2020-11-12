@@ -2024,37 +2024,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       id: 0,
       id_machine: 0,
-      machine_name: "LMP2020-1",
+      machine_name: "",
       id_maintainer: 0,
-      maintainer_name: "Michou Radon",
-      created_at: "10.11.2020",
-      updated_at: "12.11.2020",
-      end_date: "15:25:00",
-      start_date: "16:45:00",
-      failure_description: "panne très embêtante",
-      failure_hypotesis: "ne fonctionne plus",
+      maintainer_name: "",
+      created_at: "",
+      updated_at: "",
+      end_date: "",
+      start_date: "",
+      failure_description: "",
+      failure_hypotesis: "",
       //hypothesis on why did the failure happened
-      failure_check: "pièce xy défectueuse",
+      failure_check: "",
       //check the hypothesis
-      repairs_actions: "changement de la pièce xy",
-      piece_to_change: "xy",
-      piece_photo: "./images/images_failure_xy",
-      resolved: "oui"
+      repairs_actions: "",
+      piece_to_change: "",
+      piece_photo: "",
+      resolved: ""
     };
   },
   methods: {
     fetchFailure: function fetchFailure() {
+      var _this = this;
+
       return new Promise(function (resolve, reject) {
         axios.get("/Super-Maintenance-Web/public/troubleshootingReport/1").then(function (response) {
           //TODO reject if the size of the array is smaller than 1
-          console.log(response.data.troubleshootingReport[0]);
+          var failureReport = response.data.troubleshootingReport[0];
+          _this.id = failureReport.id;
+          _this.id_machine = failureReport.id_machine;
+          _this.id_maintainer = failureReport.id_maintainer;
+          _this.created_at = failureReport.created_at;
+          _this.updated_at = failureReport.updated_at;
+          _this.end_date = failureReport.end_date;
+          _this.start_date = failureReport.start_date;
+          _this.failure_description = failureReport.troubleshooting_description;
+          _this.failure_hypotesis = failureReport.troubleshooting_hypotesis;
+          _this.failure_check = failureReport.troubleshooting_check;
+          _this.repairs_actions = failureReport.repairs_actions;
+          _this.piece_to_change = failureReport.piece_to_change;
+          _this.piece_photo = failureReport.piece_photo;
+          _this.resolved = failureReport.resolved;
+          resolve(response);
+
+          _this.fetchMachineName();
+
+          _this.fetchMaintainerName();
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    fetchMachineName: function fetchMachineName() {
+      var _this2 = this;
+
+      return new Promise(function (resolve, reject) {
+        axios.get("/Super-Maintenance-Web/public/machine/" + _this2.id_machine).then(function (response) {
+          _this2.machine_name = response.data.machine[0].name;
+          resolve(response);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    },
+    fetchMaintainerName: function fetchMaintainerName() {
+      var _this3 = this;
+
+      return new Promise(function (resolve, reject) {
+        axios.get("/Super-Maintenance-Web/public/maintainer/" + _this3.id_maintainer).then(function (response) {
+          var name = response.data.maintainer[0].name;
+          var first_name = response.data.maintainer[0].first_name;
+          _this3.maintainer_name = first_name + " " + name;
           resolve(response);
         })["catch"](function (error) {
           reject(error);

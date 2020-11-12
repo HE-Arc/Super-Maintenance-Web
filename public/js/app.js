@@ -1899,6 +1899,188 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FailureReport.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FailureReport.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      id: 0,
+      id_machine: 0,
+      machine_name: "LMP2020-1",
+      id_maintainer: 0,
+      maintainer_name: "Michou Radon",
+      created_at: "10.11.2020",
+      updated_at: "12.11.2020",
+      end_date: "15:25:00",
+      start_date: "16:45:00",
+      failure_description: "panne très embêtante",
+      failure_hypotesis: "ne fonctionne plus",
+      //hypothesis on why did the failure happened
+      failure_check: "pièce xy défectueuse",
+      //check the hypothesis
+      repairs_actions: "changement de la pièce xy",
+      piece_to_change: "xy",
+      piece_photo: "./images/images_failure_xy",
+      resolved: "oui"
+    };
+  },
+  methods: {
+    fetchFailure: function fetchFailure() {
+      return new Promise(function (resolve, reject) {
+        axios.get("/Super-Maintenance-Web/public/troubleshootingReport/1").then(function (response) {
+          //TODO reject if the size of the array is smaller than 1
+          console.log(response.data.troubleshootingReport[0]);
+          resolve(response);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
+    }
+  },
+  computed: {
+    spendTime: function spendTime() {
+      //return end_date-start_date
+      return "1h20min";
+    },
+    isPiecePicture: function isPiecePicture() {
+      return this.piece_photo !== "";
+    },
+    isResolved: function isResolved() {
+      return this.resolved == true ? "Oui" : "Non";
+    }
+  },
+  mounted: function mounted() {
+    this.fetchFailure();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Home.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Home.vue?vue&type=script&lang=js& ***!
@@ -1908,6 +2090,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -38308,6 +38491,249 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FailureReport.vue?vue&type=template&id=6f543ffa&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FailureReport.vue?vue&type=template&id=6f543ffa& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("vheader"),
+      _vm._v(" "),
+      _c("vleftnav"),
+      _vm._v(" "),
+      _c(
+        "v-container",
+        { staticClass: "fill-height", staticStyle: {}, attrs: { fluid: "" } },
+        [
+          _c(
+            "v-main",
+            [
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { lg: "5", md: "5", xs: "11", sm: "11" } },
+                    [
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              value: _vm.machine_name,
+                              label: "Machine concernée",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              value: _vm.created_at,
+                              label: "Date de création",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              value: _vm.updated_at,
+                              label: "Dernière modification",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              value: _vm.spendTime,
+                              label: "Durée de la réparation",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              value: _vm.maintainer_name,
+                              label: "Technicien en charge",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              value: _vm.isResolved,
+                              label: "Résolue ?",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-spacer", { attrs: { cols: "1" } }),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { lg: "5", md: "5", xs: "11", sm: "11" } },
+                    [
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              value: _vm.failure_description,
+                              label: "Decription",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              value: _vm.failure_hypotesis,
+                              label: "Hypothèse",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              value: _vm.failure_check,
+                              label: "Cause réelle",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              value: _vm.repairs_actions,
+                              label: "Résolution",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c("v-text-field", {
+                            attrs: {
+                              value: _vm.piece_to_change,
+                              label: "Pièce à changer",
+                              readonly: ""
+                            }
+                          })
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _vm.isPiecePicture
+                        ? _c(
+                            "v-row",
+                            [
+                              _c("div", { staticClass: "subheading" }, [
+                                _vm._v("Photo")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-img", {
+                                attrs: {
+                                  src: "https://picsum.photos/510/300?random"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("v-spacer", { attrs: { cols: "1" } })
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("vfooter")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Footer.vue?vue&type=template&id=61a7c374&":
 /*!*********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Footer.vue?vue&type=template&id=61a7c374& ***!
@@ -38426,7 +38852,7 @@ var render = function() {
       _c(
         "v-container",
         { staticClass: "fill-height", staticStyle: {}, attrs: { fluid: "" } },
-        [_c("v-main", [_c("machines")], 1)],
+        [_c("v-main", [_c("failure-report")], 1)],
         1
       ),
       _vm._v(" "),
@@ -94889,6 +95315,7 @@ Vue.component('vleftnav', __webpack_require__(/*! ./components/LeftNav.vue */ ".
 Vue.component('vfooter', __webpack_require__(/*! ./components/Footer.vue */ "./resources/js/components/Footer.vue")["default"]);
 Vue.component('home', __webpack_require__(/*! ./components/Home.vue */ "./resources/js/components/Home.vue")["default"]);
 Vue.component('machines', __webpack_require__(/*! ./components/Machines.vue */ "./resources/js/components/Machines.vue")["default"]);
+Vue.component('failure-report', __webpack_require__(/*! ./components/FailureReport.vue */ "./resources/js/components/FailureReport.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -94944,6 +95371,75 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/components/FailureReport.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/FailureReport.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _FailureReport_vue_vue_type_template_id_6f543ffa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./FailureReport.vue?vue&type=template&id=6f543ffa& */ "./resources/js/components/FailureReport.vue?vue&type=template&id=6f543ffa&");
+/* harmony import */ var _FailureReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./FailureReport.vue?vue&type=script&lang=js& */ "./resources/js/components/FailureReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _FailureReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _FailureReport_vue_vue_type_template_id_6f543ffa___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _FailureReport_vue_vue_type_template_id_6f543ffa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/FailureReport.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/FailureReport.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/FailureReport.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FailureReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./FailureReport.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FailureReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_FailureReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/FailureReport.vue?vue&type=template&id=6f543ffa&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/FailureReport.vue?vue&type=template&id=6f543ffa& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FailureReport_vue_vue_type_template_id_6f543ffa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./FailureReport.vue?vue&type=template&id=6f543ffa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FailureReport.vue?vue&type=template&id=6f543ffa&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FailureReport_vue_vue_type_template_id_6f543ffa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FailureReport_vue_vue_type_template_id_6f543ffa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

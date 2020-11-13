@@ -72,7 +72,7 @@
     methods: {
 		fetchMachines() {
 			return new Promise((resolve, reject) => {
-				axios.get("/public/machines")
+				axios.get("/machines")
 					.then(response => {
 						this.machines = response.data.machines
 						resolve(response)

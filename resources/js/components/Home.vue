@@ -14,10 +14,7 @@
 </template>
 
 <script>
-import MachineTasks from './MachineTasks.vue'
-import MaintainPage from './MaintainPage.vue'
   export default {
-  components: { MachineTasks, MaintainPage },
     data: () => ({
 
     }),

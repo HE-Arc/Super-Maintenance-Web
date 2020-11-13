@@ -78,13 +78,13 @@ export default {
   props: ['homeRoute'],
   methods: {
     homeUrl() {
-      window.location.href = '/public'
+      window.location.href = '/'
     },
     maintenanceUrl() {
-      window.location.href = '/public/maintenance'
+      window.location.href = '/maintenance'
     },
     calendarUrl() {
-      window.location.href = '/public/calendar'
+      window.location.href = '/calendar'
     }
   }
 };

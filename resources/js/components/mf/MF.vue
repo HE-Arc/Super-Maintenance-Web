@@ -6,14 +6,15 @@
     <v-container class="fill-height" fluid style="padding=20px;">
       <v-main>
         <v-row>
-          <v-col md=3>
+          <v-col cols="3">
             <mf-selection></mf-selection>
+             
           </v-col>
-          <v-divider vertical></v-divider>
+         
           <v-col
-            class="d-flex"
+            cols="9"
           >
-            <maintain-page :id_maintain="1"></maintain-page>
+              <maintain-page :id_maintain="1"></maintain-page>
           </v-col>
         </v-row>
       </v-main>
@@ -24,9 +25,7 @@
 </template>
 
 <script>
-import MaintainPage from '../MaintainPage.vue'
   export default {
-  components: { MaintainPage },
     data: () => ({
 
     }),

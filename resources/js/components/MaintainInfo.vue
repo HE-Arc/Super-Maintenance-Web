@@ -1,11 +1,5 @@
 <template>
   <div>
-    <vheader></vheader>
-    <vleftnav></vleftnav>
-
-    <v-container class="fill-height" fluid style="padding=20px;">
-      <v-main>
-
 		<v-row>
 			<v-col cols="6">
 				<v-subheader>Machine concernée</v-subheader>
@@ -60,16 +54,11 @@
 				></v-text-field>
 			</v-col>
 		</v-row>
-      </v-main>
-    </v-container>
-    <vfooter></vfooter>
   </div>
 </template>
 
 <script>
-import MaintainInfo from './MaintainInfo.vue'
   export default {
-  components: { MaintainInfo },
     data: () => ({
 		maintainer_name: null
 	}),
@@ -104,7 +93,7 @@ import MaintainInfo from './MaintainInfo.vue'
 			},
 		fetchMaintainerName() {
 			return new Promise((resolve, reject) => {
-				axios.get("/Super-Maintenance-Web/public/maintainer/1")// + this.maintain.id_maintainer)
+				axios.get("/maintainer/1")// + this.maintain.id_maintainer)
 					.then(response => {
 						this.maintainer_name = response.data.maintainer[0].name
 						resolve(response)

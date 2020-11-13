@@ -13,12 +13,17 @@
         <v-list-item>
           <v-list-item-action>
             <v-tooltip style="z-index:99999;" right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon v-bind="attrs" v-on="on">
-                  mdi-refresh
-                </v-icon>
-              </template>
-              <span>Rafraichir le tableur</span>
+                <template v-slot:activator="{ on, attrs }">   
+                    <v-icon 
+                      @click.stop="homeUrl"
+                      v-bind="attrs" 
+                      v-on="on"
+                    >
+                      mdi-home
+                    </v-icon>    
+                </template>
+             
+              <span>Accueil</span>
             </v-tooltip>
           </v-list-item-action>
         </v-list-item>
@@ -26,16 +31,17 @@
         <v-list-item>
           <v-list-item-action>
             <v-tooltip style="z-index:99999;" right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon
-                  @click.stop="showStudentsDialog = true"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  mdi-account-multiple-plus-outline
-                </v-icon>
-              </template>
-              <span>Ajouter les étudiants</span>
+                <template v-slot:activator="{ on, attrs }">   
+                    <v-icon 
+                      @click.stop="maintenanceUrl"
+                      v-bind="attrs" 
+                      v-on="on"
+                    >
+                      mdi-hammer-wrench
+                    </v-icon>    
+                </template>
+            
+              <span>Maintenance</span>
             </v-tooltip>
           </v-list-item-action>
         </v-list-item>
@@ -43,66 +49,21 @@
         <v-list-item>
           <v-list-item-action>
             <v-tooltip style="z-index:99999;" right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon
-                  @click.stop="showMailDialog = true"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  mdi-email-send-outline
-                </v-icon>
-              </template>
-              <span>Envoyer les emails</span>
+                <template v-slot:activator="{ on, attrs }">   
+                    <v-icon 
+                      @click.stop="calendarUrl"
+                      v-bind="attrs" 
+                      v-on="on"
+                    >
+                      mdi-calendar-month
+                    </v-icon>    
+                </template>
+            
+              <span>Plannification</span>
             </v-tooltip>
           </v-list-item-action>
         </v-list-item>
 
-        <v-divider></v-divider>
-
-        <v-list-item>
-          <v-list-item-action>
-            <v-tooltip style="z-index:99999;" right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon v-bind="attrs" v-on="on">
-                  mdi-folder-open-outline
-                </v-icon>
-              </template>
-              <span>Charger une évaluation</span>
-            </v-tooltip>
-          </v-list-item-action>
-        </v-list-item>
-
-        <v-list-item>
-          <v-list-item-action>
-            <v-tooltip style="z-index:99999;" right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon v-bind="attrs" v-on="on">
-                  mdi-content-save-outline
-                </v-icon>
-              </template>
-              <span>Sauvegarder l'évaluation</span>
-            </v-tooltip>
-          </v-list-item-action>
-        </v-list-item>
-
-        <v-divider></v-divider>
-
-        <v-list-item>
-          <v-list-item-action>
-            <v-tooltip style="z-index:99999;" right>
-              <template v-slot:activator="{ on, attrs }">
-                <v-icon
-                  @click.stop="showHelpDialog = true"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  mdi-help-circle-outline
-                </v-icon>
-              </template>
-              <span>Aide</span>
-            </v-tooltip>
-          </v-list-item-action>
-        </v-list-item>
       </div>
     </v-navigation-drawer>
   </div>
@@ -112,7 +73,19 @@
 export default {
 
   data: () => ({
-    drawer: true
+    drawer: true,
   }),
+  props: ['homeRoute'],
+  methods: {
+    homeUrl() {
+      window.location.href = '/public'
+    },
+    maintenanceUrl() {
+      window.location.href = '/public/maintenance'
+    },
+    calendarUrl() {
+      window.location.href = '/public/calendar'
+    }
+  }
 };
 </script>

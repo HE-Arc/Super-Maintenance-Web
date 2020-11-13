@@ -23,8 +23,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', function () {
+    return view('welcome');
+})->name("home");
+
 Route::get('/task', function () {
     return view('task');
+});
+
+Route::get('/maintenance', function () {
+    return view('mf');
+});
+
+Route::get('/calendar', function () {
+    return view('calendar');
 });
 
 Route::post('maintainer',[MaintainerController::class, 'createMaintainer']);   //for creating maintainer

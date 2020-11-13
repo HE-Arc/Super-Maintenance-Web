@@ -9,6 +9,9 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import vuetify from '../plugins/vuetify' // path to vuetify export
+import VueGoogleCharts from 'vue-google-charts'
+
+Vue.use(VueGoogleCharts)
 
 /**
  * The following block of code may be used to automatically register your
@@ -26,6 +29,10 @@ Vue.component('vfooter', require('./components/Footer.vue').default);
 Vue.component('home', require('./components/Home.vue').default);
 Vue.component('machines', require('./components/Machines.vue').default);
 Vue.component('machineTasks', require('./components/MachineTasks.vue').default);
+Vue.component('maintainer-attribution-dialog', require('./components/dialogs/MaintainerAttribution.vue').default);
+Vue.component('mf-selection', require('./components/mf/MFSelection.vue').default);
+Vue.component('mf', require('./components/mf/MF.vue').default);
+Vue.component('calendar', require('./components/Calendar.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

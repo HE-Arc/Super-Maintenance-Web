@@ -5,7 +5,7 @@
 
     <v-container class="fill-height" fluid style="padding=20px;">
       <v-main>
-        <machines></machines>
+        <machine-tasks :id="1"></machine-tasks>
       </v-main>
     </v-container>
 
@@ -14,7 +14,9 @@
 </template>
 
 <script>
+import MachineTasks from './MachineTasks.vue'
   export default {
+  components: { MachineTasks },
     data: () => ({
 
     }),

@@ -6,7 +6,7 @@
     <v-container class="fill-height" fluid style="padding=20px;">
       <v-main>
         <v-row>
-          <v-col lg="5" md="5" xs="11" sm="11">
+          <v-col lg="5" md="5" xs="12" sm="12">
             <v-row>
               <v-text-field
                 :value="machine_name"
@@ -17,7 +17,7 @@
 
             <v-row>
               <v-text-field
-                :value="created_at"
+                :value="failure_report.created_at"
                 label="Date de création"
                 readonly
               ></v-text-field>
@@ -25,7 +25,7 @@
 
             <v-row>
               <v-text-field
-                :value="updated_at"
+                :value="failure_report.updated_at"
                 label="Dernière modification"
                 readonly
               ></v-text-field>
@@ -56,56 +56,79 @@
             </v-row>
           </v-col>
 
-          <v-spacer cols="1"></v-spacer>
+          <v-spacer lg="1" md="1" xs="0" sm="0"></v-spacer>
 
-          <v-col lg="5" md="5" xs="11" sm="11">
+          <v-col lg="5" md="5" xs="12" sm="12">
             <v-row>
-              <v-text-field
-                :value="failure_description"
+              <v-textarea
+                :value="failure_report.troubleshooting_description"
                 label="Decription"
+                background-color="white lighten-2"
+                rows="1"
                 readonly
-              ></v-text-field>
+                auto-grow
+                outlined
+                filled
+              ></v-textarea>
             </v-row>
 
             <v-row>
-              <v-text-field
-                :value="failure_hypotesis"
+              <v-textarea
+                :value="failure_report.troubleshooting_hypotesis"
                 label="Hypothèse"
+                background-color="white lighten-2"
+                rows="1"
                 readonly
-              ></v-text-field>
+                auto-grow
+                outlined
+              ></v-textarea>
             </v-row>
 
             <v-row>
-              <v-text-field
-                :value="failure_check"
+              <v-textarea
+                :value="failure_report.troubleshooting_check"
                 label="Cause réelle"
+                background-color="white lighten-2"
+                rows="1"
                 readonly
-              ></v-text-field>
+                auto-grow
+                outlined
+              ></v-textarea>
             </v-row>
 
             <v-row>
-              <v-text-field
-                :value="repairs_actions"
+              <v-textarea
+                :value="failure_report.repairs_actions"
                 label="Résolution"
+                background-color="white lighten-2"
+                rows="1"
                 readonly
-              ></v-text-field>
+                auto-grow
+                outlined
+              ></v-textarea>
             </v-row>
 
             <v-row>
               <v-text-field
-                :value="piece_to_change"
+                :value="failure_report.piece_to_change"
                 label="Pièce à changer"
+                background-color="white lighten-2"
                 readonly
+                auto-grow
+                outlined
               ></v-text-field>
             </v-row>
 
             <v-row v-if="isPiecePicture">
-              <div class="subheading">Photo</div>
-              <v-img src="https://picsum.photos/510/300?random"></v-img>
+              <v-card>
+                <v-card-title>Photo</v-card-title>
+
+                <v-img :src="piecePhoto"></v-img>
+              </v-card>
             </v-row>
           </v-col>
 
-          <v-spacer cols="1"></v-spacer>
+          <v-spacer lg="1" md="1" xs="0" sm="0"></v-spacer>
         </v-row>
       </v-main>
     </v-container>
@@ -117,22 +140,10 @@
 <script>
 export default {
   data: () => ({
-    id: 0,
-    id_machine: 0,
+    failure_report: null,
     machine_name: "",
-    id_maintainer: 0,
     maintainer_name: "",
-    created_at: "",
-    updated_at: "",
-    end_date: "",
-    start_date: "",
-    failure_description: "",
-    failure_hypotesis: "", //hypothesis on why did the failure happened
-    failure_check: "", //check the hypothesis
-    repairs_actions: "",
-    piece_to_change: "",
     piece_photo: "",
-    resolved: "",
   }),
   methods: {
     fetchFailure() {
@@ -141,25 +152,10 @@ export default {
           .get("/Super-Maintenance-Web/public/troubleshootingReport/1")
           .then((response) => {
             //TODO reject if the size of the array is smaller than 1
-            let failureReport = response.data.troubleshootingReport[0];
-
-            this.id = failureReport.id;
-            this.id_machine = failureReport.id_machine;
-            this.id_maintainer = failureReport.id_maintainer;
-            this.created_at = failureReport.created_at;
-            this.updated_at = failureReport.updated_at;
-            this.end_date = failureReport.end_date;
-            this.start_date = failureReport.start_date;
-            this.failure_description = failureReport.troubleshooting_description;
-            this.failure_hypotesis = failureReport.troubleshooting_hypotesis;
-            this.failure_check = failureReport.troubleshooting_check;
-            this.repairs_actions = failureReport.repairs_actions;
-            this.piece_to_change = failureReport.piece_to_change;
-            this.piece_photo = failureReport.piece_photo;
-            this.resolved = failureReport.resolved;
+            this.failure_report = response.data.troubleshootingReport[0];
 
             resolve(response);
-
+            
             this.fetchMachineName();
             this.fetchMaintainerName();
           })
@@ -171,7 +167,10 @@ export default {
     fetchMachineName() {
       return new Promise((resolve, reject) => {
         axios
-          .get("/Super-Maintenance-Web/public/machine/" + this.id_machine)
+          .get(
+            "/Super-Maintenance-Web/public/machine/" +
+              this.failure_report.id_machine
+          )
           .then((response) => {
             this.machine_name = response.data.machine[0].name;
 
@@ -185,13 +184,15 @@ export default {
     fetchMaintainerName() {
       return new Promise((resolve, reject) => {
         axios
-          .get("/Super-Maintenance-Web/public/maintainer/" + this.id_maintainer)
+          .get(
+            "/Super-Maintenance-Web/public/maintainer/" +
+              this.failure_report.id_maintainer
+          )
           .then((response) => {
             let name = response.data.maintainer[0].name;
             let first_name = response.data.maintainer[0].first_name;
 
             this.maintainer_name = first_name + " " + name;
-
             resolve(response);
           })
           .catch((error) => {
@@ -199,17 +200,52 @@ export default {
           });
       });
     },
+    stringToDate(s) {
+      //source : https://stackoverflow.com/questions/8003616/javascript-how-to-find-the-difference-between-two-datetimes-in-mysql-timestamp
+      let dateParts = s.split(" ")[0].split("-");
+      let timeParts = s.split(" ")[1].split(":");
+      let d = new Date(dateParts[0], --dateParts[1], dateParts[2]);
+      d.setHours(timeParts[0], timeParts[1], timeParts[2]);
+
+      return d;
+    },
+    computeSpendTime(end_date, start_date) {
+      let secondsRemaining =
+        (this.stringToDate(end_date) - this.stringToDate(start_date)) / 1000; //delta in seconds
+      let hours = Math.floor(secondsRemaining / 3600);
+      secondsRemaining = secondsRemaining - hours * 3600;
+      let minutes = Math.floor(secondsRemaining / 60);
+      secondsRemaining = secondsRemaining - minutes * 60;
+
+      return hours + "h" + minutes + "m" + secondsRemaining + "s";
+    },
   },
   computed: {
-    spendTime() {
-      //return end_date-start_date
-      return "1h20min";
-    },
     isPiecePicture() {
-      return this.piece_photo !== "";
+      return (
+        this.failure_report != null && this.failure_report.piece_photo !== ""
+      );
     },
     isResolved() {
-      return this.resolved == true ? "Oui" : "Non";
+      return this.failure_report != null && this.failure_report.resolved
+        ? "Oui"
+        : "Non";
+    },
+    piecePhoto() {
+      return this.failure_report != null ? "data:image/png;base64," + this.failure_report.piece_photo : "";
+    },
+    spendTime() {
+      if (
+        this.failure_report != null &&
+        this.failure_report.end_date !== "" &&
+        this.start_date !== ""
+      ) {
+        return this.computeSpendTime(
+          this.failure_report.end_date,
+          this.failure_report.start_date
+        );
+      }
+      return "";
     },
   },
   mounted() {

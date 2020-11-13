@@ -17,8 +17,8 @@ class TroubleshootingReportsSeeder extends Seeder
         $t = new TroubleshootingReport();
         $t->id_machine = 2;
         $t->id_maintainer = 2;
-        $t->end_date = "2020-10-27";
-        $t->start_date ="2020-10-28";
+        $t->end_date = "2020-10-28 10:30:25";
+        $t->start_date ="2020-10-27 11:45:45";
         $t->troubleshooting_description = "La machine s'arrête après le premier cycle de coupe";
         $t->troubleshooting_hypotesis= "Le changement d'outils pour le deuxième cycle est bloquer | L'évacuation des déchets ne marche plus";
         $t->troubleshooting_check = "Le changement d'outils fonctionne bien, par contre le vérin de la trape d'évacuation est défectueux";

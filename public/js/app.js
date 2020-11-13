@@ -2024,27 +2024,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      id: 0,
-      id_machine: 0,
+      failure_report: null,
       machine_name: "",
-      id_maintainer: 0,
       maintainer_name: "",
-      created_at: "",
-      updated_at: "",
-      end_date: "",
-      start_date: "",
-      failure_description: "",
-      failure_hypotesis: "",
-      //hypothesis on why did the failure happened
-      failure_check: "",
-      //check the hypothesis
-      repairs_actions: "",
-      piece_to_change: "",
-      piece_photo: "",
-      resolved: ""
+      piece_photo: ""
     };
   },
   methods: {
@@ -2054,21 +2063,7 @@ __webpack_require__.r(__webpack_exports__);
       return new Promise(function (resolve, reject) {
         axios.get("/Super-Maintenance-Web/public/troubleshootingReport/1").then(function (response) {
           //TODO reject if the size of the array is smaller than 1
-          var failureReport = response.data.troubleshootingReport[0];
-          _this.id = failureReport.id;
-          _this.id_machine = failureReport.id_machine;
-          _this.id_maintainer = failureReport.id_maintainer;
-          _this.created_at = failureReport.created_at;
-          _this.updated_at = failureReport.updated_at;
-          _this.end_date = failureReport.end_date;
-          _this.start_date = failureReport.start_date;
-          _this.failure_description = failureReport.troubleshooting_description;
-          _this.failure_hypotesis = failureReport.troubleshooting_hypotesis;
-          _this.failure_check = failureReport.troubleshooting_check;
-          _this.repairs_actions = failureReport.repairs_actions;
-          _this.piece_to_change = failureReport.piece_to_change;
-          _this.piece_photo = failureReport.piece_photo;
-          _this.resolved = failureReport.resolved;
+          _this.failure_report = response.data.troubleshootingReport[0];
           resolve(response);
 
           _this.fetchMachineName();
@@ -2083,7 +2078,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       return new Promise(function (resolve, reject) {
-        axios.get("/Super-Maintenance-Web/public/machine/" + _this2.id_machine).then(function (response) {
+        axios.get("/Super-Maintenance-Web/public/machine/" + _this2.failure_report.id_machine).then(function (response) {
           _this2.machine_name = response.data.machine[0].name;
           resolve(response);
         })["catch"](function (error) {
@@ -2095,7 +2090,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       return new Promise(function (resolve, reject) {
-        axios.get("/Super-Maintenance-Web/public/maintainer/" + _this3.id_maintainer).then(function (response) {
+        axios.get("/Super-Maintenance-Web/public/maintainer/" + _this3.failure_report.id_maintainer).then(function (response) {
           var name = response.data.maintainer[0].name;
           var first_name = response.data.maintainer[0].first_name;
           _this3.maintainer_name = first_name + " " + name;
@@ -2104,18 +2099,41 @@ __webpack_require__.r(__webpack_exports__);
           reject(error);
         });
       });
+    },
+    stringToDate: function stringToDate(s) {
+      //source : https://stackoverflow.com/questions/8003616/javascript-how-to-find-the-difference-between-two-datetimes-in-mysql-timestamp
+      var dateParts = s.split(" ")[0].split("-");
+      var timeParts = s.split(" ")[1].split(":");
+      var d = new Date(dateParts[0], --dateParts[1], dateParts[2]);
+      d.setHours(timeParts[0], timeParts[1], timeParts[2]);
+      return d;
+    },
+    computeSpendTime: function computeSpendTime(end_date, start_date) {
+      var secondsRemaining = (this.stringToDate(end_date) - this.stringToDate(start_date)) / 1000; //delta in seconds
+
+      var hours = Math.floor(secondsRemaining / 3600);
+      secondsRemaining = secondsRemaining - hours * 3600;
+      var minutes = Math.floor(secondsRemaining / 60);
+      secondsRemaining = secondsRemaining - minutes * 60;
+      return hours + "h" + minutes + "m" + secondsRemaining + "s";
     }
   },
   computed: {
-    spendTime: function spendTime() {
-      //return end_date-start_date
-      return "1h20min";
-    },
     isPiecePicture: function isPiecePicture() {
-      return this.piece_photo !== "";
+      return this.failure_report != null && this.failure_report.piece_photo !== "";
     },
     isResolved: function isResolved() {
-      return this.resolved == true ? "Oui" : "Non";
+      return this.failure_report != null && this.failure_report.resolved ? "Oui" : "Non";
+    },
+    piecePhoto: function piecePhoto() {
+      return this.failure_report != null ? "data:image/png;base64," + this.failure_report.piece_photo : "";
+    },
+    spendTime: function spendTime() {
+      if (this.failure_report != null && this.failure_report.end_date !== "" && this.start_date !== "") {
+        return this.computeSpendTime(this.failure_report.end_date, this.failure_report.start_date);
+      }
+
+      return "";
     }
   },
   mounted: function mounted() {
@@ -38569,7 +38587,7 @@ var render = function() {
                 [
                   _c(
                     "v-col",
-                    { attrs: { lg: "5", md: "5", xs: "11", sm: "11" } },
+                    { attrs: { lg: "5", md: "5", xs: "12", sm: "12" } },
                     [
                       _c(
                         "v-row",
@@ -38590,7 +38608,7 @@ var render = function() {
                         [
                           _c("v-text-field", {
                             attrs: {
-                              value: _vm.created_at,
+                              value: _vm.failure_report.created_at,
                               label: "Date de création",
                               readonly: ""
                             }
@@ -38604,7 +38622,7 @@ var render = function() {
                         [
                           _c("v-text-field", {
                             attrs: {
-                              value: _vm.updated_at,
+                              value: _vm.failure_report.updated_at,
                               label: "Dernière modification",
                               readonly: ""
                             }
@@ -38658,20 +38676,28 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("v-spacer", { attrs: { cols: "1" } }),
+                  _c("v-spacer", {
+                    attrs: { lg: "1", md: "1", xs: "0", sm: "0" }
+                  }),
                   _vm._v(" "),
                   _c(
                     "v-col",
-                    { attrs: { lg: "5", md: "5", xs: "11", sm: "11" } },
+                    { attrs: { lg: "5", md: "5", xs: "12", sm: "12" } },
                     [
                       _c(
                         "v-row",
                         [
-                          _c("v-text-field", {
+                          _c("v-textarea", {
                             attrs: {
-                              value: _vm.failure_description,
+                              value:
+                                _vm.failure_report.troubleshooting_description,
                               label: "Decription",
-                              readonly: ""
+                              "background-color": "white lighten-2",
+                              rows: "1",
+                              readonly: "",
+                              "auto-grow": "",
+                              outlined: "",
+                              filled: ""
                             }
                           })
                         ],
@@ -38681,11 +38707,16 @@ var render = function() {
                       _c(
                         "v-row",
                         [
-                          _c("v-text-field", {
+                          _c("v-textarea", {
                             attrs: {
-                              value: _vm.failure_hypotesis,
+                              value:
+                                _vm.failure_report.troubleshooting_hypotesis,
                               label: "Hypothèse",
-                              readonly: ""
+                              "background-color": "white lighten-2",
+                              rows: "1",
+                              readonly: "",
+                              "auto-grow": "",
+                              outlined: ""
                             }
                           })
                         ],
@@ -38695,11 +38726,15 @@ var render = function() {
                       _c(
                         "v-row",
                         [
-                          _c("v-text-field", {
+                          _c("v-textarea", {
                             attrs: {
-                              value: _vm.failure_check,
+                              value: _vm.failure_report.troubleshooting_check,
                               label: "Cause réelle",
-                              readonly: ""
+                              "background-color": "white lighten-2",
+                              rows: "1",
+                              readonly: "",
+                              "auto-grow": "",
+                              outlined: ""
                             }
                           })
                         ],
@@ -38709,11 +38744,15 @@ var render = function() {
                       _c(
                         "v-row",
                         [
-                          _c("v-text-field", {
+                          _c("v-textarea", {
                             attrs: {
-                              value: _vm.repairs_actions,
+                              value: _vm.failure_report.repairs_actions,
                               label: "Résolution",
-                              readonly: ""
+                              "background-color": "white lighten-2",
+                              rows: "1",
+                              readonly: "",
+                              "auto-grow": "",
+                              outlined: ""
                             }
                           })
                         ],
@@ -38725,9 +38764,12 @@ var render = function() {
                         [
                           _c("v-text-field", {
                             attrs: {
-                              value: _vm.piece_to_change,
+                              value: _vm.failure_report.piece_to_change,
                               label: "Pièce à changer",
-                              readonly: ""
+                              "background-color": "white lighten-2",
+                              readonly: "",
+                              "auto-grow": "",
+                              outlined: ""
                             }
                           })
                         ],
@@ -38738,15 +38780,17 @@ var render = function() {
                         ? _c(
                             "v-row",
                             [
-                              _c("div", { staticClass: "subheading" }, [
-                                _vm._v("Photo")
-                              ]),
-                              _vm._v(" "),
-                              _c("v-img", {
-                                attrs: {
-                                  src: "https://picsum.photos/510/300?random"
-                                }
-                              })
+                              _c(
+                                "v-card",
+                                [
+                                  _c("v-card-title", [_vm._v("Photo")]),
+                                  _vm._v(" "),
+                                  _c("v-img", {
+                                    attrs: { src: _vm.piecePhoto }
+                                  })
+                                ],
+                                1
+                              )
                             ],
                             1
                           )
@@ -38755,7 +38799,9 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c("v-spacer", { attrs: { cols: "1" } })
+                  _c("v-spacer", {
+                    attrs: { lg: "1", md: "1", xs: "0", sm: "0" }
+                  })
                 ],
                 1
               )

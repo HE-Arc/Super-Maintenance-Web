@@ -64,16 +64,3 @@ Route::post('troubleshootingReport/{id}', [TroubleshootingReportController::clas
 
 Route::get('machine/{id}', [MachineController::class, 'getMachineById']); // get machine by id
 Route::get('machines', [MachineController::class, 'index']); // get all machines
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -15,8 +15,9 @@
 
 <script>
 import MachineTasks from './MachineTasks.vue'
+import MaintainPage from './MaintainPage.vue'
   export default {
-  components: { MachineTasks },
+  components: { MachineTasks, MaintainPage },
     data: () => ({
 
     }),

@@ -33,6 +33,7 @@ Vue.component('maintainer-attribution-dialog', require('./components/dialogs/Mai
 Vue.component('mf-selection', require('./components/mf/MFSelection.vue').default);
 Vue.component('mf', require('./components/mf/MF.vue').default);
 Vue.component('calendar', require('./components/Calendar.vue').default);
+Vue.component('maintain-page', require('./components/MaintainPage.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

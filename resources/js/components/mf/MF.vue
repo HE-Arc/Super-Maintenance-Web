@@ -13,7 +13,7 @@
           <v-col
             class="d-flex"
           >
-            <machine-tasks :id="1"></machine-tasks>
+            <maintain-page :id_maintain="1"></maintain-page>
           </v-col>
         </v-row>
       </v-main>
@@ -24,7 +24,9 @@
 </template>
 
 <script>
+import MaintainPage from '../MaintainPage.vue'
   export default {
+  components: { MaintainPage },
     data: () => ({
 
     }),

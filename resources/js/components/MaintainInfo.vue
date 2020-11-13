@@ -5,62 +5,63 @@
 
     <v-container class="fill-height" fluid style="padding=20px;">
       <v-main>
-		<v-textarea
-			:value="machine_name"
-			label="Machine concernée"
-			background-color="white lighten-2"
-			rows="1"
-			readonly
-			auto-grow
-			outlined
-			filled
-			></v-textarea>
-		<v-textarea
-			:value="maintain.start_date"
-			label="Début de la maintenance"
-			background-color="white lighten-2"
-			rows="1"
-			readonly
-			auto-grow
-			outlined
-			filled
-			></v-textarea>
-		<v-textarea
-			:value="maintain.end_date"
-			label="Fin de la maintenance"
-			background-color="white lighten-2"
-			rows="1"
-			readonly
-			auto-grow
-			outlined
-			filled
-			></v-textarea>
-		<v-textarea
-			:value="computeSpendTime(maintain.end_date, maintain.start_date)"
-			label="Durée"
-			background-color="white lighten-2"
-			rows="1"
-			readonly
-			auto-grow
-			outlined
-			filled
-			></v-textarea>
-		
-		<v-textarea
-			value="TODO - JeanNeymar - TODO"
-			label="Intervenant"
-			background-color="white lighten-2"
-			rows="1"
-			readonly
-			auto-grow
-			outlined
-			filled
-			></v-textarea>
 
+		<v-row>
+			<v-col cols="6">
+				<v-subheader>Machine concernée</v-subheader>
+				</v-col>
+			<v-col cols="6">
+				<v-text-field
+				:value="machine_name"
+				></v-text-field>
+			</v-col>
+		</v-row>
 
+		<v-row>
+			<v-col cols="6">
+				<v-subheader>Début de la maintenance</v-subheader>
+				</v-col>
+			<v-col cols="6">
+				<v-text-field
+				:value="maintain.start_date"
+				></v-text-field>
+			</v-col>
+		</v-row>
+
+		<v-row>
+			<v-col cols="6">
+				<v-subheader>Fin de la maintenance</v-subheader>
+				</v-col>
+			<v-col cols="6">
+				<v-text-field
+				:value="maintain.end_date"
+				></v-text-field>
+			</v-col>
+		</v-row>
+
+		<v-row>
+			<v-col cols="6">
+				<v-subheader>Durée</v-subheader>
+				</v-col>
+			<v-col cols="6">
+				<v-text-field
+				:value="computeSpendTime(maintain.end_date, maintain.start_date)"
+				></v-text-field>
+			</v-col>
+		</v-row>
+
+		<v-row>
+			<v-col cols="6">
+				<v-subheader>Intervenant</v-subheader>
+				</v-col>
+			<v-col cols="6">
+				<v-text-field
+				:value="maintainer_name"
+				></v-text-field>
+			</v-col>
+		</v-row>
       </v-main>
     </v-container>
-
     <vfooter></vfooter>
   </div>
 </template>
@@ -70,7 +71,7 @@ import MaintainInfo from './MaintainInfo.vue'
   export default {
   components: { MaintainInfo },
     data: () => ({
-
+		maintainer_name: null
 	}),
 	props: {
 		maintain:{
@@ -100,7 +101,22 @@ import MaintainInfo from './MaintainInfo.vue'
 			secondsRemaining = secondsRemaining - minutes * 60;
 
 			return hours + "h" + minutes + "m" + secondsRemaining + "s";
-			}
-    },
+			},
+		fetchMaintainerName() {
+			return new Promise((resolve, reject) => {
+				axios.get("/Super-Maintenance-Web/public/maintainer/1")// + this.maintain.id_maintainer)
+					.then(response => {
+						this.maintainer_name = response.data.maintainer[0].name
+						resolve(response)
+				})
+				.catch(error => {
+					reject(error)
+				})
+			})
+		}
+	},
+	mounted(){
+		this.fetchMaintainerName()
+	}
   }
 </script>

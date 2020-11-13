@@ -2281,13 +2281,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     MaintainInfo: _MaintainInfo_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
-    return {};
+    return {
+      maintainer_name: null
+    };
   },
   props: {
     maintain: {
@@ -2316,7 +2319,23 @@ __webpack_require__.r(__webpack_exports__);
       var minutes = Math.floor(secondsRemaining / 60);
       secondsRemaining = secondsRemaining - minutes * 60;
       return hours + "h" + minutes + "m" + secondsRemaining + "s";
+    },
+    fetchMaintainerName: function fetchMaintainerName() {
+      var _this = this;
+
+      return new Promise(function (resolve, reject) {
+        axios.get("/Super-Maintenance-Web/public/maintainer/1") // + this.maintain.id_maintainer)
+        .then(function (response) {
+          _this.maintainer_name = response.data.maintainer[0].name;
+          resolve(response);
+        })["catch"](function (error) {
+          reject(error);
+        });
+      });
     }
+  },
+  mounted: function mounted() {
+    this.fetchMaintainerName();
   }
 });
 
@@ -39300,73 +39319,128 @@ var render = function() {
           _c(
             "v-main",
             [
-              _c("v-textarea", {
-                attrs: {
-                  value: _vm.machine_name,
-                  label: "Machine concernée",
-                  "background-color": "white lighten-2",
-                  rows: "1",
-                  readonly: "",
-                  "auto-grow": "",
-                  outlined: "",
-                  filled: ""
-                }
-              }),
-              _vm._v(" "),
-              _c("v-textarea", {
-                attrs: {
-                  value: _vm.maintain.start_date,
-                  label: "Début de la maintenance",
-                  "background-color": "white lighten-2",
-                  rows: "1",
-                  readonly: "",
-                  "auto-grow": "",
-                  outlined: "",
-                  filled: ""
-                }
-              }),
-              _vm._v(" "),
-              _c("v-textarea", {
-                attrs: {
-                  value: _vm.maintain.end_date,
-                  label: "Fin de la maintenance",
-                  "background-color": "white lighten-2",
-                  rows: "1",
-                  readonly: "",
-                  "auto-grow": "",
-                  outlined: "",
-                  filled: ""
-                }
-              }),
-              _vm._v(" "),
-              _c("v-textarea", {
-                attrs: {
-                  value: _vm.computeSpendTime(
-                    _vm.maintain.end_date,
-                    _vm.maintain.start_date
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "6" } },
+                    [_c("v-subheader", [_vm._v("Machine concernée")])],
+                    1
                   ),
-                  label: "Durée",
-                  "background-color": "white lighten-2",
-                  rows: "1",
-                  readonly: "",
-                  "auto-grow": "",
-                  outlined: "",
-                  filled: ""
-                }
-              }),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "6" } },
+                    [
+                      _c("v-text-field", { attrs: { value: _vm.machine_name } })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _c("v-textarea", {
-                attrs: {
-                  value: "TODO - JeanNeymar - TODO",
-                  label: "Intervenant",
-                  "background-color": "white lighten-2",
-                  rows: "1",
-                  readonly: "",
-                  "auto-grow": "",
-                  outlined: "",
-                  filled: ""
-                }
-              })
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "6" } },
+                    [_c("v-subheader", [_vm._v("Début de la maintenance")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "6" } },
+                    [
+                      _c("v-text-field", {
+                        attrs: { value: _vm.maintain.start_date }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "6" } },
+                    [_c("v-subheader", [_vm._v("Fin de la maintenance")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "6" } },
+                    [
+                      _c("v-text-field", {
+                        attrs: { value: _vm.maintain.end_date }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "6" } },
+                    [_c("v-subheader", [_vm._v("Durée")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "6" } },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          value: _vm.computeSpendTime(
+                            _vm.maintain.end_date,
+                            _vm.maintain.start_date
+                          )
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-row",
+                [
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "6" } },
+                    [_c("v-subheader", [_vm._v("Intervenant")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "6" } },
+                    [
+                      _c("v-text-field", {
+                        attrs: { value: _vm.maintainer_name }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           )
@@ -39420,7 +39494,7 @@ var render = function() {
                 [
                   _c(
                     "v-col",
-                    { attrs: { lg: "6", sm: "6", xs: "6", md: "6" } },
+                    { attrs: { cols: "7" } },
                     [
                       _vm.machine_name
                         ? _c("maintain-info", {
@@ -39436,7 +39510,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-col",
-                    { attrs: { lg: "6", sm: "6", xs: "6", md: "6" } },
+                    { attrs: { cols: "5" } },
                     [
                       _vm.machine_id
                         ? _c("machine-tasks", { attrs: { id: _vm.machine_id } })

@@ -6,10 +6,10 @@
 			<v-container class="fill-height" fluid style="padding=20px;">
 				<v-main>
 					<v-row>
-						<v-col lg="6" sm="6" xs="6" md="6">
+						<v-col cols="7">
 							<maintain-info v-if="machine_name" :machine_name="machine_name" :maintain="maintain"></maintain-info>
 						</v-col>
-						<v-col lg="6" sm="6" xs="6" md="6">
+						<v-col cols="5">
 							<machine-tasks v-if="machine_id" :id="machine_id"></machine-tasks>
 						</v-col>
 					</v-row>

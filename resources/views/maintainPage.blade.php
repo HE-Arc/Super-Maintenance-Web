@@ -25,7 +25,7 @@
     <body class="antialiased">
         <div id="app">
             <v-app>
-                <maintain-page :id_maintain="1"></maintain-page>
+                <maintain-page :id_maintain="2"></maintain-page>
             </v-app>
         </div>
     </body>

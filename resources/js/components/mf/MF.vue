@@ -13,7 +13,7 @@
           <v-col
             class="d-flex"
           >
-            <machines></machines>
+            <machine-tasks :id="1"></machine-tasks>
           </v-col>
         </v-row>
       </v-main>

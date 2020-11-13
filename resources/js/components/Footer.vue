@@ -2,7 +2,7 @@
   <div>
     <v-footer
       app
-      color="blue-grey"
+      color="indigo"
       class="white--text"
       style="z-index:999998 !important;"
     >

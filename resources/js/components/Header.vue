@@ -3,7 +3,7 @@
     <v-app-bar
       app
       clipped-left
-      color="blue-grey"
+      color="indigo"
       dark
       style="z-index:999998 !important;"
     >

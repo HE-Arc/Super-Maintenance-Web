@@ -61,7 +61,7 @@ export default {
      data: () => ({
         machines: [],
         selectedMachine: "",
-        selectedItem: [0],
+        selectedItem: [],
         items: [
             {
                 action: '15 min',

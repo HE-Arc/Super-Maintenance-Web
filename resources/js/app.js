@@ -28,7 +28,7 @@ Vue.component('vleftnav', require('./components/LeftNav.vue').default);
 Vue.component('vfooter', require('./components/Footer.vue').default);
 Vue.component('home', require('./components/Home.vue').default);
 Vue.component('machines', require('./components/Machines.vue').default);
-Vue.component('machineTasks', require('./components/MachineTasks.vue').default);
+Vue.component('machine-tasks', require('./components/MachineTasks.vue').default);
 Vue.component('maintainer-attribution-dialog', require('./components/dialogs/MaintainerAttribution.vue').default);
 Vue.component('mf-selection', require('./components/mf/MFSelection.vue').default);
 Vue.component('mf', require('./components/mf/MF.vue').default);

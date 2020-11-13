@@ -20,6 +20,7 @@
 							v-if="machine.state == 'OFF'"
 							prominent
 							type="error"
+							dense
 						>
 							<v-row align="center">
 								<v-col class="grow">

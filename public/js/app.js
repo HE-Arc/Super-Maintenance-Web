@@ -2107,6 +2107,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2149,8 +2150,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -38505,7 +38504,7 @@ var render = function() {
       _c(
         "v-container",
         { staticClass: "fill-height", staticStyle: {}, attrs: { fluid: "" } },
-        [_c("v-main")],
+        [_c("v-main", [_c("machine-tasks", { attrs: { id: 1 } })], 1)],
         1
       ),
       _vm._v(" "),
@@ -38926,35 +38925,44 @@ var render = function() {
           _c(
             "v-main",
             [
-              _c("v-simple-table", {
-                scopedSlots: _vm._u([
-                  {
-                    key: "default",
-                    fn: function() {
-                      return [
-                        _c("thead", [
-                          _c("tr", [
-                            _c("th", { staticClass: "text-left" }, [
-                              _vm._v("\n\t\t\t\t\t\t\t\ttasks\n\t\t\t\t\t\t\t")
-                            ])
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "tbody",
-                          _vm._l(_vm.tasks, function(task) {
-                            return _c("tr", { key: task.id }, [
-                              _c("td", [_vm._v(_vm._s(task.comment))])
-                            ])
-                          }),
-                          0
-                        )
-                      ]
-                    },
-                    proxy: true
-                  }
-                ])
-              })
+              _c(
+                "v-col",
+                { attrs: { lg: "4", sm: "4", xs: "4", md: "4" } },
+                [
+                  _c("v-simple-table", {
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function() {
+                          return [
+                            _c("thead", [
+                              _c("tr", [
+                                _c("th", { staticClass: "text-left" }, [
+                                  _vm._v(
+                                    "\n\t\t\t\t\t\t\t\t\ttasks\n\t\t\t\t\t\t\t\t"
+                                  )
+                                ])
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "tbody",
+                              _vm._l(_vm.tasks, function(task) {
+                                return _c("tr", { key: task.id }, [
+                                  _c("td", [_vm._v(_vm._s(task.comment))])
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        },
+                        proxy: true
+                      }
+                    ])
+                  })
+                ],
+                1
+              )
             ],
             1
           )

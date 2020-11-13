@@ -7,9 +7,7 @@
       <v-main>
 		  	<v-row>
 				<v-col lg="3" sm="6" xs="12" md="4" v-for="machine in machines" :key="machine.id">
-					<v-card
-						
-					>
+					<v-card>
 						<v-card-text>
 							<p>machine id : {{machine.id}}</p>
 							<p>machine name : {{machine.name}}</p>

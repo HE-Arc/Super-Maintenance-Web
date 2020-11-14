@@ -1,13 +1,16 @@
+
 <template>
-<transition name="maintainer-attribution-dialog">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <v-card class="modal-container" tile>
-            <v-toolbar dark color="primary">
+  <v-dialog 
+    v-model="isVisible" 
+    persistent
+    max-width="500px"
+    @keydown.esc="isVisible = false">
+    <v-card tile>
+       <v-toolbar dark color="indigo" style="margin-bottom:30px;">
                 <v-toolbar-title>Attribuer un technicien à la panne</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
-                    <v-btn icon dark @click.stop="$emit('close')">
+                    <v-btn icon dark @click.stop="hide">
                         <v-icon>mdi-close</v-icon>
                     </v-btn>
                 </v-toolbar-items>
@@ -16,18 +19,20 @@
                 <v-text-field
                     outlined
                     dense
-                    v-model="id"
+                    v-model="item.id"
                     label="ID"
                     required
                     readonly
                 ></v-text-field>
-                <v-text-field
-                    outlined
-                    dense
+                <v-select
+                    :items="maintainers"
                     v-model="maintainer"
-                    label="Technicien"
-                    required
-                ></v-text-field>
+                    name="techicien"
+                    item-text="name"
+                    label="Techicien"
+                    dense
+                    outlined
+                />
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
@@ -40,65 +45,42 @@
                     </v-icon>
                 </v-btn>    
             </v-card-actions>
-        </v-card>
-      </div>
-    </div>
-  </transition>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
 export default {
     data: () => ({
-        maintainer: ""
+        isVisible: false,
+        maintainer: "",
+        item: [],
+        maintainers: []
     }),
-    props: {
-        id: {
-            type: Number,
-            required: true
-        }
+    methods: {
+        show(item) {
+            console.log("Dialog")
+            this.isVisible = true
+            this.item = item
+            this.fetchMaintainers()
+        },
+        hide(){
+            this.isVisible = false
+        },
+        fetchMaintainers() {
+			return new Promise((resolve, reject) => {
+				axios.get("/maintainers")
+					.then(response => {
+						this.maintainers = response.data.maintainers
+						resolve(response)
+				})
+				.catch(error => {
+					reject(error)
+				})
+			})
+    	}
     }
 }
 </script>
 
-<style scoped>
-* {
-    box-sizing: border-box;
-}
-.modal-mask {
-    position: fixed;
-    z-index: 99999998;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    transition: opacity .3s ease;
-    overflow-x: auto;
-}
-.modal-container {
-    width: 50%;
-    height: 100%;
-    margin: 100px auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-    transition: all .3s ease;
-}
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-.modal-enter {
-  opacity: 0;
-}
-.modal-leave-active {
-  opacity: 0;
-}
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-</style>
+

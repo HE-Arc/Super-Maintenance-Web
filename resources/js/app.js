@@ -29,12 +29,12 @@ Vue.component('vfooter', require('./components/Footer.vue').default);
 Vue.component('home', require('./components/Home.vue').default);
 Vue.component('machines', require('./components/Machines.vue').default);
 Vue.component('machine-tasks', require('./components/MachineTasks.vue').default);
-Vue.component('maintainer-attribution-dialog', require('./components/dialogs/MaintainerAttribution.vue').default);
 Vue.component('mf-selection', require('./components/mf/MFSelection.vue').default);
 Vue.component('mf', require('./components/mf/MF.vue').default);
-Vue.component('calendar', require('./components/Calendar.vue').default);
+Vue.component('calendar', require('./components/calendar/Calendar.vue').default);
 Vue.component('maintain-page', require('./components/MaintainPage.vue').default);
 Vue.component('maintain-info', require('./components/MaintainInfo.vue').default);
+Vue.component('machine-filter', require('./components/MachineFilter.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

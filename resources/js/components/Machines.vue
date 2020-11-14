@@ -1,5 +1,7 @@
 <template>
     <div>
+	<MaintainerAttribution style="z-index:999999;" ref="attributeMaintainer" />
+
     <v-container fluid style="padding=20px;">
 		<v-row>
 			<v-col lg="4" sm="6" xs="12" md="6" v-for="machine in machines" :key="machine.id">
@@ -9,9 +11,9 @@
 						:data="chartData"
 						:options="chartOptions"
 					/>
+					<v-card-title>Machine {{machine.name}}</v-card-title>
 					<v-card-text>
 						<p>machine id : {{machine.id}}</p>
-						<p>machine name : {{machine.name}}</p>
 						<p>machine location : {{machine.location}}</p>
 						<p>machine state : {{machine.state}}</p>
 					</v-card-text>
@@ -19,15 +21,15 @@
 						<v-alert
 							v-if="machine.state == 'OFF'"
 							prominent
+							style="width:100%;margin:10px;"
 							type="error"
-							dense
 						>
 							<v-row align="center">
 								<v-col class="grow">
 								EN PANNE
 								</v-col>
 								<v-col class="shrink">
-								<v-btn @click.stop="showModal = true">
+								<v-btn @click="OpenAttributionDialog(machine)">
 									Attribuer
 									<v-icon
 									right
@@ -40,7 +42,6 @@
 						</v-alert>
 					</v-card-actions>
 				</v-card>
-				<maintainer-attribution-dialog :id="machine.id" v-if="showModal" @close="showModal = false"></maintainer-attribution-dialog>
 			</v-col>
 		</v-row>
     </v-container>
@@ -50,11 +51,12 @@
 
 <script>
   import { GChart } from 'vue-google-charts'
+  import MaintainerAttribution from './dialogs/MaintainerAttribution'
 
   export default {
     data: () => ({
 		machines: "?",
-		showModal: false,
+		showDialog: false,
 		chartData: [
 			['Mois', 'Pièces produites', 'Pièces défectueuses', 'Pannes'],
 			['Janvier', 1004, 463, 14],
@@ -81,13 +83,18 @@
 					reject(error)
 				})
 			})
-    	}
+		},
+		OpenAttributionDialog(machine) {
+			console.log("function")
+			this.$refs.attributeMaintainer.show(machine)
+		}
 	},
 	mounted(){
 		this.fetchMachines()
 	},
 	components: {
-		GChart
+		GChart,
+		MaintainerAttribution
 	}
   }
 

@@ -1,5 +1,5 @@
 <template>
-	<div style="border-left: 1px solid gray;">
+	<div style="border-left: 1px solid gray; padding: 30px;">
 		<v-row>
 			<v-col cols="5">
 				<maintain-info v-if="machine_name" :machine_name="machine_name" :maintain="maintain"></maintain-info>

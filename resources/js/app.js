@@ -35,6 +35,7 @@ Vue.component('calendar', require('./components/calendar/Calendar.vue').default)
 Vue.component('maintain-page', require('./components/MaintainPage.vue').default);
 Vue.component('maintain-info', require('./components/MaintainInfo.vue').default);
 Vue.component('machine-filter', require('./components/MachineFilter.vue').default);
+Vue.component('failure-report', require('./components/FailureReport.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

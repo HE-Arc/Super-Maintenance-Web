@@ -5,8 +5,8 @@
 
     <v-container class="fill-height" fluid style="padding=20px;">
       <v-main>
-        <!--<machines></machines>-->
-        <failure-report></failure-report>
+        <machines></machines>
+        <!--<failure-report></failure-report>-->
       </v-main>
     </v-container>
 

@@ -16,7 +16,7 @@ class CreateTroubleshootingReports extends Migration
         Schema::create('troubleshooting_reports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_machine');
-            $table->unsignedBigInteger('id_maintainer');
+            $table->unsignedBigInteger('id_maintainer')->nullable();
 
             $table->timestamps();
             $table->dateTime('end_date')->nullable();

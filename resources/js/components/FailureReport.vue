@@ -149,7 +149,7 @@ export default {
     fetchFailure() {
       return new Promise((resolve, reject) => {
         axios
-          .get("/Super-Maintenance-Web/public/troubleshootingReport/1")
+          .get("http://localhost:8000/troubleshootingReport/1")
           .then((response) => {
             //TODO reject if the size of the array is smaller than 1
             this.failure_report = response.data.troubleshootingReport[0];
@@ -168,7 +168,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get(
-            "/Super-Maintenance-Web/public/machine/" +
+            "http://localhost:8000/machine/" +
               this.failure_report.id_machine
           )
           .then((response) => {
@@ -185,7 +185,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios
           .get(
-            "/Super-Maintenance-Web/public/maintainer/" +
+            "http://localhost:8000/maintainer/" +
               this.failure_report.id_maintainer
           )
           .then((response) => {

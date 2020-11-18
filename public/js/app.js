@@ -2061,7 +2061,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       return new Promise(function (resolve, reject) {
-        axios.get("/Super-Maintenance-Web/public/troubleshootingReport/1").then(function (response) {
+        axios.get("http://localhost:8000/troubleshootingReport/1").then(function (response) {
           //TODO reject if the size of the array is smaller than 1
           _this.failure_report = response.data.troubleshootingReport[0];
           resolve(response);
@@ -2078,7 +2078,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       return new Promise(function (resolve, reject) {
-        axios.get("/Super-Maintenance-Web/public/machine/" + _this2.failure_report.id_machine).then(function (response) {
+        axios.get("http://localhost:8000/machine/" + _this2.failure_report.id_machine).then(function (response) {
           _this2.machine_name = response.data.machine[0].name;
           resolve(response);
         })["catch"](function (error) {
@@ -2090,7 +2090,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       return new Promise(function (resolve, reject) {
-        axios.get("/Super-Maintenance-Web/public/maintainer/" + _this3.failure_report.id_maintainer).then(function (response) {
+        axios.get("http://localhost:8000/maintainer/" + _this3.failure_report.id_maintainer).then(function (response) {
           var name = response.data.maintainer[0].name;
           var first_name = response.data.maintainer[0].first_name;
           _this3.maintainer_name = first_name + " " + name;

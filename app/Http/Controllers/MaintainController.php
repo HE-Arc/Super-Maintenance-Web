@@ -11,7 +11,11 @@ class MaintainController extends Controller{
 
     public function getMaintainById(Request $request, $id)
     {
-        $maintain = DB::table('maintains')->join('machines', 'maintains.id_machine', '=', 'machines.id')->select('maintains.*', 'machines.name as machine_name')->where('id', $id)->get();
+        $maintain = DB::table('maintains')
+            ->join('machines', 'maintains.id_machine', '=', 'machines.id')
+            ->select('maintains.*', 'machines.name as machine_name')
+            ->where('id', $id)
+            ->get();
 
         $response["maintain"] = $maintain;
         $response["success"] = 1;
@@ -74,7 +78,12 @@ class MaintainController extends Controller{
 
     public function getUnresolvedMaintainByMaintainerId(Request $request, $id_maintainer)
     {
-        $maintains = DB::table('maintains')->join('machines', 'maintains.id_machine', '=', 'machines.id')->where('end_date', null)->where('id_maintainer', $id_maintainer)->select('maintains.*', 'machines.name as machine_name')->get();
+        $maintains = DB::table('maintains')
+            ->join('machines', 'maintains.id_machine', '=', 'machines.id')
+            ->where('end_date', null)
+            ->where('id_maintainer', $id_maintainer)
+            ->select('maintains.*', 'machines.name as machine_name')
+            ->get();
 
         $response["maintains"] = $maintains;
         $response["success"] = 1;

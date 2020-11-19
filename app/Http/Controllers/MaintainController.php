@@ -51,6 +51,16 @@ class MaintainController extends Controller{
         return response()->json('Removed successfully.');
     }
 
+    public function getMaintainsByMachine($id)
+    {
+        $maintains = DB::table('maintains')->get()->where('id_machine', $id);
+
+        $response["maintains"] = $maintains;
+        $response["success"] = 1;
+
+        return response()->json($response);
+    }
+
     public function index()
     {
         // $maintains  = Maintain::all();

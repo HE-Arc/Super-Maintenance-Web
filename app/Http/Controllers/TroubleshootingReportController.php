@@ -11,7 +11,7 @@ class TroubleshootingReportController extends Controller{
 
 	public function getTroubleshootingReportById(Request $request, $id)
     {
-        $troubleshootingReport = DB::table('troubleshooting_reports')->where('id', $id)->get();
+        $troubleshootingReport = DB::table('troubleshooting_reports')->join('machines', 'troubleshooting_reports.id_machine', '=', 'machines.id')->select('troubleshooting_reports.*', 'machines.name as machine_name')->where('id', $id)->get();
 
         $response["troubleshootingReport"] = $troubleshootingReport;
         $response["success"] = 1;
@@ -68,4 +68,13 @@ class TroubleshootingReportController extends Controller{
         return response()->json($response);
     }
 
+    public function getUnresolvedTRByMaintainerId(Request $request, $id_maintainer)
+    {
+        $troubleshootingReports = DB::table('troubleshooting_reports')->join('machines', 'troubleshooting_reports.id_machine', '=', 'machines.id')->where('resolved', false)->where('id_maintainer', $id_maintainer)->select('troubleshooting_reports.*', 'machines.name as machine_name')->get();
+
+        $response["troubleshooting_reports"] = $troubleshootingReports;
+        $response["success"] = 1;
+
+        return response()->json($response);
+    }
 }

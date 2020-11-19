@@ -64,7 +64,7 @@ class TroubleshootingReportController extends Controller{
 
     public function getTroubleshootingReportsByMachine($id)
     {
-        $troubleshootingReports = DB::table('troubleshooting_reports')->get()->where('id_machine', $id);
+        $troubleshootingReports = DB::table('troubleshooting_reports')->where('id_machine', $id)->get();
 
         $response["troubleshooting_reports"] = $troubleshootingReports;
         $response["success"] = 1;

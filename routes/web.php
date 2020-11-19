@@ -66,6 +66,7 @@ Route::get('troubleshootingReports', [TroubleshootingReportController::class, 'i
 Route::post('troubleshootingReport', [TroubleshootingReportController::class, 'createTroubleshootingReport']); // create troubleshootingReport
 Route::post('troubleshootingReport_delete/{id}', [TroubleshootingReportController::class, 'deleteTroubleshootingReport']); // delete troubleshootingReport
 Route::post('troubleshootingReport/{id}', [TroubleshootingReportController::class, 'updateTroubleshootingReport']); // update troubleshootingReport
+Route::get('troubleshootingReports_machine/{id}', [TroubleshootingReportController::class, 'getTroubleshootingReportsByMachine']); // get all troubleshooting by id machine
 
 Route::get('machine/{id}', [MachineController::class, 'getMachineById']); // get machine by id
 Route::get('machines', [MachineController::class, 'index']); // get all machines

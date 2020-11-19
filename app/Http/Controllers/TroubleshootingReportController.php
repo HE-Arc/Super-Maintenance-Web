@@ -57,6 +57,16 @@ class TroubleshootingReportController extends Controller{
 
         return response()->json('Removed successfully.');
     }
+
+    public function getTroubleshootingReportsByMachine($id)
+    {
+        $troubleshootingReports = DB::table('troubleshooting_reports')->get()->where('id_machine', $id);
+
+        $response["troubleshooting_reports"] = $troubleshootingReports;
+        $response["success"] = 1;
+
+        return response()->json($response);
+    }
 	
 	public function index()
     {

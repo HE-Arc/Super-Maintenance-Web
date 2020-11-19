@@ -57,7 +57,7 @@ Route::get('statistic/{id}', [StatisticController::class, 'getStatisticById']); 
 Route::post('maintain', [MaintainController::class, 'createMaintain']); // create maintain
 Route::post('maintain/{id}', [MaintainController::class, 'updateMaintain']); // update maintain
 Route::post('maintain_delete/{id}', [MaintainController::class, 'deleteMaintain']); // delete maintain
-Route::get('maintains', [MaintainController::class, 'index']); // create maintain
+Route::get('maintains', [MaintainController::class, 'index']); // get all maintains maintain
 Route::get('maintain/{id}', [MaintainController::class, 'getMaintainById']); // get maintain by id
 
 Route::get('troubleshootingReport/{id}', [TroubleshootingReportController::class, 'getTroubleshootingReportById']); // get troubleshootingReport by id

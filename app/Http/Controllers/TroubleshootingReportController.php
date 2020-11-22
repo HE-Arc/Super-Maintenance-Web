@@ -14,7 +14,7 @@ class TroubleshootingReportController extends Controller{
         $troubleshootingReport = DB::table('troubleshooting_reports')
             ->join('machines', 'troubleshooting_reports.id_machine', '=', 'machines.id')
             ->select('troubleshooting_reports.*', 'machines.name as machine_name')
-            ->where('id', $id)
+            ->where('troubleshooting_reports.id', $id)
             ->get();
 
         $response["troubleshootingReport"] = $troubleshootingReport;

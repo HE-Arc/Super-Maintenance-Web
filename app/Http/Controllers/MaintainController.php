@@ -14,7 +14,7 @@ class MaintainController extends Controller{
         $maintain = DB::table('maintains')
             ->join('machines', 'maintains.id_machine', '=', 'machines.id')
             ->select('maintains.*', 'machines.name as machine_name')
-            ->where('id', $id)
+            ->where('maintains.id', $id)
             ->get();
 
         $response["maintain"] = $maintain;

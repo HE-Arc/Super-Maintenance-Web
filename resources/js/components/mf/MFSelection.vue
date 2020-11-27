@@ -6,8 +6,8 @@
             dark
             style="margin-bottom:30px;"
         >
-            <v-tab>Maintenance</v-tab>
-            <v-tab>Panne</v-tab>
+            <v-tab @click="updateSelection('maintain')">Maintenance</v-tab>
+            <v-tab @click="updateSelection('failure')">Panne</v-tab>
         </v-tabs>
         <machine-filter></machine-filter>
     </div>
@@ -16,7 +16,11 @@
 <script>
 import MachineFilter from '../MachineFilter.vue'
 export default {
-
+    methods : {
+        updateSelection(selection) {
+            this.$emit('selectionChange', selection)
+        }
+    }
 }
 </script>
 

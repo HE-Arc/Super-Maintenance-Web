@@ -7,14 +7,15 @@
       <v-main>
         <v-row>
           <v-col cols="3">
-            <mf-selection></mf-selection>
+            <mf-selection @selectionChange="updateSelection"></mf-selection>
              
           </v-col>
          
           <v-col
             cols="9"
           >
-              <maintain-page :id_maintain="1"></maintain-page>
+              <maintain-page v-if="selection === 'maintain'" maintain-page :id_maintain="1"></maintain-page>
+              <failure-report v-else></failure-report>
           </v-col>
         </v-row>
       </v-main>
@@ -27,10 +28,12 @@
 <script>
   export default {
     data: () => ({
-
+      selection: "maintain",
     }),
     methods: {
-
+      updateSelection: function(selection){
+        this.selection = selection
+      }
     },
   }
 </script>

@@ -140,7 +140,10 @@
 <script>
 export default {
   data: () => ({
-    failure_report: null,
+    failure_report: 
+    {
+      //TODO add failure props here
+    },
     machine_name: "",
     maintainer_name: "",
     piece_photo: "",

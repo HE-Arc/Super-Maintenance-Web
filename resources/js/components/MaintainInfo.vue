@@ -3,10 +3,11 @@
 		<v-row>
 			<v-col cols="6">
 				<v-subheader>Machine concernée</v-subheader>
-				</v-col>
+			</v-col>
 			<v-col cols="6">
 				<v-text-field
 				:value="machine_name"
+				readonly
 				></v-text-field>
 			</v-col>
 		</v-row>
@@ -14,10 +15,11 @@
 		<v-row>
 			<v-col cols="6">
 				<v-subheader>Début de la maintenance</v-subheader>
-				</v-col>
+			</v-col>
 			<v-col cols="6">
 				<v-text-field
 				:value="maintain.start_date"
+				readonly
 				></v-text-field>
 			</v-col>
 		</v-row>
@@ -25,10 +27,11 @@
 		<v-row>
 			<v-col cols="6">
 				<v-subheader>Fin de la maintenance</v-subheader>
-				</v-col>
+			</v-col>
 			<v-col cols="6">
 				<v-text-field
 				:value="maintain.end_date"
+				readonly
 				></v-text-field>
 			</v-col>
 		</v-row>
@@ -36,10 +39,11 @@
 		<v-row>
 			<v-col cols="6">
 				<v-subheader>Durée</v-subheader>
-				</v-col>
+			</v-col>
 			<v-col cols="6">
 				<v-text-field
 				:value="computeSpendTime(maintain.end_date, maintain.start_date)"
+				readonly
 				></v-text-field>
 			</v-col>
 		</v-row>
@@ -47,10 +51,11 @@
 		<v-row>
 			<v-col cols="6">
 				<v-subheader>Intervenant</v-subheader>
-				</v-col>
+			</v-col>
 			<v-col cols="6">
 				<v-text-field
 				:value="maintainer_name"
+				readonly
 				></v-text-field>
 			</v-col>
 		</v-row>

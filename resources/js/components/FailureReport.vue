@@ -1,144 +1,163 @@
 <template>
-  <div>
-    <vheader></vheader>
-    <vleftnav></vleftnav>
-
-    <v-container class="fill-height" fluid style="padding=20px;">
-      <v-main>
-        <v-row>
-          <v-col lg="5" md="5" xs="12" sm="12">
-            <v-row>
+  <div style="border-left: 1px solid gray; padding: 30px;">
+      <v-row>
+        <v-col lg="5" md="5" xs="12" sm="12">
+          <v-row>
+			      <v-col cols="6">
+				      <v-subheader>Machine concernée</v-subheader>
+				    </v-col>
+            <v-col cols="6">
               <v-text-field
                 :value="machine_name"
-                label="Machine concernée"
                 readonly
               ></v-text-field>
-            </v-row>
-
-            <v-row>
+			      </v-col>
+          </v-row>
+  
+          <v-row>
+			      <v-col cols="6">
+				      <v-subheader>Date de création</v-subheader>
+				    </v-col>
+            <v-col cols="6">
               <v-text-field
                 :value="failure_report.created_at"
-                label="Date de création"
                 readonly
               ></v-text-field>
-            </v-row>
+			      </v-col>
+          </v-row>
 
-            <v-row>
+          <v-row>
+            <v-col cols="6">
+				      <v-subheader>Dernière modification</v-subheader>
+				    </v-col>
+            <v-col cols="6">
               <v-text-field
                 :value="failure_report.updated_at"
-                label="Dernière modification"
                 readonly
               ></v-text-field>
-            </v-row>
+			      </v-col>
+          </v-row>
 
-            <v-row>
+          <v-row>
+            <v-col cols="6">
+				      <v-subheader>Durée de la réparation</v-subheader>
+				    </v-col>
+            <v-col cols="6">
               <v-text-field
                 :value="spendTime"
-                label="Durée de la réparation"
                 readonly
-              ></v-text-field>
-            </v-row>
+            ></v-text-field>
+			      </v-col>
+          </v-row>
 
-            <v-row>
+          <v-row>
+            <v-col cols="6">
+				      <v-subheader>Technicien en charge</v-subheader>
+				    </v-col>
+            <v-col cols="6">
               <v-text-field
                 :value="maintainer_name"
-                label="Technicien en charge"
                 readonly
               ></v-text-field>
-            </v-row>
+			      </v-col>
+          </v-row>
 
-            <v-row>
+          <v-row>
+            <v-col cols="6">
+				      <v-subheader>Résolue ?</v-subheader>
+				    </v-col>
+            <v-col cols="6">
               <v-text-field
                 :value="isResolved"
-                label="Résolue ?"
                 readonly
               ></v-text-field>
-            </v-row>
-          </v-col>
+			      </v-col>
+          </v-row>
+        </v-col>
 
-          <v-spacer lg="1" md="1" xs="0" sm="0"></v-spacer>
+        <v-spacer lg="1" md="1" xs="0" sm="0"></v-spacer>
 
-          <v-col lg="5" md="5" xs="12" sm="12">
-            <v-row>
-              <v-textarea
-                :value="failure_report.troubleshooting_description"
-                label="Decription"
-                background-color="white lighten-2"
-                rows="1"
-                readonly
-                auto-grow
-                outlined
-                filled
-              ></v-textarea>
-            </v-row>
+        <v-col lg="6" md="6" xs="12" sm="12">
+          <v-row>
+            <v-textarea
+              :value="failure_report.troubleshooting_description"
+              label="Decription"
+              background-color="white lighten-2"
+              rows="1"
+              readonly
+              auto-grow
+              outlined
+              filled
+            ></v-textarea>
+          </v-row>
 
-            <v-row>
-              <v-textarea
-                :value="failure_report.troubleshooting_hypotesis"
-                label="Hypothèse"
-                background-color="white lighten-2"
-                rows="1"
-                readonly
-                auto-grow
-                outlined
-              ></v-textarea>
-            </v-row>
+          <v-row>
+            <v-textarea
+              :value="failure_report.troubleshooting_hypotesis"
+              label="Hypothèse"
+              background-color="white lighten-2"
+              rows="1"
+              readonly
+              auto-grow
+              outlined
+            ></v-textarea>
+          </v-row>
 
-            <v-row>
-              <v-textarea
-                :value="failure_report.troubleshooting_check"
-                label="Cause réelle"
-                background-color="white lighten-2"
-                rows="1"
-                readonly
-                auto-grow
-                outlined
-              ></v-textarea>
-            </v-row>
+          <v-row>
+            <v-textarea
+              :value="failure_report.troubleshooting_check"
+              label="Cause réelle"
+              background-color="white lighten-2"
+              rows="1"
+              readonly
+              auto-grow
+              outlined
+            ></v-textarea>
+          </v-row>
 
-            <v-row>
-              <v-textarea
-                :value="failure_report.repairs_actions"
-                label="Résolution"
-                background-color="white lighten-2"
-                rows="1"
-                readonly
-                auto-grow
-                outlined
-              ></v-textarea>
-            </v-row>
+          <v-row>
+            <v-textarea
+              :value="failure_report.repairs_actions"
+              label="Résolution"
+              background-color="white lighten-2"
+              rows="1"
+              readonly
+              auto-grow
+              outlined
+            ></v-textarea>
+          </v-row>
 
-            <v-row>
-              <v-text-field
-                :value="failure_report.piece_to_change"
-                label="Pièce à changer"
-                background-color="white lighten-2"
-                readonly
-                auto-grow
-                outlined
-              ></v-text-field>
-            </v-row>
+          <v-row>
+            <v-text-field
+              :value="failure_report.piece_to_change"
+              label="Pièce à changer"
+              background-color="white lighten-2"
+              readonly
+              auto-grow
+              outlined
+            ></v-text-field>
+          </v-row>
 
-            <v-row v-if="isPiecePicture">
-              <v-card>
-                <v-card-title>Photo</v-card-title>
+          <v-row v-if="isPiecePicture">
+            <v-card>
+              <v-card-title>Photo</v-card-title>
 
-                <v-img :src="piecePhoto"></v-img>
-              </v-card>
-            </v-row>
-          </v-col>
-
-          <v-spacer lg="1" md="1" xs="0" sm="0"></v-spacer>
-        </v-row>
-      </v-main>
-    </v-container>
-
-    <vfooter></vfooter>
+              <v-img :src="piecePhoto"></v-img>
+            </v-card>
+          </v-row>
+        </v-col>
+      </v-row>
   </div>
 </template>
 
 <script>
 export default {
+  props:{
+		id_failure: {
+			type: Number,
+			required: true
+			},
+	},
   data: () => ({
     failure_report: 
     {
@@ -152,7 +171,7 @@ export default {
     fetchFailure() {
       return new Promise((resolve, reject) => {
         axios
-          .get("/troubleshootingReport/1")
+          .get("/troubleshootingReport/" + this.id_failure)
           .then((response) => {
             //TODO reject if the size of the array is smaller than 1
             this.failure_report = response.data.troubleshootingReport[0];

@@ -15,7 +15,7 @@
             cols="9"
           >
               <maintain-page v-if="selection === 'maintain'" maintain-page :id_maintain="1"></maintain-page>
-              <failure-report v-else></failure-report>
+              <failure-report v-else :id_failure="2"></failure-report>
           </v-col>
         </v-row>
       </v-main>

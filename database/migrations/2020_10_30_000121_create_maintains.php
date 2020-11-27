@@ -21,6 +21,7 @@ class CreateMaintains extends Migration
             $table->timestamps();
             $table->dateTime('end_date')->nullable();
             $table->dateTime('start_date')->nullable();
+            $table->date('planned_at');
 
             $table->foreign('id_machine')->references('id')->on('machines');
             $table->foreign('id_maintainer')->references('id')->on('maintainers');

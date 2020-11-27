@@ -19,6 +19,15 @@ class MaintainSeeder extends Seeder
         $m->id_maintainer = 1;
         $m->start_date = "2020-10-28";
         $m->end_date = "2020-10-30";
+        $m->planned_at= "2020-09-30";
+        $m->save();
+
+        $m = new Maintain();
+        $m->id_machine = 1;
+        $m->id_maintainer = 1;
+        $m->start_date = null;
+        $m->end_date = null;
+        $m->planned_at= "2020-11-28";
         $m->save();
     }
 }

@@ -26,7 +26,7 @@
                           color="grey darken-2"
                           @click="setToday"
                         >
-                          Today
+                          Aujourd'hui
                         </v-btn>
                         <v-btn
                           fab
@@ -73,16 +73,13 @@
                           </template>
                           <v-list>
                             <v-list-item @click="type = 'day'">
-                              <v-list-item-title>Day</v-list-item-title>
+                              <v-list-item-title>Jour</v-list-item-title>
                             </v-list-item>
                             <v-list-item @click="type = 'week'">
-                              <v-list-item-title>Week</v-list-item-title>
+                              <v-list-item-title>Semaine</v-list-item-title>
                             </v-list-item>
                             <v-list-item @click="type = 'month'">
-                              <v-list-item-title>Month</v-list-item-title>
-                            </v-list-item>
-                            <v-list-item @click="type = '4day'">
-                              <v-list-item-title>4 days</v-list-item-title>
+                              <v-list-item-title>Mois</v-list-item-title>
                             </v-list-item>
                           </v-list>
                         </v-menu>
@@ -92,14 +89,15 @@
                       <v-calendar
                         ref="calendar"
                         v-model="focus"
-                        color="primary"
+                        color="grey lighten-2"
+                        :weekdays="weekdays"
+                        :weekday-format="localDayFormat"
                         :events="events"
                         :event-color="getEventColor"
                         :type="type"
                         @click:event="showEvent"
                         @click:more="viewDay"
                         @click:date="viewDay"
-                        @change="updateRange"
                       ></v-calendar>
                       <v-menu
                         v-model="selectedOpen"
@@ -157,27 +155,25 @@
 </template>
 
 <script>
-import MachineFilter from '../MachineFilter.vue'
-  export default {
-  components: { MachineFilter },
+export default {
     data: () => ({
         focus: '',
         type: 'month',
         typeToLabel: {
-            month: 'Month',
-            week: 'Week',
-            day: 'Day',
-            '4day': '4 Days',
+            month: 'Mois',
+            week: 'Semaine',
+            day: 'Jour',
         },
+        weekdays: [1, 2, 3, 4, 5, 6, 0],
         selectedEvent: {},
         selectedElement: null,
         selectedOpen: false,
         events: [],
-        colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-        names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
+        maintains: ''
     
     }),
     mounted () {
+      this.fetchMaintains()
       this.$refs.calendar.checkChange()
     },
     methods: {
@@ -215,34 +211,61 @@ import MachineFilter from '../MachineFilter.vue'
 
         nativeEvent.stopPropagation()
       },
-      updateRange ({ start, end }) {
+      updateCalendar() {
         const events = []
 
-        const min = new Date(`${start.date}T00:00:00`)
-        const max = new Date(`${end.date}T23:59:59`)
-        const days = (max.getTime() - min.getTime()) / 86400000
-        const eventCount = this.rnd(days, days + 20)
-
-        for (let i = 0; i < eventCount; i++) {
-          const allDay = this.rnd(0, 3) === 0
-          const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-          const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-          const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-          const second = new Date(first.getTime() + secondTimestamp)
-
+        this.maintains.forEach(maintain => {
           events.push({
-            name: this.names[this.rnd(0, this.names.length - 1)],
-            start: first,
-            end: second,
-            color: this.colors[this.rnd(0, this.colors.length - 1)],
-            timed: !allDay,
+            name: maintain.machine_name,
+            start: new Date(maintain.planned_at),
+            end: new Date(maintain.planned_at),
+            color: 'indigo',
+            timed: false,
           })
-        }
+        });
 
         this.events = events
       },
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
+      },
+      localDayFormat(day) {
+        switch(day.weekday) {
+          case 0:
+            return "Dimanche"
+            break;
+          case 1:
+            return "Lundi"
+            break;
+          case 2:
+            return "Mardi"
+            break;
+          case 3:
+            return "Mercredi"
+            break;
+          case 4:
+            return "Jeudi"
+            break;
+          case 5:
+            return "Vendredi"
+            break;
+          case 6:
+            return "Samedi"
+            break;
+        }
+      },
+      fetchMaintains() {
+        return new Promise((resolve, reject) => {
+          axios.get("/maintains")
+            .then(response => {
+              this.maintains = response.data.maintains
+              this.updateCalendar()
+              resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+        })
       },
     }
   }

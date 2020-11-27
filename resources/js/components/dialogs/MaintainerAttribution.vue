@@ -16,14 +16,6 @@
                 </v-toolbar-items>
             </v-toolbar>
             <v-card-text>
-                <v-text-field
-                    outlined
-                    dense
-                    v-model="item.id"
-                    label="ID"
-                    required
-                    readonly
-                ></v-text-field>
                 <v-select
                     :items="maintainers"
                     v-model="maintainer"
@@ -36,7 +28,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn tile color="success" id="send_button">
+                <v-btn tile color="success" id="send_button" @clic="assign">
                     Attribuer
                     <v-icon
                     right
@@ -78,7 +70,31 @@ export default {
 					reject(error)
 				})
 			})
-    	}
+        },
+        assign(){
+            console.log("yo")
+            return new Promise((resolve, reject) => {
+                axios.post("/troubleshootingReport/1", {
+                    "id_machine": "2",
+                    "id_maintainer": "3",
+                    "start_date": "2020-11-08",
+                    "end_date": "2020-11-08",
+                    "troubleshooting_description": "ça marche plus",
+                    "troubleshooting_hypotesis": "Colin a encore tout cassé",
+                    "troubleshooting_check": "Demander a Colin si il a tout casser",
+                    "repairs_actions": "Demander au patron de réparer",
+                    "piece_to_change": "vérin CX32",
+                    "piece_photo": "PhOt02lap1Eceu",
+                    "resolved": true
+                })
+					.then(response => {
+						
+				})
+				.catch(error => {
+					reject(error)
+                })
+            })
+        }
     }
 }
 </script>

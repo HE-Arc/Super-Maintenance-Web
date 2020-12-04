@@ -21,6 +21,7 @@
                     v-model="maintainer"
                     name="techicien"
                     item-text="name"
+                    item-value="id"
                     label="Techicien"
                     dense
                     outlined
@@ -28,7 +29,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn tile color="success" id="send_button" @clic="assign">
+                <v-btn tile color="success" id="send_button" @click="assign">
                     Attribuer
                     <v-icon
                     right
@@ -47,7 +48,8 @@ export default {
         isVisible: false,
         maintainer: "",
         item: [],
-        maintainers: []
+        maintainers: [],
+        troubleshooting: null
     }),
     methods: {
         show(item) {
@@ -55,6 +57,7 @@ export default {
             this.isVisible = true
             this.item = item
             this.fetchMaintainers()
+            this.getLastTroubleshooting()
         },
         hide(){
             this.isVisible = false
@@ -72,25 +75,34 @@ export default {
 			})
         },
         assign(){
-            console.log("yo")
             return new Promise((resolve, reject) => {
                 axios.post("/troubleshootingReport/1", {
-                    "id_machine": "2",
-                    "id_maintainer": "3",
-                    "start_date": "2020-11-08",
-                    "end_date": "2020-11-08",
-                    "troubleshooting_description": "ça marche plus",
-                    "troubleshooting_hypotesis": "Colin a encore tout cassé",
-                    "troubleshooting_check": "Demander a Colin si il a tout casser",
-                    "repairs_actions": "Demander au patron de réparer",
-                    "piece_to_change": "vérin CX32",
-                    "piece_photo": "PhOt02lap1Eceu",
-                    "resolved": true
+                    "id_machine": this.item.id_machine,
+                    "id_maintainer": this.maintainer,
+                    "start_date": "",
+                    "end_date": "",
+                    "troubleshooting_description": "",
+                    "troubleshooting_hypotesis": "",
+                    "troubleshooting_check": "",
+                    "repairs_actions": "",
+                    "piece_to_change": "",
+                    "piece_photo": "",
+                    "resolved": false
                 })
 					.then(response => {
-						
 				})
 				.catch(error => {
+					reject(error)
+                })
+            })
+        },
+        getLastTroubleshooting(){
+            return new Promise((resolve, reject) => {
+                axios.get("unresolvedtroubleshootingByMachine/" + this.maintainer)
+                    .then(response => {
+                        this.troubleshooting = response.data[0]
+                })
+                .catch(error => {
 					reject(error)
                 })
             })

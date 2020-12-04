@@ -85,7 +85,6 @@
 			})
 		},
 		OpenAttributionDialog(machine) {
-			console.log("function")
 			this.$refs.attributeMaintainer.show(machine)
 		}
 	},

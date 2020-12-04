@@ -3,10 +3,20 @@
     <vheader></vheader>
     <vleftnav></vleftnav>
 
+    <AddMaintain style="z-index:999999;" ref="addMaintain" />
+
     <v-container class="fill-height" fluid style="padding=20px;">
       <v-main>
         <v-row>
           <v-col cols="3">
+            <v-btn class="mb-10" block tile dark color="indigo" @click="OpenAddMaintainDialog">
+              Planifier une maintenance
+              <v-icon
+              right
+              >
+              mdi-calendar-edit
+              </v-icon>
+            </v-btn>
             <machine-filter></machine-filter>
           </v-col>
           <v-col
@@ -155,8 +165,14 @@
 </template>
 
 <script>
+import AddMaintain from '../dialogs/AddMaintain'
+
 export default {
+    components: {
+      AddMaintain
+    },
     data: () => ({
+        showDialog: false,
         focus: '',
         type: 'month',
         typeToLabel: {
@@ -225,6 +241,9 @@ export default {
         });
 
         this.events = events
+      },
+      OpenAddMaintainDialog() {
+        this.$refs.addMaintain.show()
       },
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a

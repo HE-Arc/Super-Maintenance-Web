@@ -16,11 +16,11 @@
   
           <v-row>
 			      <v-col cols="6">
-				      <v-subheader>Date de création</v-subheader>
+				      <v-subheader>En panne depuis</v-subheader>
 				    </v-col>
             <v-col cols="6">
               <v-text-field
-                :value="failure_report.created_at"
+                :value="failure_report.start_date"
                 readonly
               ></v-text-field>
 			      </v-col>
@@ -28,11 +28,11 @@
 
           <v-row>
             <v-col cols="6">
-				      <v-subheader>Dernière modification</v-subheader>
+				      <v-subheader>Résolue le</v-subheader>
 				    </v-col>
             <v-col cols="6">
               <v-text-field
-                :value="failure_report.updated_at"
+                :value="failure_report.end_date"
                 readonly
               ></v-text-field>
 			      </v-col>
@@ -40,7 +40,7 @@
 
           <v-row>
             <v-col cols="6">
-				      <v-subheader>Durée de la réparation</v-subheader>
+				      <v-subheader>Durée du dépannage</v-subheader>
 				    </v-col>
             <v-col cols="6">
               <v-text-field
@@ -158,7 +158,7 @@ export default {
 			required: true
 		},
   },
-  watch:{ //update the component when the id_failure is updated
+  watch:{ // watch attribute update
     'id_failure' :function(id_failure) {
       this.id_failure = id_failure
       this.fetchFailure()

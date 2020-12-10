@@ -50,7 +50,7 @@
 
 		<v-row>
 			<v-col cols="6">
-				<v-subheader>Intervenant</v-subheader>
+				<v-subheader>Technicien en charge</v-subheader>
 			</v-col>
 			<v-col cols="6">
 				<v-text-field
@@ -110,7 +110,10 @@
 			return new Promise((resolve, reject) => {
 				axios.get("/maintainer/" + this.maintain.id_maintainer)
 					.then(response => {
-						this.maintainer_name = response.data.maintainer[0].name
+						let name = response.data.maintainer[0].name;
+						let first_name = response.data.maintainer[0].first_name;
+
+						this.maintainer_name = first_name + " " + name;
 						resolve(response)
 				})
 				.catch(error => {

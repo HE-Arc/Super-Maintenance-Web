@@ -17,15 +17,16 @@
         <!-- Display maintains for the selected machine -->
         <v-list two-line>
             <v-list-item-group
-                v-model="selectedItem"
                 active-class="indigo--text"
                 mandatory
             >
-                <template v-for="(item, index) in maintains">
+                <template v-for="(item, index) in items">
                     <v-list-item 
-                        :key="item.id + index + maintains.length" 
+                        :key="index" 
                         @click="updateSelectedId(item.id)"
+                               
                         >
+                        <!-- problem : the key remains the same so those components are not updated -->
                         <template>
                             <v-list-item-content>
                                 <v-list-item-title v-text="machineName(item.id_machine)"></v-list-item-title>
@@ -51,8 +52,8 @@
                     </v-list-item>
 
                     <v-divider
-                        v-if="index < maintains.length - 1"
-                        :key="selectedItem + index"
+                        v-if="index < items.length - 1"
+                        :key="item.id_machine+items.length"
                     ></v-divider>
                 </template>
             </v-list-item-group>
@@ -62,11 +63,23 @@
 
 <script>
 export default {
+    props:{
+		selection: { //maintain or failure
+			type: String,
+			required: true
+		},
+    },
+    watch:{ //watch attribute update
+        'selection': function(selection) {
+            console.log("coucou"  + selection)
+            this.selection = selection
+        }
+    },
     data: () => ({
         machines: [],
         selectedMachineId: -1, //-1 = select all machines
-        selectedItem: [],
-        maintains: [],
+        items: [],
+        value: 0,
     }),
     methods: {
         fetchMachines() {
@@ -81,13 +94,14 @@ export default {
 				})
 			})
         },
-        fetchMaintainsByMachine() {
+        fetchItemsByMachine() {
 			return new Promise((resolve, reject) => {
                 if(this.selectedMachineId !== -1)
                 {
-                    axios.get("/maintains_machine/" + this.selectedMachineId)
+                    //get all items that uses this id
+                    axios.get("/" + this.selectionUrl +"_machine/" + this.selectedMachineId)
                         .then(response => {
-                            this.fillMaintains(response.data.maintains)
+                            this.fillItems(response.data)
                             resolve(response)
                     })
                     .catch(error => {
@@ -96,10 +110,11 @@ export default {
                 }
                 else
                 {
-                    //select all maintains
-                    axios.get("/maintains")
+                    //select all items
+                    console.log(this.selectionUrl)
+                    axios.get("/" + this.selectionUrl)
                         .then(response => {
-                            this.fillMaintains(response.data.maintains)
+                            this.fillItems(response.data)
                             resolve(response)
                     })
                     .catch(error => {
@@ -108,22 +123,25 @@ export default {
                 }
 			})
         },
-        fillMaintains(maintains) {
+        fillItems(data) {
             /*
-                Fill the maintains array with the finished maintains
+                Fill the items array with the completed items
             */
-            this.maintains = []
-            maintains.forEach(maintain => {
-                if(maintain.start_date !== null && maintain.end_date !== null)
+            this.items = []
+            
+            let items = this.selection === "maintain" ? data.maintains : data.troubleshooting_reports
+            
+            items.forEach(item => {
+                if(item.start_date !== null && item.end_date !== null)
                 {
-                    this.maintains.push(maintain)
+                    this.items.push(item)
                 }
             });
 
             //update the selected maintain
-            if(this.maintains.length > 0)
+            if(this.items.length > 0)
             {
-                this.updateSelectedId(this.maintains[0].id)
+                this.updateSelectedId(this.items[0].id)
             }
         },
         dateDay(datetime){
@@ -143,11 +161,14 @@ export default {
         updateSelectedId(selectedId){
             this.$emit("selectedIdChange", selectedId)
         },
+        change(val){
+            console.log(val)
+        }
     },
     computed: {
         updateSelectedMachineId(){
             /*
-                Update the list of maintains when the selected machine changes
+                Update the list of items when the selected machine changes
             */
             if(typeof this.selectedMachineId == 'undefined')
             {
@@ -155,8 +176,12 @@ export default {
             }
             if(this.machines.length > 0)
             {
-                this.fetchMaintainsByMachine()
+                this.fetchItemsByMachine()
             }
+        },
+        selectionUrl(){
+            console.log(this.selection +"aaa")
+            return this.selection === "maintain" ? "maintains" : "troubleshootingReports"
         },
     },
 	mounted(){

@@ -72,6 +72,7 @@ class MaintainController extends Controller{
         $maintains = DB::table('maintains')
             ->join('machines', 'maintains.id_machine', '=', 'machines.id')
             ->select('maintains.*', 'machines.name as machine_name')
+            ->orderBy('end_date', 'desc')
             ->get();
 
         $response["maintains"] = $maintains;

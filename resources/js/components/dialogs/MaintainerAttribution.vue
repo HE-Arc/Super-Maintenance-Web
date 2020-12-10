@@ -100,7 +100,7 @@ export default {
         },
         getLastTroubleshooting(){
             return new Promise((resolve, reject) => {
-                axios.get("unresolvedtroubleshootingByMachine/" + this.item.id)
+                axios.get("/unresolvedtroubleshootingByMachine/" + this.item.id)
                     .then(response => {
                         this.troubleshooting = response.data.troubleshooting_reports[0]
                         resolve(response)

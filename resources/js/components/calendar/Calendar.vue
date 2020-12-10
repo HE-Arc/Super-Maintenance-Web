@@ -2,14 +2,14 @@
   <div>
     <vheader></vheader>
     <vleftnav></vleftnav>
-
     <AddMaintain style="z-index:999999;" ref="addMaintain" />
+    <DeleteDialog style="z-index:999999;" ref="deleteDialog" />
 
     <v-container class="fill-height" fluid style="padding=20px;">
       <v-main>
         <v-row>
           <v-col cols="3">
-            <v-btn class="mb-10" block tile dark color="indigo" @click="OpenAddMaintainDialog">
+            <v-btn class="mb-10" block tile dark color="indigo" @click="OpenAddMaintainDialog(null)">
               Planifier une maintenance
               <v-icon
               right
@@ -126,10 +126,10 @@
                           >
                             <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                             <v-spacer></v-spacer>
-                            <v-btn icon>
+                            <v-btn icon @click="OpenAddMaintainDialog(selectedEvent.maintain)">
                               <v-icon>mdi-pencil-outline</v-icon>
                             </v-btn>
-                            <v-btn icon>
+                            <v-btn icon @click="OpenDeleteDialog(selectedEvent.maintain)">
                               <v-icon>mdi-trash-can-outline</v-icon>
                             </v-btn>
                           </v-toolbar>
@@ -163,10 +163,12 @@
 
 <script>
 import AddMaintain from '../dialogs/AddMaintain'
+import DeleteDialog from '../dialogs/DeleteDialog'
 
 export default {
     components: {
-      AddMaintain
+      AddMaintain,
+      DeleteDialog
     },
     data: () => ({
         showDialog: false,
@@ -235,14 +237,18 @@ export default {
             start: new Date(maintain.planned_at),
             end: new Date(maintain.planned_at),
             color: 'indigo',
+            maintain: maintain,
             timed: false,
           })
         });
 
         this.events = events
       },
-      OpenAddMaintainDialog() {
-        this.$refs.addMaintain.show(this.maintainers)
+      OpenAddMaintainDialog(maintain) {
+        this.$refs.addMaintain.show(maintain, this.maintainers)
+      },
+      OpenDeleteDialog(maintain) {
+        this.$refs.deleteDialog.show(maintain,'/maintain_delete/')
       },
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
@@ -302,6 +308,9 @@ export default {
             reject(error)
           })
         })
+      },
+      refresh(){
+        this.fetchMaintains()
       }
     }
   }

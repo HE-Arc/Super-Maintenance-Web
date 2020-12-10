@@ -46,14 +46,13 @@
 export default {
     data: () => ({
         isVisible: false,
-        maintainer: "", // selected maintainer
-        item: [], // MACHINE
+        maintainer: "",
+        item: [],
         maintainers: [],
         troubleshooting: null
     }),
     methods: {
         show(item) {
-            console.log("Dialog")
             this.isVisible = true
             this.item = item
             this.fetchMaintainers()

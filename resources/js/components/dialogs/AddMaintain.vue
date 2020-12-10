@@ -83,21 +83,29 @@ export default {
         isVisible: false,
         maintainer: "",
         machine: "",
+        maintain: "",
         planned_at: new Date().toISOString().substr(0, 10),
         item: [],
         maintainers: [],
         machines: [],
         datePicker: false,
-        parent: ""
+        parent: "",
+        url: "/maintain"
     }),
     methods: {
-        show(maintainers) {
+        show(maintain, maintainers) {
             this.maintainers = maintainers
             this.isVisible = true
+            this.maintain = maintain
             this.fetchMachines()
+            this.computeMaintain()
         },
         hide(){
             this.isVisible = false
+            this.machine = ""
+            this.maintainer = ""
+            this.planned_at = new Date().toISOString().substr(0, 10)
+            this.url = "/maintain"
         },
         fetchMachines() {
 			return new Promise((resolve, reject) => {
@@ -111,9 +119,17 @@ export default {
 				})
 			})
         },
+        computeMaintain(){
+            if(this.maintain != null){
+                this.machine = this.maintain.id_machine
+                this.maintainer = this.maintain.id_maintainer
+                this.planned_at = new Date(this.maintain.planned_at).toISOString().substr(0, 10)
+                this.url = "/maintain/" + this.maintain.id
+            }
+        },
         addMaintain() {
             return new Promise((resolve, reject) => {
-                axios.post('/maintain', {
+                axios.post(this.url, {
                     id_machine: this.machine,
                     id_maintainer: this.maintainer,
                     end_date: null,

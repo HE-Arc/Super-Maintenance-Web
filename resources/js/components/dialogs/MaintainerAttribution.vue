@@ -46,8 +46,8 @@
 export default {
     data: () => ({
         isVisible: false,
-        maintainer: "",
-        item: [],
+        maintainer: "", // selected maintainer
+        item: [], // MACHINE
         maintainers: [],
         troubleshooting: null
     }),
@@ -77,7 +77,7 @@ export default {
         assign(){
             return new Promise((resolve, reject) => {
                 axios.post("/troubleshootingReport/1", {
-                    "id_machine": this.item.id_machine,
+                    "id_machine": this.item["id"],
                     "id_maintainer": this.maintainer,
                     "start_date": "",
                     "end_date": "",
@@ -85,11 +85,13 @@ export default {
                     "troubleshooting_hypotesis": "",
                     "troubleshooting_check": "",
                     "repairs_actions": "",
-                    "piece_to_change": "",
+                    "piece_to_change": "",  
                     "piece_photo": "",
                     "resolved": false
                 })
 					.then(response => {
+                        this.hide()
+                        resolve(response)
 				})
 				.catch(error => {
 					reject(error)
@@ -98,9 +100,10 @@ export default {
         },
         getLastTroubleshooting(){
             return new Promise((resolve, reject) => {
-                axios.get("unresolvedtroubleshootingByMachine/" + this.maintainer)
+                axios.get("unresolvedtroubleshootingByMachine/" + this.item["id"])
                     .then(response => {
                         this.troubleshooting = response.data[0]
+                        resolve(response)
                 })
                 .catch(error => {
 					reject(error)

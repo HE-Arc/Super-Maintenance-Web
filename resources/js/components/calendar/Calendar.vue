@@ -2,8 +2,8 @@
   <div>
     <vheader></vheader>
     <vleftnav></vleftnav>
-
     <AddMaintain style="z-index:999999;" ref="addMaintain" />
+    <DeleteDialog style="z-index:999999;" ref="deleteDialog" />
 
     <v-container class="fill-height" fluid style="padding=20px;">
       <v-main>
@@ -129,7 +129,7 @@
                             <v-btn icon>
                               <v-icon>mdi-pencil-outline</v-icon>
                             </v-btn>
-                            <v-btn icon>
+                            <v-btn icon @click="OpenDeleteDialog(selectedEvent.maintain)">
                               <v-icon>mdi-trash-can-outline</v-icon>
                             </v-btn>
                           </v-toolbar>
@@ -163,10 +163,12 @@
 
 <script>
 import AddMaintain from '../dialogs/AddMaintain'
+import DeleteDialog from '../dialogs/DeleteDialog'
 
 export default {
     components: {
-      AddMaintain
+      AddMaintain,
+      DeleteDialog
     },
     data: () => ({
         showDialog: false,
@@ -235,6 +237,7 @@ export default {
             start: new Date(maintain.planned_at),
             end: new Date(maintain.planned_at),
             color: 'indigo',
+            maintain: maintain,
             timed: false,
           })
         });
@@ -302,6 +305,9 @@ export default {
             reject(error)
           })
         })
+      },
+      OpenDeleteDialog(maintain) {
+        this.$refs.deleteDialog.show(maintain)
       }
     }
   }

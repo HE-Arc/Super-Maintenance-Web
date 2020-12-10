@@ -13,9 +13,9 @@
 					/>
 					<v-card-title>Machine {{machine.name}}</v-card-title>
 					<v-card-text>
-						<p>machine id : {{machine.id}}</p>
-						<p>machine location : {{machine.location}}</p>
-						<p>machine state : {{machine.state}}</p>
+						<p>ID de la machine : {{machine.id}}</p>
+						<p>Emplacement de la machine : {{machine.location}}</p>
+						<p>Etat de la machine : {{machine.state}}</p>
 					</v-card-text>
 					<v-card-actions>
 						<v-alert

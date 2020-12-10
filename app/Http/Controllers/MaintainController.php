@@ -25,8 +25,8 @@ class MaintainController extends Controller{
 
     public function createMaintain(Request $request)
     {
-        $maintain = new Maintain($request->all());
-        $maintain->save();
+        $maintain = Maintain::create($request->all());
+        //$maintain->save();
 
         $response["maintains"] = $maintain;
         $response["success"] = 1;
@@ -68,7 +68,10 @@ class MaintainController extends Controller{
     public function index()
     {
         // $maintains  = Maintain::all();
-        $maintains = DB::table('maintains')->get();
+        $maintains = DB::table('maintains')
+            ->join('machines', 'maintains.id_machine', '=', 'machines.id')
+            ->select('maintains.*', 'machines.name as machine_name')
+            ->get();
 
         $response["maintains"] = $maintains;
         $response["success"] = 1;

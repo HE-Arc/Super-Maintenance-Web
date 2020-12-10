@@ -125,7 +125,7 @@
 			{
 				return this.computeSpendTime(this.maintain.end_date, this.maintain.start_date);
 			}
-			return "-";
+			return "";
 		},
 	},
 	mounted(){

@@ -22,8 +22,10 @@
                 mandatory
             >
                 <template v-for="(item, index) in maintains">
-                    <v-list-item :key="item.id + index" 
-                        @click="updateSelectedId(item.id)">
+                    <v-list-item 
+                        :key="item.id + index + maintains.length" 
+                        @click="updateSelectedId(item.id)"
+                        >
                         <template>
                             <v-list-item-content>
                                 <v-list-item-title v-text="machineName(item.id_machine)"></v-list-item-title>
@@ -85,14 +87,7 @@ export default {
                 {
                     axios.get("/maintains_machine/" + this.selectedMachineId)
                         .then(response => {
-                            this.maintains = []
-                            response.data.maintains.forEach(maintain => {
-                                if(maintain.start_date !== null && maintain.end_date !== null)
-                                {
-                                    this.maintains.push(maintain)
-                                }
-                            });
-                            console.log(this.maintains)
+                            this.fillMaintains(response.data.maintains)
                             resolve(response)
                     })
                     .catch(error => {
@@ -101,15 +96,10 @@ export default {
                 }
                 else
                 {
+                    //select all maintains
                     axios.get("/maintains")
                         .then(response => {
-                            this.maintains = []
-                            response.data.maintains.forEach(maintain => {
-                                if(maintain.start_date !== null && maintain.end_date !== null)
-                                {
-                                    this.maintains.push(maintain)
-                                }
-                            });
+                            this.fillMaintains(response.data.maintains)
                             resolve(response)
                     })
                     .catch(error => {
@@ -118,8 +108,23 @@ export default {
                 }
 			})
         },
-        updateSelectedId(selectedId){
-            this.$emit("selectedIdChange", selectedId)
+        fillMaintains(maintains) {
+            /*
+                Fill the maintains array with the finished maintains
+            */
+            this.maintains = []
+            maintains.forEach(maintain => {
+                if(maintain.start_date !== null && maintain.end_date !== null)
+                {
+                    this.maintains.push(maintain)
+                }
+            });
+
+            //update the selected maintain
+            if(this.maintains.length > 0)
+            {
+                this.updateSelectedId(this.maintains[0].id)
+            }
         },
         dateDay(datetime){
             /*
@@ -130,11 +135,20 @@ export default {
             return new Date(year, month, day).toLocaleDateString()
         },
         machineName(id_machine){
+            /*
+                Get the machine name of the machine id_machine
+            */
             return this.machines.find(x => x.id == id_machine).name
+        },
+        updateSelectedId(selectedId){
+            this.$emit("selectedIdChange", selectedId)
         },
     },
     computed: {
         updateSelectedMachineId(){
+            /*
+                Update the list of maintains when the selected machine changes
+            */
             if(typeof this.selectedMachineId == 'undefined')
             {
                 this.selectedMachineId = -1 //select all
@@ -147,7 +161,6 @@ export default {
     },
 	mounted(){
         this.fetchMachines()
-        this.$emit("selectedIdChange", 1) //TODO change here
 	},
 }
 </script>

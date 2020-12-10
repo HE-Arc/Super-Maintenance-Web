@@ -68,7 +68,9 @@ Route::post('troubleshootingReport', [TroubleshootingReportController::class, 'c
 Route::post('troubleshootingReport_delete/{id}', [TroubleshootingReportController::class, 'deleteTroubleshootingReport']); // delete troubleshootingReport
 Route::post('troubleshootingReport/{id}', [TroubleshootingReportController::class, 'updateTroubleshootingReport']); // update troubleshootingReport
 Route::get('troubleshootingReports_machine/{id}', [TroubleshootingReportController::class, 'getTroubleshootingReportsByMachine']); // get all troubleshooting by id machine
-Route::get('unresolvedtroubleshooting/{id_maintainer}', [TroubleshootingReportController::class, 'getUnresolvedTRByMaintainerId']);
+Route::get('unresolvedtroubleshooting/{id_maintainer}', [TroubleshootingReportController::class, 'getUnresolvedTRByMaintainerId']); // get unresolved troubleshooting by id maintainer
+Route::get('unresolvedtroubleshootingByMachine/{id_machine}', [TroubleshootingReportController::class, 'getUnresolvedTRByMachineId']); // get unresolved troubleshooting by id machine
+
 
 Route::get('machine/{id}', [MachineController::class, 'getMachineById']); // get machine by id
 Route::get('machines', [MachineController::class, 'index']); // get all machines

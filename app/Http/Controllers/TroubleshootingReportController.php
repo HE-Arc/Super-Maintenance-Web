@@ -96,4 +96,18 @@ class TroubleshootingReportController extends Controller{
 
         return response()->json($response);
     }
+
+    public function getUnresolvedTRByMachineId(Request $request, $id_machine)
+    {
+        $troubleshootingReports = DB::table('troubleshooting_reports')
+            ->where('resolved', false)
+            ->where('id_machine', $id_machine)
+            ->limit(1)
+            ->get();
+
+        $response["troubleshooting_reports"] = $troubleshootingReports;
+        $response["success"] = 1;
+
+        return response()->json($response);
+    }
 }

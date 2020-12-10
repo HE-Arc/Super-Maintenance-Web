@@ -16,19 +16,12 @@
                 </v-toolbar-items>
             </v-toolbar>
             <v-card-text>
-                <v-text-field
-                    outlined
-                    dense
-                    v-model="item.id"
-                    label="ID"
-                    required
-                    readonly
-                ></v-text-field>
                 <v-select
                     :items="maintainers"
                     v-model="maintainer"
                     name="techicien"
                     item-text="name"
+                    item-value="id"
                     label="Techicien"
                     dense
                     outlined
@@ -36,7 +29,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn tile color="success" id="send_button">
+                <v-btn tile color="success" id="send_button" @click="assign">
                     Attribuer
                     <v-icon
                     right
@@ -53,9 +46,10 @@
 export default {
     data: () => ({
         isVisible: false,
-        maintainer: "",
-        item: [],
-        maintainers: []
+        maintainer: "", // selected maintainer
+        item: [], // MACHINE
+        maintainers: [],
+        troubleshooting: null
     }),
     methods: {
         show(item) {
@@ -63,6 +57,7 @@ export default {
             this.isVisible = true
             this.item = item
             this.fetchMaintainers()
+            this.getLastTroubleshooting()
         },
         hide(){
             this.isVisible = false
@@ -78,7 +73,43 @@ export default {
 					reject(error)
 				})
 			})
-    	}
+        },
+        assign(){
+            return new Promise((resolve, reject) => {
+                axios.post("/troubleshootingReport/1", {
+                    "id_machine": this.item["id"],
+                    "id_maintainer": this.maintainer,
+                    "start_date": "",
+                    "end_date": "",
+                    "troubleshooting_description": "",
+                    "troubleshooting_hypotesis": "",
+                    "troubleshooting_check": "",
+                    "repairs_actions": "",
+                    "piece_to_change": "",  
+                    "piece_photo": "",
+                    "resolved": false
+                })
+					.then(response => {
+                        this.hide()
+                        resolve(response)
+				})
+				.catch(error => {
+					reject(error)
+                })
+            })
+        },
+        getLastTroubleshooting(){
+            return new Promise((resolve, reject) => {
+                axios.get("unresolvedtroubleshootingByMachine/" + this.item["id"])
+                    .then(response => {
+                        this.troubleshooting = response.data[0]
+                        resolve(response)
+                })
+                .catch(error => {
+					reject(error)
+                })
+            })
+        }
     }
 }
 </script>

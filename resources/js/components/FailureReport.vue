@@ -209,8 +209,7 @@ export default {
     fetchMaintainerName() {
       return new Promise((resolve, reject) => {
         axios
-          .get(
-            "http://localhost:8000/maintainer/" +
+          .get("/maintainer/" +
               this.failure_report.id_maintainer
           )
           .then((response) => {

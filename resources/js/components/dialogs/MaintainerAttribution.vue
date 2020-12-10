@@ -76,7 +76,7 @@ export default {
         },
         assign(){
             return new Promise((resolve, reject) => {
-                axios.post("/troubleshootingReport/1", {
+                axios.post("/troubleshootingReport/" + this.troubleshooting["id"], {
                     "id_machine": this.item["id"],
                     "id_maintainer": this.maintainer,
                     "start_date": "",
@@ -90,6 +90,7 @@ export default {
                     "resolved": false
                 })
 					.then(response => {
+                        this.$parent.refresh()
                         this.hide()
                         resolve(response)
 				})
@@ -100,9 +101,9 @@ export default {
         },
         getLastTroubleshooting(){
             return new Promise((resolve, reject) => {
-                axios.get("unresolvedtroubleshootingByMachine/" + this.item["id"])
+                axios.get("unresolvedtroubleshootingByMachine/" + this.item.id)
                     .then(response => {
-                        this.troubleshooting = response.data[0]
+                        this.troubleshooting = response.data.troubleshooting_reports[0]
                         resolve(response)
                 })
                 .catch(error => {

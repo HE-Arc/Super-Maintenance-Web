@@ -36,9 +36,12 @@ class MachineController extends Controller{
             $join->on('troubleshooting_reports.id_machine', '=', 'machines.id')
             ->where('troubleshooting_reports.resolved', '=', false);
         })
+        ->leftjoin('maintainers', 'maintainers.id', '=', 'troubleshooting_reports.id_maintainer')
         ->select('machines.*',
                  'troubleshooting_reports.id as troubleshooting_reports_id',
-                 'troubleshooting_reports.resolved')
+                 'troubleshooting_reports.resolved',
+                 'troubleshooting_reports.id_maintainer',
+                 'maintainers.name as maintainer_name')
         ->get();
 
         $response["machines"] = $machines;

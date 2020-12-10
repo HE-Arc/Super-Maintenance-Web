@@ -19,7 +19,7 @@
 					</v-card-text>
 					<v-card-actions>
 						<v-alert
-							v-if="machine.state == 'OFF'"
+							v-if="machine.state == 'OFF' && machine.id_maintainer == null"
 							prominent
 							style="width:100%;margin:10px;"
 							type="error"
@@ -40,6 +40,23 @@
 								</v-col>
 							</v-row>
 						</v-alert>
+
+						<v-alert
+							v-else-if="machine.state == 'OFF' && machine.id_maintainer != null"
+							prominent
+							style="width:100%;margin:10px;"
+							type="warning"
+						>
+							<v-row align="center">
+								<v-col class="grow">
+								EN PANNE
+								</v-col>
+								<v-col class="shrink">
+									{{machine.maintainer_name}}
+								</v-col>
+							</v-row>
+						</v-alert>
+
 					</v-card-actions>
 				</v-card>
 			</v-col>
@@ -87,6 +104,9 @@
 		OpenAttributionDialog(machine) {
 			console.log("function")
 			this.$refs.attributeMaintainer.show(machine)
+		},
+		refresh(){
+			this.fetchMachines()
 		}
 	},
 	mounted(){

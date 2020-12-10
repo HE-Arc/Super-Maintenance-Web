@@ -75,8 +75,8 @@ export default {
         },
         assign(){
             return new Promise((resolve, reject) => {
-                axios.post("/troubleshootingReport/" + this.troubleshooting["id"], {
-                    "id_machine": this.item["id"],
+                axios.post("/troubleshootingReport/" + this.troubleshooting.id, {
+                    "id_machine": this.item.id,
                     "id_maintainer": this.maintainer,
                     "start_date": "",
                     "end_date": "",
@@ -88,10 +88,10 @@ export default {
                     "piece_photo": "",
                     "resolved": false
                 })
-					.then(response => {
-                        this.$parent.refresh()
-                        this.hide()
-                        resolve(response)
+                .then(response => {
+                    this.$parent.refresh()
+                    this.hide()
+                    resolve(response)
 				})
 				.catch(error => {
 					reject(error)

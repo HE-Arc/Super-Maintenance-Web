@@ -25,8 +25,8 @@ class MaintainController extends Controller{
 
     public function createMaintain(Request $request)
     {
-        $maintain = new Maintain($request->all());
-        $maintain->save();
+        $maintain = Maintain::create($request->all());
+        //$maintain->save();
 
         $response["maintains"] = $maintain;
         $response["success"] = 1;

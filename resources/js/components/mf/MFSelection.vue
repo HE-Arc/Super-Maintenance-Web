@@ -26,5 +26,4 @@ export default {
 
 <style>
 
-</style
-MachineFilter>
+</style>

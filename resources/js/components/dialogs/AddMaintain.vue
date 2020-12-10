@@ -21,6 +21,7 @@
                     v-model="maintainer"
                     name="techicien"
                     item-text="name"
+                    item-value="id"
                     label="Techicien"
                     dense
                     outlined
@@ -30,6 +31,7 @@
                     v-model="machine"
                     name="machine"
                     item-text="name"
+                    item-value="id"
                     label="Machine"
                     dense
                     outlined
@@ -62,7 +64,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn tile color="success" id="send_button">
+                <v-btn tile color="success" id="send_button" @click="addMaintain">
                     Planifier
                     <v-icon
                     right
@@ -86,27 +88,16 @@ export default {
         maintainers: [],
         machines: [],
         datePicker: false,
+        parent: ""
     }),
     methods: {
-        show() {
+        show(maintainers) {
+            this.maintainers = maintainers
             this.isVisible = true
-            this.fetchMaintainers()
             this.fetchMachines()
         },
         hide(){
             this.isVisible = false
-        },
-        fetchMaintainers() {
-			return new Promise((resolve, reject) => {
-				axios.get("/maintainers")
-					.then(response => {
-						this.maintainers = response.data.maintainers
-						resolve(response)
-				})
-				.catch(error => {
-					reject(error)
-				})
-			})
         },
         fetchMachines() {
 			return new Promise((resolve, reject) => {
@@ -119,7 +110,26 @@ export default {
 					reject(error)
 				})
 			})
-    	}
+        },
+        addMaintain() {
+            return new Promise((resolve, reject) => {
+                axios.post('/maintain', {
+                    id_machine: this.machine,
+                    id_maintainer: this.maintainer,
+                    end_date: null,
+                    start_date: null,
+                    planned_at: this.planned_at
+                })
+                .then(response => {
+                    this.$parent.fetchMaintains()
+                    this.hide()
+                    resolve(response)
+                })
+            })
+            .catch(error => {
+                reject(error)
+            })
+        }
     }
 }
 </script>

@@ -124,16 +124,13 @@
                             :color="selectedEvent.color"
                             dark
                           >
-                            <v-btn icon>
-                              <v-icon>mdi-pencil</v-icon>
-                            </v-btn>
                             <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                             <v-spacer></v-spacer>
                             <v-btn icon>
-                              <v-icon>mdi-heart</v-icon>
+                              <v-icon>mdi-pencil-outline</v-icon>
                             </v-btn>
                             <v-btn icon>
-                              <v-icon>mdi-dots-vertical</v-icon>
+                              <v-icon>mdi-trash-can-outline</v-icon>
                             </v-btn>
                           </v-toolbar>
                           <v-card-text>
@@ -145,7 +142,7 @@
                               color="secondary"
                               @click="selectedOpen = false"
                             >
-                              Cancel
+                              Fermer
                             </v-btn>
                           </v-card-actions>
                         </v-card>
@@ -185,11 +182,12 @@ export default {
         selectedElement: null,
         selectedOpen: false,
         events: [],
-        maintains: ''
+        maintains: [],
+        maintainers: [],
     
     }),
     mounted () {
-      this.fetchMaintains()
+      this.fetchMaintainers()     
       this.$refs.calendar.checkChange()
     },
     methods: {
@@ -233,6 +231,7 @@ export default {
         this.maintains.forEach(maintain => {
           events.push({
             name: maintain.machine_name,
+            details: this.getMaintainDetails(maintain.id_maintainer),
             start: new Date(maintain.planned_at),
             end: new Date(maintain.planned_at),
             color: 'indigo',
@@ -243,7 +242,7 @@ export default {
         this.events = events
       },
       OpenAddMaintainDialog() {
-        this.$refs.addMaintain.show()
+        this.$refs.addMaintain.show(this.maintainers)
       },
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
@@ -273,6 +272,11 @@ export default {
             break;
         }
       },
+      getMaintainDetails(id_maintainer){
+        var maintainer = this.maintainers.find(x => x.id == id_maintainer)
+
+        return "Maintenance attribuée à : <strong>" + maintainer.name + " " + maintainer.first_name + "</strong>"
+      },
       fetchMaintains() {
         return new Promise((resolve, reject) => {
           axios.get("/maintains")
@@ -286,6 +290,19 @@ export default {
           })
         })
       },
+      fetchMaintainers() {
+        return new Promise((resolve, reject) => {
+          axios.get("/maintainers")
+            .then(response => {
+              this.maintainers = response.data.maintainers
+              this.fetchMaintains()
+              resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+        })
+      }
     }
   }
 </script>

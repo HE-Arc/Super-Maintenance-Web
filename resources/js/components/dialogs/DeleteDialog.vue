@@ -43,21 +43,24 @@
 export default {
     data: () => ({
         isVisible: false,
-        item: []
+        item: [],
+        url: ""
     }),
     methods: {
-        show(item) {
+        show(item, url) {
             this.isVisible = true
             this.item = item
+            this.url = url
         },
         hide(){
             this.isVisible = false
         },
         deleteObject(){
             return new Promise((resolve, reject) => {
-                axios.post("/maintain_delete/" + this.item["id"], {
+                axios.post(this.url + this.item["id"], {
                 }).then(response => {
                         this.hide()
+                        this.$parent.refresh()
                         resolve(response)
 				})
 				.catch(error => {

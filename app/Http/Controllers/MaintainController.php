@@ -40,7 +40,8 @@ class MaintainController extends Controller{
             'id_machine' => $request['id_machine'],
             'id_maintainer' => $request['id_maintainer'],
             'start_date' => $request['start_date'],
-            'end_date' => $request['end_date']
+            'end_date' => $request['end_date'],
+            'planned_at' => $request['planned_at']
             ]);
 
         $response["maintain"] = $maintain;

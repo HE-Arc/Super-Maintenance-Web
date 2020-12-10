@@ -9,7 +9,7 @@
       <v-main>
         <v-row>
           <v-col cols="3">
-            <v-btn class="mb-10" block tile dark color="indigo" @click="OpenAddMaintainDialog">
+            <v-btn class="mb-10" block tile dark color="indigo" @click="OpenAddMaintainDialog(null)">
               Planifier une maintenance
               <v-icon
               right
@@ -126,7 +126,7 @@
                           >
                             <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
                             <v-spacer></v-spacer>
-                            <v-btn icon>
+                            <v-btn icon @click="OpenAddMaintainDialog(selectedEvent.maintain)">
                               <v-icon>mdi-pencil-outline</v-icon>
                             </v-btn>
                             <v-btn icon @click="OpenDeleteDialog(selectedEvent.maintain)">
@@ -244,8 +244,11 @@ export default {
 
         this.events = events
       },
-      OpenAddMaintainDialog() {
-        this.$refs.addMaintain.show(this.maintainers)
+      OpenAddMaintainDialog(maintain) {
+        this.$refs.addMaintain.show(maintain, this.maintainers)
+      },
+      OpenDeleteDialog(maintain) {
+        this.$refs.deleteDialog.show(maintain,'/maintain_delete/')
       },
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
@@ -306,8 +309,8 @@ export default {
           })
         })
       },
-      OpenDeleteDialog(maintain) {
-        this.$refs.deleteDialog.show(maintain)
+      refresh(){
+        this.fetchMaintains()
       }
     }
   }

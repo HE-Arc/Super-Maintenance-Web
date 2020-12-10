@@ -1,5 +1,5 @@
 <template>
-  <div style="border-left: 1px solid gray; padding: 30px;">
+  <div style="border-left: 1px solid gray; padding: 30px;" v-if="failure_report != null">
       <v-row>
         <v-col lg="5" md="5" xs="12" sm="12">
           <v-row>
@@ -156,8 +156,14 @@ export default {
 		id_failure: {
 			type: Number,
 			required: true
-			},
-	},
+		},
+  },
+  watch:{ //update the component when the id_failure is updated
+    'id_failure' :function(id_failure) {
+      this.id_failure = id_failure
+      this.fetchFailure()
+    }
+  },
   data: () => ({
     failure_report: 
     {
@@ -169,6 +175,7 @@ export default {
   }),
   methods: {
     fetchFailure() {
+      console.log("IDFailure" + this.id_failure)
       return new Promise((resolve, reject) => {
         axios
           .get("/troubleshootingReport/" + this.id_failure)
@@ -259,8 +266,8 @@ export default {
     spendTime() {
       if (
         this.failure_report != null &&
-        this.failure_report.end_date !== "" &&
-        this.start_date !== ""
+        this.failure_report.end_date != null &&
+        this.failure_report.start_date != null
       ) {
         return this.computeSpendTime(
           this.failure_report.end_date,

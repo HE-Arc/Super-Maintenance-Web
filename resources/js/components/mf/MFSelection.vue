@@ -9,7 +9,7 @@
             <v-tab @click="updateSelection('maintain')">Maintenance</v-tab>
             <v-tab @click="updateSelection('failure')">Panne</v-tab>
         </v-tabs>
-        <machine-filter></machine-filter>
+        <machine-filter @selectedIdChange="updateSelectedId"></machine-filter>
     </div>
 </template>
 
@@ -18,13 +18,12 @@ import MachineFilter from '../MachineFilter.vue'
 export default {
     methods : {
         updateSelection(selection) {
-            this.$emit('selectionChange', selection)
-        }
+            this.$emit("selectionChange", selection)
+        },
+        updateSelectedId(selectedId) {
+            this.$emit("selectedIdChange", selectedId)
+        },
+
     }
 }
 </script>
-
-<style>
-
-</style
-MachineFilter>

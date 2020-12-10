@@ -165,17 +165,13 @@ export default {
     }
   },
   data: () => ({
-    failure_report: 
-    {
-      //TODO add failure props here
-    },
+    failure_report: null,
     machine_name: "",
     maintainer_name: "",
     piece_photo: "",
   }),
   methods: {
     fetchFailure() {
-      console.log("IDFailure" + this.id_failure)
       return new Promise((resolve, reject) => {
         axios
           .get("/troubleshootingReport/" + this.id_failure)

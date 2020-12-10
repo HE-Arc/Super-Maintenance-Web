@@ -30,31 +30,19 @@
                         <template>
                             <v-list-item-content>
                                 <v-list-item-title v-text="machineName(item.id_machine)"></v-list-item-title>
-                                <!--<v-list-item-title v-text="item.id"></v-list-item-title>-->
 
                                 <v-list-item-subtitle
                                     class="text--primary"
-                                    v-text="dateDay(item.start_date)"
+                                    v-text="dateDay(item.end_date)"
                                 ></v-list-item-subtitle>
 
-                                <!--
-                                Only for failures
-                                <v-list-item-subtitle
-                                    v-text="item.subtitle"
+                                <v-list-item-subtitle v-if="selection === 'failure'"
+                                    v-text="item.troubleshooting_description"
                                 ></v-list-item-subtitle>
-                                -->
+
                             </v-list-item-content>
-
-                        <!--<v-list-item-action>
-                            <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
-                        </v-list-item-action>-->
                         </template>
                     </v-list-item>
-
-                    <v-divider
-                        v-if="index < items.length - 1"
-                        :key="item.id_machine+items.length"
-                    ></v-divider>
                 </template>
             </v-list-item-group>
         </v-list>
@@ -71,7 +59,6 @@ export default {
     },
     watch:{ //watch attribute update
         'selection': function(selection) {
-            console.log("coucou"  + selection)
             this.selection = selection
         }
     },
@@ -98,7 +85,7 @@ export default {
 			return new Promise((resolve, reject) => {
                 if(this.selectedMachineId !== -1)
                 {
-                    //get all items that uses this id
+                    //get all items for this machine id
                     axios.get("/" + this.selectionUrl +"_machine/" + this.selectedMachineId)
                         .then(response => {
                             this.fillItems(response.data)
@@ -111,7 +98,6 @@ export default {
                 else
                 {
                     //select all items
-                    console.log(this.selectionUrl)
                     axios.get("/" + this.selectionUrl)
                         .then(response => {
                             this.fillItems(response.data)
@@ -148,9 +134,10 @@ export default {
             /*
                 Convert from yyyy-mm-dd tp dd-mm-yyyy format
             */
-            let date = datetime.split(" ")[0]
-            let [year, month, day] = date.split("-")
-            return new Date(year, month, day).toLocaleDateString()
+            //let date = datetime.split(" ")[0]
+            //let [year, month, day] = date.split("-")
+            //return new Date(year, month, day).toLocaleDateString()
+            return datetime.split(" ")[0]
         },
         machineName(id_machine){
             /*
@@ -161,9 +148,6 @@ export default {
         updateSelectedId(selectedId){
             this.$emit("selectedIdChange", selectedId)
         },
-        change(val){
-            console.log(val)
-        }
     },
     computed: {
         updateSelectedMachineId(){
@@ -180,7 +164,6 @@ export default {
             }
         },
         selectionUrl(){
-            console.log(this.selection +"aaa")
             return this.selection === "maintain" ? "maintains" : "troubleshootingReports"
         },
     },

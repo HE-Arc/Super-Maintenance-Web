@@ -9,7 +9,7 @@
             <v-tab @click="updateSelection('maintain')">Maintenance</v-tab>
             <v-tab @click="updateSelection('failure')">Panne</v-tab>
         </v-tabs>
-        <machine-filter @selectedIdChange="updateSelectedId" :selection="selection"></machine-filter>
+        <machine-filter @selectedIdChange="updateSelectedId" @selectedMachineIdChange="updateSelectedMachineId" :selection="selection"></machine-filter>
     </div>
 </template>
 
@@ -22,10 +22,16 @@ export default {
     methods : {
         updateSelection(selection) {
             this.selection = selection
+            // pass the data to the parent
             this.$emit("selectionChange", selection)
         },
         updateSelectedId(selectedId) {
+            // pass the data to the parent
             this.$emit("selectedIdChange", selectedId)
+        },
+        updateSelectedMachineId(selectedMachineId) {
+            // pass the data to the parent
+            this.$emit("selectedMachineIdChange", selectedMachineId)
         },
 
     }

@@ -15,7 +15,7 @@
         />
 
         <!-- Display maintains for the selected machine -->
-        <v-list two-line>
+        <v-list two-line v-if="isItemSelected">
             <v-list-item-group
                 active-class="indigo--text"
                 mandatory
@@ -23,8 +23,7 @@
                 <template v-for="(item, index) in items">
                     <v-list-item 
                         :key="index" 
-                        @click="updateSelectedId(item.id)"
-                               
+                        @click="triggerSelectedIdChange(item.id)"
                         >
                         <!-- problem : the key remains the same so those components are not updated -->
                         <template>
@@ -46,6 +45,15 @@
                 </template>
             </v-list-item-group>
         </v-list>
+        <v-alert v-else
+              type="info"
+              color="indigo"
+              outlined
+              prominent
+              text
+            >
+            {{ emptyMessage }}
+        </v-alert>
     </div>
 </template>
 
@@ -65,6 +73,8 @@ export default {
     data: () => ({
         machines: [],
         selectedMachineId: -1, //-1 = select all machines
+        selectedId: -1,
+        emptyMessage: "Aucun élément ne correspond à la sélection",
         items: [],
         value: 0,
     }),
@@ -127,7 +137,12 @@ export default {
             //update the selected maintain
             if(this.items.length > 0)
             {
-                this.updateSelectedId(this.items[0].id)
+                this.triggerSelectedIdChange(this.items[0].id)
+            }
+            else
+            {
+                // if there's no item, display nothing
+                this.triggerSelectedIdChange(-1)
             }
         },
         dateDay(datetime){
@@ -145,8 +160,15 @@ export default {
             */
             return this.machines.find(x => x.id == id_machine).name
         },
-        updateSelectedId(selectedId){
+        triggerSelectedIdChange(selectedId){
+            // trigger an event when the selected item id changes
+            this.selectedId = selectedId
             this.$emit("selectedIdChange", selectedId)
+        },
+        triggerSelectedMachineIdChange(){
+            // trigger an event when the selected machine id changes
+            console.log("CHANGE", this.selectedMachineId)
+            this.$emit("selectedMachineIdChange", this.selectedMachineId)
         },
     },
     computed: {
@@ -162,10 +184,18 @@ export default {
             {
                 this.fetchItemsByMachine()
             }
+            
+            this.triggerSelectedMachineIdChange()
         },
         selectionUrl(){
             return this.selection === "maintain" ? "maintains" : "troubleshootingReports"
         },
+        isItemSelected(){
+            /*
+                Check if an item is selected
+            */
+            return this.selectedId !== -1
+        }
     },
 	mounted(){
         this.fetchMachines()

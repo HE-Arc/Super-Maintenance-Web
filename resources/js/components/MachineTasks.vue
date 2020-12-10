@@ -58,6 +58,12 @@
 			})
     	}
 	},
+	watch:{ //update the component when the id_failure is updated
+		'id': function(id) {
+			this.id = id
+			this.fetchTasks()
+		},
+	},
 	mounted(){
 		this.fetchTasks()
 	}

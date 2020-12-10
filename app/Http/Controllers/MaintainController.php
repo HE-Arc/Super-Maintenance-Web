@@ -58,7 +58,7 @@ class MaintainController extends Controller{
 
     public function getMaintainsByMachine($id)
     {
-        $maintains = DB::table('maintains')->where('id_machine', $id)->get();
+        $maintains = DB::table('maintains')->where('id_machine', $id)->orderBy('end_date', 'desc')->get();
 
         $response["maintains"] = $maintains;
         $response["success"] = 1;

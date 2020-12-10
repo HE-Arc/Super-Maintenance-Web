@@ -42,7 +42,7 @@
 			</v-col>
 			<v-col cols="6">
 				<v-text-field
-				:value="computeSpendTime(maintain.end_date, maintain.start_date)"
+				:value="spendTime"
 				readonly
 				></v-text-field>
 			</v-col>
@@ -50,7 +50,7 @@
 
 		<v-row>
 			<v-col cols="6">
-				<v-subheader>Intervenant</v-subheader>
+				<v-subheader>Technicien en charge</v-subheader>
 			</v-col>
 			<v-col cols="6">
 				<v-text-field
@@ -77,6 +77,15 @@
 			required: true
 		}
 	},
+	watch:{ //update the component when the id_failure is updated
+		'maintain': function(maintain) {
+			this.maintain = maintain
+			this.fetchMaintainerName()
+		},
+		'machine_name': function(machine_name) {
+			this.machine_name = machine_name
+		},
+	},
     methods: {
 		stringToDate(s) {
 			//source : https://stackoverflow.com/questions/8003616/javascript-how-to-find-the-difference-between-two-datetimes-in-mysql-timestamp
@@ -97,10 +106,14 @@
 			return hours + "h" + minutes + "m" + secondsRemaining + "s";
 			},
 		fetchMaintainerName() {
+			console.log()
 			return new Promise((resolve, reject) => {
-				axios.get("/maintainer/1")// + this.maintain.id_maintainer)
+				axios.get("/maintainer/" + this.maintain.id_maintainer)
 					.then(response => {
-						this.maintainer_name = response.data.maintainer[0].name
+						let name = response.data.maintainer[0].name;
+						let first_name = response.data.maintainer[0].first_name;
+
+						this.maintainer_name = first_name + " " + name;
 						resolve(response)
 				})
 				.catch(error => {
@@ -108,6 +121,15 @@
 				})
 			})
 		}
+	},
+	computed: {
+		spendTime() {
+			if(this.maintain != null && this.maintain.end_date != null && this.maintain.start_date != null)
+			{
+				return this.computeSpendTime(this.maintain.end_date, this.maintain.start_date);
+			}
+			return "";
+		},
 	},
 	mounted(){
 		this.fetchMaintainerName()

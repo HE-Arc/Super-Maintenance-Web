@@ -24,6 +24,12 @@
 			required: true
 			},
 	},
+	watch:{ //update the component when the id_failure is updated
+		'id_maintain': function(id_maintain) {
+			this.id_maintain = id_maintain
+			this.fetchMaintainById()
+		}
+	},
     methods: {
 		fetchMaintainById() {
 			return new Promise((resolve, reject) => {

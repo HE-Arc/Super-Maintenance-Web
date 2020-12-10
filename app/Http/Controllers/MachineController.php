@@ -28,4 +28,22 @@ class MachineController extends Controller{
 
         return response()->json($response);
     }
+
+    public function getMachineAndTroubleshooting()
+    {
+        $machines = DB::table('machines')
+        ->leftjoin('troubleshooting_reports', function ($join){
+            $join->on('troubleshooting_reports.id_machine', '=', 'machines.id')
+            ->where('troubleshooting_reports.resolved', '=', false);
+        })
+        ->select('machines.*',
+                 'troubleshooting_reports.id as troubleshooting_reports_id',
+                 'troubleshooting_reports.resolved')
+        ->get();
+
+        $response["machines"] = $machines;
+        $response["success"] = 1;
+
+        return response()->json($response);
+    }
 }

@@ -74,7 +74,7 @@
     methods: {
 		fetchMachines() {
 			return new Promise((resolve, reject) => {
-				axios.get("/machines")
+				axios.get("/machinesAndTroubleshootings")
 					.then(response => {
 						this.machines = response.data.machines
 						resolve(response)

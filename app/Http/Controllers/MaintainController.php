@@ -58,7 +58,7 @@ class MaintainController extends Controller{
 
     public function getMaintainsByMachine($id)
     {
-        $maintains = DB::table('maintains')->where('id_machine', $id)->orderBy('end_date', 'desc')->get();
+        $maintains = DB::table('maintains')->where('id_machine', $id)->orderBy('planned_at', 'desc')->get();
 
         $response["maintains"] = $maintains;
         $response["success"] = 1;
@@ -72,7 +72,7 @@ class MaintainController extends Controller{
         $maintains = DB::table('maintains')
             ->join('machines', 'maintains.id_machine', '=', 'machines.id')
             ->select('maintains.*', 'machines.name as machine_name')
-            ->orderBy('end_date', 'desc')
+            ->orderBy('planned_at', 'desc')
             ->get();
 
         $response["maintains"] = $maintains;

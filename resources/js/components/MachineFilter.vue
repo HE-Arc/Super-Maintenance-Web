@@ -32,7 +32,7 @@
 
                                 <v-list-item-subtitle
                                     class="text--primary"
-                                    v-text="dateDay(item.end_date)"
+                                    v-text="dateDay(item)"
                                 ></v-list-item-subtitle>
 
                                 <v-list-item-subtitle v-if="selection === 'failure'"
@@ -145,13 +145,19 @@ export default {
                 this.triggerSelectedIdChange(-1)
             }
         },
-        dateDay(datetime){
+        dateDay(item){
             /*
                 Convert from yyyy-mm-dd tp dd-mm-yyyy format
             */
             //let date = datetime.split(" ")[0]
             //let [year, month, day] = date.split("-")
             //return new Date(year, month, day).toLocaleDateString()
+            /*
+                Doesn't work because the listVue is not empty
+                let datetime = this.selection === "maintain" ? item.planned_at : item.start_date
+            */
+            let datetime = item.hasOwnProperty('planned_at') === "maintain" ? item.planned_at : item.start_date
+            //let datetime = item.start_date
             return datetime.split(" ")[0]
         },
         machineName(id_machine){
@@ -167,7 +173,6 @@ export default {
         },
         triggerSelectedMachineIdChange(){
             // trigger an event when the selected machine id changes
-            console.log("CHANGE", this.selectedMachineId)
             this.$emit("selectedMachineIdChange", this.selectedMachineId)
         },
     },

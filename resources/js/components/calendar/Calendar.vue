@@ -17,7 +17,7 @@
               mdi-calendar-edit
               </v-icon>
             </v-btn>
-            <machine-filter></machine-filter>
+            <machine-filter context="calendar" selection="maintain" @selectedMachineIdChange="updateSelectedMachineId"></machine-filter>
           </v-col>
           <v-col
             cols="9"
@@ -186,7 +186,7 @@ export default {
         events: [],
         maintains: [],
         maintainers: [],
-    
+        selectedMachineId: -1,
     }),
     mounted () {
       this.fetchMaintainers()     
@@ -231,15 +231,19 @@ export default {
         const events = []
 
         this.maintains.forEach(maintain => {
-          events.push({
-            name: maintain.machine_name,
-            details: this.getMaintainDetails(maintain.id_maintainer),
-            start: new Date(maintain.planned_at),
-            end: new Date(maintain.planned_at),
-            color: 'indigo',
-            maintain: maintain,
-            timed: false,
-          })
+          //add the event if it's machine is selected or if all machines are selected
+          if(this.selectedMachineId === -1 || maintain.id_machine === this.selectedMachineId)
+          {
+            events.push({
+              name: maintain.machine_name,
+              details: this.getMaintainDetails(maintain.id_maintainer),
+              start: new Date(maintain.planned_at),
+              end: new Date(maintain.planned_at),
+              color: 'indigo',
+              maintain: maintain,
+              timed: false,
+            })
+          }
         });
 
         this.events = events
@@ -310,7 +314,11 @@ export default {
         })
       },
       refresh(){
-        this.fetchMaintains()
+        this.fetchMaintainers()
+      },
+      updateSelectedMachineId(selectedMachineId) {
+        this.selectedMachineId = selectedMachineId
+        this.refresh()
       }
     }
   }

@@ -28,7 +28,7 @@ class MachineSeeder extends Seeder
 
         $m = new Machine();
         $m->name = "AX37";
-        $m->state = "ON";
+        $m->state = "OFF";
         $m->location = "JU136";
         $m->save();
 

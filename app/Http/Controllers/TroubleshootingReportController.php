@@ -64,7 +64,7 @@ class TroubleshootingReportController extends Controller{
 
     public function getTroubleshootingReportsByMachine($id)
     {
-        $troubleshootingReports = DB::table('troubleshooting_reports')->where('id_machine', $id)->orderBy('end_date', 'desc')->get();
+        $troubleshootingReports = DB::table('troubleshooting_reports')->where('id_machine', $id)->orderBy('start_date', 'desc')->get();
 
         $response["troubleshooting_reports"] = $troubleshootingReports;
         $response["success"] = 1;
@@ -74,7 +74,7 @@ class TroubleshootingReportController extends Controller{
 	
 	public function index()
     {
-        $troubleshootingReports = DB::table('troubleshooting_reports')->orderBy('end_date', 'desc')->get();
+        $troubleshootingReports = DB::table('troubleshooting_reports')->orderBy('start_date', 'desc')->get();
 
         $response["troubleshooting_reports"] = $troubleshootingReports;
         $response["success"] = 1;

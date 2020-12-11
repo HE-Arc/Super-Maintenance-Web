@@ -9,7 +9,7 @@
             <v-tab @click="updateSelection('maintain')">Maintenance</v-tab>
             <v-tab @click="updateSelection('failure')">Panne</v-tab>
         </v-tabs>
-        <machine-filter @selectedIdChange="updateSelectedId" @selectedMachineIdChange="updateSelectedMachineId" :selection="selection"></machine-filter>
+        <machine-filter @selectedIdChange="updateSelectedId" @selectedMachineIdChange="updateSelectedMachineId" :selection="selection" context="info"></machine-filter>
     </div>
 </template>
 

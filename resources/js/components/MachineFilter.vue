@@ -63,7 +63,11 @@ export default {
 		selection: { //maintain or failure
 			type: String,
 			required: true
-		},
+        },
+        context: { //calendar or info
+			type: String,
+			required: true
+        },
     },
     watch:{ //watch attribute update
         'selection': function(selection) {
@@ -128,9 +132,16 @@ export default {
             let items = this.selection === "maintain" ? data.maintains : data.troubleshooting_reports
             
             items.forEach(item => {
-                if(item.start_date !== null && item.end_date !== null)
+                if(this.context === "calendar")
                 {
                     this.items.push(item)
+                }
+                else
+                { //info
+                    if(item.start_date !== null && item.end_date !== null)
+                    {
+                        this.items.push(item)
+                    }
                 }
             });
 
@@ -149,15 +160,7 @@ export default {
             /*
                 Convert from yyyy-mm-dd tp dd-mm-yyyy format
             */
-            //let date = datetime.split(" ")[0]
-            //let [year, month, day] = date.split("-")
-            //return new Date(year, month, day).toLocaleDateString()
-            /*
-                Doesn't work because the listVue is not empty
-                let datetime = this.selection === "maintain" ? item.planned_at : item.start_date
-            */
-            let datetime = item.hasOwnProperty('planned_at') === "maintain" ? item.planned_at : item.start_date
-            //let datetime = item.start_date
+            let datetime = item.hasOwnProperty('planned_at') ? item.planned_at : item.start_date
             return datetime.split(" ")[0]
         },
         machineName(id_machine){

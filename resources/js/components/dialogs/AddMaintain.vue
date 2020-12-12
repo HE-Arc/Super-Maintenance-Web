@@ -59,6 +59,8 @@
                     <v-date-picker
                         v-model="planned_at"
                         @input="datePicker = false"
+                        :first-day-of-week="1"
+                        locale="fr-ch"
                     ></v-date-picker>
                 </v-menu>
             </v-card-text>

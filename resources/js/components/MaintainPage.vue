@@ -1,6 +1,15 @@
 <template>
 	<div style="border-left: 1px solid gray; padding: 30px;">
-		<v-row>
+		<v-container v-show="loading" fill-height fluid>
+			<v-row align="center" justify="center">
+				<v-progress-circular
+				:size="50"
+				color="indigo"
+				indeterminate
+				></v-progress-circular>
+			</v-row>
+		</v-container>
+		<v-row v-show="!loading">
 			<v-col cols="5">
 				<maintain-info v-if="machine_name" :machine_name="machine_name" :maintain="maintain"></maintain-info>
 			</v-col>
@@ -16,7 +25,8 @@
     data: () => ({
 		maintain: null,
 		machine_name: null,
-		machine_id: null
+		machine_id: null,
+		loading: true
 	}),
 	props:{
 		id_maintain: {
@@ -26,6 +36,7 @@
 	},
 	watch:{ //update the component when the id_failure is updated
 		'id_maintain': function(id_maintain) {
+			this.loading = true
 			this.id_maintain = id_maintain
 			this.fetchMaintainById()
 		}
@@ -58,6 +69,9 @@
 				})
 			})
 		},
+		updateLoading(loading) {
+			this.loading = loading
+		}
 	},
 	mounted(){
 		this.fetchMaintainById()

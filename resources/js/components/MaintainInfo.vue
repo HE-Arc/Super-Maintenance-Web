@@ -1,5 +1,5 @@
 <template>
-  <div>
+	<div>
 		<v-row>
 			<v-col cols="6">
 				<v-subheader>Machine concernée</v-subheader>
@@ -59,13 +59,13 @@
 				></v-text-field>
 			</v-col>
 		</v-row>
-  </div>
+	</div>
 </template>
 
 <script>
   export default {
     data: () => ({
-		maintainer_name: null
+		maintainer_name: null,
 	}),
 	props: {
 		maintain:{
@@ -114,6 +114,7 @@
 						let first_name = response.data.maintainer[0].first_name;
 
 						this.maintainer_name = first_name + " " + name;
+						this.$parent.updateLoading(false);
 						resolve(response)
 				})
 				.catch(error => {

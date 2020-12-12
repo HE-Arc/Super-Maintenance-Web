@@ -315,12 +315,14 @@ export default {
           })
         })
       },
+      refresh(){
+        this.fetchMaintainers()
+      },
       updateSelectedMachineId(selectedMachineId) {
         this.selectedMachineId = selectedMachineId
         this.fetchMaintainers()
       },
       updateSelectedDate: function(selectedDate) {
-        console.log(selectedDate)
         this.focus = selectedDate
       },
     }

@@ -32,8 +32,7 @@ export default {
         updateSelectedMachineId(selectedMachineId) {
             // pass the data to the parent
             this.$emit("selectedMachineIdChange", selectedMachineId)
-        },
-
+        }
     }
 }
 </script>

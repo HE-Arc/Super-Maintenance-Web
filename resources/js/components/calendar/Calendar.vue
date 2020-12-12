@@ -17,7 +17,12 @@
               mdi-calendar-edit
               </v-icon>
             </v-btn>
-            <machine-filter context="calendar" selection="maintain" @selectedMachineIdChange="updateSelectedMachineId"></machine-filter>
+            <machine-filter 
+              context="calendar" 
+              selection="maintain" 
+              @selectedDateChange="updateSelectedDate" 
+              @selectedMachineIdChange="updateSelectedMachineId"
+            ></machine-filter>
           </v-col>
           <v-col
             cols="9"
@@ -254,9 +259,6 @@ export default {
       OpenDeleteDialog(maintain) {
         this.$refs.deleteDialog.show(maintain,'/maintain_delete/')
       },
-      rnd (a, b) {
-        return Math.floor((b - a + 1) * Math.random()) + a
-      },
       localDayFormat(day) {
         switch(day.weekday) {
           case 0:
@@ -313,13 +315,14 @@ export default {
           })
         })
       },
-      refresh(){
-        this.fetchMaintainers()
-      },
       updateSelectedMachineId(selectedMachineId) {
         this.selectedMachineId = selectedMachineId
-        this.refresh()
-      }
+        this.fetchMaintainers()
+      },
+      updateSelectedDate: function(selectedDate) {
+        console.log(selectedDate)
+        this.focus = selectedDate
+      },
     }
   }
 </script>

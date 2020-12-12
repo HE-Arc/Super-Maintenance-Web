@@ -23,7 +23,7 @@
                 <template v-for="(item, index) in items">
                     <v-list-item 
                         :key="index" 
-                        @click="triggerSelectedIdChange(item.id)"
+                        @click="triggerChange(item)"
                         >
                         <!-- problem : the key remains the same so those components are not updated -->
                         <template>
@@ -178,6 +178,15 @@ export default {
             // trigger an event when the selected machine id changes
             this.$emit("selectedMachineIdChange", this.selectedMachineId)
         },
+        triggerSelectedDateChange(selectedDate){
+            // trigger an event when the selected item id changes
+            this.selectedDate = selectedDate
+            this.$emit("selectedDateChange", selectedDate)
+        },
+        triggerChange(item) {
+            this.triggerSelectedIdChange(item.id)
+            this.triggerSelectedDateChange(item.planned_at)
+        }
     },
     computed: {
         updateSelectedMachineId(){

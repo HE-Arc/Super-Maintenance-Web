@@ -50,6 +50,7 @@
     methods: {
       updateSelection: function(selection) {
         this.selection = selection
+        this.selectedId = -1
       },
       updateSelectedId: function(selectedId) {
         this.selectedId = selectedId

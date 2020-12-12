@@ -217,6 +217,7 @@ export default {
             let first_name = response.data.maintainer[0].first_name;
 
             this.maintainer_name = first_name + " " + name;
+            this.$parent.updateLoading(false);
             resolve(response);
           })
           .catch((error) => {

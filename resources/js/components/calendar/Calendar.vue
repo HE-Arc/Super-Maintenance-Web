@@ -22,6 +22,7 @@
               selection="maintain" 
               @selectedDateChange="updateSelectedDate" 
               @selectedMachineIdChange="updateSelectedMachineId"
+              ref="mf"
             ></machine-filter>
           </v-col>
           <v-col
@@ -295,6 +296,7 @@ export default {
             .then(response => {
               this.maintains = response.data.maintains
               this.updateCalendar()
+              this.$refs.mf.fetchItemsByMachine()
               resolve(response)
           })
           .catch(error => {
@@ -317,6 +319,7 @@ export default {
       },
       refresh(){
         this.fetchMaintainers()
+        this.$refs.mf.fetchItemsByMachine()
       },
       updateSelectedMachineId(selectedMachineId) {
         this.selectedMachineId = selectedMachineId

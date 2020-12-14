@@ -55,6 +55,20 @@ class TroubleshootingReportsSeeder extends Seeder
         $t->save();
 
         $t = new TroubleshootingReport();
+        $t->id_machine = 2;
+        $t->id_maintainer = 2;
+        $t->end_date = null;
+        $t->start_date = null;
+        $t->troubleshooting_description = null;
+        $t->troubleshooting_hypotesis= null;
+        $t->troubleshooting_check = null;
+        $t->repairs_actions = null;
+        $t->piece_to_change = null;
+        $t->resolved = false;
+        $t->piece_photo = null;
+        $t->save();
+
+        $t = new TroubleshootingReport();
         $t->id_machine = 3;
         $t->id_maintainer = 3;
         $t->end_date = "2020-12-07 16:45:45";

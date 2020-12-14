@@ -17,14 +17,14 @@ class TroubleshootingReportsSeeder extends Seeder
         $t = new TroubleshootingReport();
         $t->id_machine = 2;
         $t->id_maintainer = 2;
-        $t->end_date = null;
-        $t->start_date = "2020-10-27 11:45:45";
+        $t->end_date = "2020-10-27 11:45:45";
+        $t->start_date = "2020-10-26 11:45:45";
         $t->troubleshooting_description = "La machine s'arrête après le premier cycle de coupe";
         $t->troubleshooting_hypotesis= "Le changement d'outils pour le deuxième cycle est bloquer | L'évacuation des déchets ne marche plus";
         $t->troubleshooting_check = "Le changement d'outils fonctionne bien, par contre le vérin de la trape d'évacuation est défectueux";
         $t->repairs_actions = "Remplacement du vérin d'évacuation";
         $t->piece_to_change = "Vérin pneumatique Festo 200XC35-b";
-        $t->resolved = false;
+        $t->resolved = true;
 
         $t->piece_photo = "/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIfIiEmKzcvJik0KSEiMEExNDk7Pj4+JS5ESUM8SDc9Pjv/2wBDAQoLCw4NDhwQEBw7KCIoOzs
         7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozv/wAARCAEOAeADASIAAhEBAxEB/8QAGwAAAgMBAQEAAAAAAAAAAAAAAgMAAQQFBgf/xAA5EAACAQMDAwMCBAYCAgEFAQABAhEAAyEEEj

@@ -19,11 +19,20 @@ class MaintainerController extends Controller{
         return response()->json($response);
     }
     
-    public function createMaintainer(Request $request){
+    public function createMaintainer(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:60',
+            'first_name' => 'required|string|max:60',
+        ]);
+
         $maintainer = new Maintainer($request->all());
         $maintainer->save();
+        
+        $response["maintainer"] = $maintainer;
+        $response["success"] = 1;
 
-        return response()->json($maintainer);
+        return response()->json($response);
     }
 
     public function updateMaintainer(Request $request, $id){

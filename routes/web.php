@@ -69,5 +69,6 @@ Route::get('unresolvedtroubleshootingByMachine/{id_machine}', [TroubleshootingRe
 
 
 Route::get('machine/{id}', [MachineController::class, 'getMachineById']); // get machine by id
+Route::post('machine/{id}', [MachineController::class, 'updateMachine']); // update machine by id
 Route::get('machines', [MachineController::class, 'index']); // get all machines
 Route::get('machinesAndTroubleshootings', [MachineController::class, 'getMachineAndTroubleshooting']); // get machines and unresolved troubleshootings

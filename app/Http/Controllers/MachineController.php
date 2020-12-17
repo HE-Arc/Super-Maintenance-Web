@@ -49,4 +49,17 @@ class MachineController extends Controller{
 
         return response()->json($response);
     }
+
+    public function updateMachine(Request $request, $id)
+    {
+        $machine = DB::table('machines')->where('id', $id)->update([
+            'name' => $request['name'],
+            'state' => $request['state'],
+            'location' => $request['location']
+            ]);
+
+        $response["machine"] = $machine;
+        $response["success"] = 1;
+        return response()->json($response);
+    }
 }

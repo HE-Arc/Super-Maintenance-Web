@@ -22,6 +22,7 @@ class VerifyCsrfToken extends Middleware
 
         "troubleshootingReport",
         "troubleshootingReport/*",
-        "troubleshootingReport_delete/*"
+        "troubleshootingReport_delete/*",
+        "machine/*"
     ];
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Maintain;
+use Illuminate\Support\Facades\Validator;
 use DB;
 
 class MaintainController extends Controller{
@@ -24,13 +25,20 @@ class MaintainController extends Controller{
     }
 
     public function createMaintain(Request $request)
-    {
-        $validated = $request->validate([
+    { 
+        $validator = Validator::make($request->all(), [
             'id_machine' => 'required|integer',
             'id_maintainer' => 'required|integer',
             'start_date' => 'required|date',
             'start_date' => 'required|date',
+            'planned_at' => 'required|date'
         ]);
+
+        if ($validator->fails()) {
+            return redirect('/maintenance')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
 
         $maintain = Maintain::create($request->all());
 
@@ -48,7 +56,7 @@ class MaintainController extends Controller{
             'start_date' => 'required|date',
             'start_date' => 'required|date',
         ]);
-        
+
         $maintain = DB::table('maintains')->where('id', $id)->update([
             'id_machine' => $request['id_machine'],
             'id_maintainer' => $request['id_maintainer'],

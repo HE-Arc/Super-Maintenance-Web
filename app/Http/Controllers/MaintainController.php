@@ -9,7 +9,7 @@ use DB;
 
 class MaintainController extends Controller{
 
-    public function getMaintainById(Request $request, $id)
+    public function getMaintainById($id)
     {
         $maintain = DB::table('maintains')
             ->join('machines', 'maintains.id_machine', '=', 'machines.id')
@@ -25,8 +25,14 @@ class MaintainController extends Controller{
 
     public function createMaintain(Request $request)
     {
+        $validated = $request->validate([
+            'id_machine' => 'required|integer',
+            'id_maintainer' => 'required|integer',
+            'start_date' => 'required|date',
+            'start_date' => 'required|date',
+        ]);
+
         $maintain = Maintain::create($request->all());
-        //$maintain->save();
 
         $response["maintains"] = $maintain;
         $response["success"] = 1;
@@ -36,6 +42,13 @@ class MaintainController extends Controller{
 
     public function updateMaintain(Request $request, $id)
     {
+        $validated = $request->validate([
+            'id_machine' => 'required|integer',
+            'id_maintainer' => 'required|integer',
+            'start_date' => 'required|date',
+            'start_date' => 'required|date',
+        ]);
+        
         $maintain = DB::table('maintains')->where('id', $id)->update([
             'id_machine' => $request['id_machine'],
             'id_maintainer' => $request['id_maintainer'],

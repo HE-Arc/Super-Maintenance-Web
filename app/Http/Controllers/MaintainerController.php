@@ -64,5 +64,4 @@ class MaintainerController extends Controller{
 
         return response()->json($response);
     }
-
 }

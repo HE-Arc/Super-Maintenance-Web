@@ -9,7 +9,7 @@ use DB;
 
 class MachineController extends Controller{
 
-    public function getMachineById(Request $request, $id)
+    public function getMachineById($id)
     {
         $machine = DB::table('machines')->where('id', $id)->get();
 

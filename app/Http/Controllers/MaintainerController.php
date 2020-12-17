@@ -9,8 +9,7 @@ use DB;
 
 class MaintainerController extends Controller{
 
-    public function getMaintainerById(Request $request, $id)
-    {
+    public function getMaintainerById(Request $request, $id){
         $maintainer = DB::table('maintainers')->where('id', $id)->get();
 
         $response["maintainer"] = $maintainer;
@@ -19,8 +18,7 @@ class MaintainerController extends Controller{
         return response()->json($response);
     }
     
-    public function createMaintainer(Request $request)
-    {
+    public function createMaintainer(Request $request){
         $validated = $request->validate([
             'name' => 'required|string|max:60',
             'first_name' => 'required|string|max:60',
@@ -36,6 +34,11 @@ class MaintainerController extends Controller{
     }
 
     public function updateMaintainer(Request $request, $id){
+        $validated = $request->validate([
+            'name' => 'required|string|max:60',
+            'first_name' => 'required|string|max:60',
+        ]);
+
         $maintainer = DB::table('maintainers')->where('id', $id)->update([
                         'name' => $request['name'],
                         'first_name' => $request['first_name'],

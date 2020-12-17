@@ -9,7 +9,7 @@ use DB;
 
 class StatisticController extends Controller{
 
-	public function getStatisticByMachineId(Request $request, $id_machine)
+	public function getStatisticByMachineId($id_machine)
 	{
 		$statistics = DB::table('statistics')->where('id_machine', $id_machine)->get();
 
@@ -19,7 +19,7 @@ class StatisticController extends Controller{
 		return response()->json($response);
 	}
 
-	public function getStatisticById(Request $request, $id)
+	public function getStatisticById($id)
 	{
 		$statistic = DB::table('statistics')->where('id', $id)->get();
 

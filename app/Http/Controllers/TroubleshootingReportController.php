@@ -9,7 +9,7 @@ use DB;
 
 class TroubleshootingReportController extends Controller{
 
-	public function getTroubleshootingReportById(Request $request, $id)
+	public function getTroubleshootingReportById($id)
     {
         $troubleshootingReport = DB::table('troubleshooting_reports')
             ->join('machines', 'troubleshooting_reports.id_machine', '=', 'machines.id')
@@ -25,6 +25,18 @@ class TroubleshootingReportController extends Controller{
 	
 	public function createTroubleshootingReport(Request $request)
     {
+        $validated = $request->validate([
+            'id_machine' => 'required|integer',
+            'id_maintainer' => 'required|integer',
+            'end_date' => 'nullable|date',
+            'troubleshooting_description' => 'nullable|string',
+            'troubleshooting_hypotesis' => 'nullable|string',
+            'troubleshooting_check' => 'nullable|string',
+            'repairs_actions' => 'nullable|string',
+            'piece_to_change' => 'nullable|string',
+            'piece_photo' => 'nullable|string',
+            'resolved' => 'nullable|bool',
+        ]);
         $troubleshootingReport = new TroubleshootingReport($request->all());
         $troubleshootingReport->save();
 
@@ -36,6 +48,19 @@ class TroubleshootingReportController extends Controller{
 
 	public function updateTroubleshootingReport(Request $request, $id)
     {
+        $validated = $request->validate([
+            'id_machine' => 'required|integer',
+            'id_maintainer' => 'required|integer',
+            'end_date' => 'nullable|date',
+            'troubleshooting_description' => 'nullable|string',
+            'troubleshooting_hypotesis' => 'nullable|string',
+            'troubleshooting_check' => 'nullable|string',
+            'repairs_actions' => 'nullable|string',
+            'piece_to_change' => 'nullable|string',
+            'piece_photo' => 'nullable|string',
+            'resolved' => 'nullable|bool',
+        ]);
+
         DB::table('troubleshooting_reports')->where('id', $id)->update([
             'id_machine' => $request['id_machine'],
             'id_maintainer' => $request['id_maintainer'],
@@ -54,6 +79,7 @@ class TroubleshootingReportController extends Controller{
         $response["success"] = 1;
         return response()->json($response);
     } 
+
 
 	public function deleteTroubleshootingReport($id)
     {
@@ -82,7 +108,7 @@ class TroubleshootingReportController extends Controller{
         return response()->json($response);
     }
 
-    public function getUnresolvedTRByMaintainerId(Request $request, $id_maintainer)
+    public function getUnresolvedTRByMaintainerId($id_maintainer)
     {
         $troubleshootingReports = DB::table('troubleshooting_reports')
             ->join('machines', 'troubleshooting_reports.id_machine', '=', 'machines.id')
@@ -97,7 +123,7 @@ class TroubleshootingReportController extends Controller{
         return response()->json($response);
     }
 
-    public function getUnresolvedTRByMachineId(Request $request, $id_machine)
+    public function getUnresolvedTRByMachineId($id_machine)
     {
         $troubleshootingReports = DB::table('troubleshooting_reports')
             ->where('resolved', false)

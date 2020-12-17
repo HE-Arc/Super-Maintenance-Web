@@ -16,6 +16,6 @@ class TaskController extends Controller{
 		$response["tasks"] = $tasks;
 		$response["success"] = 1;
 
-		return response()->json("taskController\getTaskByMachine");
+		return response()->json($response);
 	}
 }

@@ -29,15 +29,14 @@ class MaintainController extends Controller{
         $validator = Validator::make($request->all(), [
             'id_machine' => 'required|integer',
             'id_maintainer' => 'required|integer',
-            'start_date' => 'required|date',
-            'start_date' => 'required|date',
+            'start_date' => 'nullable|date',
+            'start_date' => 'nullable|date',
             'planned_at' => 'required|date'
         ]);
 
         if ($validator->fails()) {
-            return redirect('/maintenance')
-                        ->withErrors($validator)
-                        ->withInput();
+            $response["success"] = 0;
+            return response()->json($response);
         }
 
         $maintain = Maintain::create($request->all());
@@ -50,12 +49,18 @@ class MaintainController extends Controller{
 
     public function updateMaintain(Request $request, $id)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_machine' => 'required|integer',
             'id_maintainer' => 'required|integer',
-            'start_date' => 'required|date',
-            'start_date' => 'required|date',
+            'start_date' => 'nullable|date',
+            'start_date' => 'nullable|date',
+            'planned_at' => 'required|date'
         ]);
+
+        if ($validator->fails()) {
+            $response["success"] = 0;
+            return response()->json($response);
+        }
 
         $maintain = DB::table('maintains')->where('id', $id)->update([
             'id_machine' => $request['id_machine'],
@@ -89,7 +94,6 @@ class MaintainController extends Controller{
 
     public function index()
     {
-        // $maintains  = Maintain::all();
         $maintains = DB::table('maintains')
             ->join('machines', 'maintains.id_machine', '=', 'machines.id')
             ->select('maintains.*', 'machines.name as machine_name')
@@ -102,7 +106,7 @@ class MaintainController extends Controller{
         return response()->json($response);
     }
 
-    public function getUnresolvedMaintainByMaintainerId(Request $request, $id_maintainer)
+    public function getUnresolvedMaintainByMaintainerId($id_maintainer)
     {
         $maintains = DB::table('maintains')
             ->join('machines', 'maintains.id_machine', '=', 'machines.id')

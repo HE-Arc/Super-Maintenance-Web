@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TroubleshootingReport;
+use Illuminate\Support\Facades\Validator;
 use DB;
 
 class TroubleshootingReportController extends Controller{
@@ -25,7 +26,7 @@ class TroubleshootingReportController extends Controller{
 	
 	public function createTroubleshootingReport(Request $request)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_machine' => 'required|integer',
             'id_maintainer' => 'required|integer',
             'end_date' => 'nullable|date',
@@ -37,6 +38,12 @@ class TroubleshootingReportController extends Controller{
             'piece_photo' => 'nullable|string',
             'resolved' => 'nullable|bool',
         ]);
+
+        if ($validator->fails()) {
+            $response["success"] = 0;
+            return response()->json($response);
+        }
+
         $troubleshootingReport = new TroubleshootingReport($request->all());
         $troubleshootingReport->save();
 
@@ -48,7 +55,7 @@ class TroubleshootingReportController extends Controller{
 
 	public function updateTroubleshootingReport(Request $request, $id)
     {
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'id_machine' => 'required|integer',
             'id_maintainer' => 'required|integer',
             'end_date' => 'nullable|date',
@@ -60,6 +67,11 @@ class TroubleshootingReportController extends Controller{
             'piece_photo' => 'nullable|string',
             'resolved' => 'nullable|bool',
         ]);
+
+        if ($validator->fails()) {
+            $response["success"] = 0;
+            return response()->json($response);
+        }
 
         DB::table('troubleshooting_reports')->where('id', $id)->update([
             'id_machine' => $request['id_machine'],
@@ -79,7 +91,6 @@ class TroubleshootingReportController extends Controller{
         $response["success"] = 1;
         return response()->json($response);
     } 
-
 
 	public function deleteTroubleshootingReport($id)
     {

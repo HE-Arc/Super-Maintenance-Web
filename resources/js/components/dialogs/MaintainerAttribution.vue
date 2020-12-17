@@ -74,6 +74,7 @@ export default {
 			})
         },
         assign(){
+            console.log("maintainer = " + this.maintainer)
             return new Promise((resolve, reject) => {
                 axios.post("/troubleshootingReport/" + this.troubleshooting.id, {
                     "id_machine": this.item.id,

@@ -39,6 +39,10 @@ Route::get('/calendar', function () {
     return view('calendar');
 });
 
+Route::get('/requestError', function () {
+    return view('requestError');
+});
+
 Route::post('maintainer',[MaintainerController::class, 'createMaintainer']);   //for creating maintainer
 Route::post('maintainer_delete/{id}',[MaintainerController::class, 'deleteMaintainer']);  // for deleting maintainer
 Route::post('maintainer/{id}',[MaintainerController::class, 'updateMaintainer']); //update maintainer

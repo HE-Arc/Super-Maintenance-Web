@@ -14,8 +14,20 @@
             clearable
         />
 
+        <v-container v-show="loading" 
+            fill-height 
+            fluid
+            >
+			<v-row align="center" justify="center">
+				<v-progress-circular
+				:size="50"
+				color="indigo"
+				indeterminate
+				></v-progress-circular>
+			</v-row>
+		</v-container>
         <!-- Display maintains for the selected machine -->
-        <v-list two-line v-if="isItemSelected">
+        <v-list v-show="!loading && isItemSelected" two-line>
             <v-list-item-group
                 active-class="indigo--text"
                 mandatory
@@ -45,7 +57,7 @@
                 </template>
             </v-list-item-group>
         </v-list>
-        <v-alert v-else
+        <v-alert v-show="!loading && !isItemSelected"
               type="info"
               color="indigo"
               outlined
@@ -81,6 +93,7 @@ export default {
         emptyMessage: "Aucun élément ne correspond à la sélection",
         items: [],
         value: 0,
+        loading: true,
     }),
     methods: {
         fetchMachines() {
@@ -103,6 +116,7 @@ export default {
                     axios.get("/" + this.selectionUrl +"_machine/" + this.selectedMachineId)
                         .then(response => {
                             this.fillItems(response.data)
+                            this.loading = false;
                             resolve(response)
                     })
                     .catch(error => {
@@ -115,6 +129,7 @@ export default {
                     axios.get("/" + this.selectionUrl)
                         .then(response => {
                             this.fillItems(response.data)
+                            this.loading = false;
                             resolve(response)
                     })
                     .catch(error => {
@@ -197,9 +212,15 @@ export default {
             {
                 this.selectedMachineId = -1 //select all
             }
+
+            // Get items if at least one machine correspond to the selection
             if(this.machines.length > 0)
             {
                 this.fetchItemsByMachine()
+            }
+            else
+            {
+                //this.loading = false;
             }
             
             this.triggerSelectedMachineIdChange()

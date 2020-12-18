@@ -142,7 +142,7 @@ export default {
                     planned_at: this.planned_at
                 })
                 .then(response => {
-                    this.$parent.fetchMaintains()
+                    this.$parent.fetchMaintainers()
                     this.hide()
                     resolve(response)
                 })

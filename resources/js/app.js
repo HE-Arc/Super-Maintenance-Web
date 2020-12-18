@@ -9,6 +9,9 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import vuetify from '../plugins/vuetify' // path to vuetify export
+import VueGoogleCharts from 'vue-google-charts'
+
+Vue.use(VueGoogleCharts)
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,7 +23,19 @@ import vuetify from '../plugins/vuetify' // path to vuetify export
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('vheader', require('./components/Header.vue').default);
+Vue.component('vleftnav', require('./components/LeftNav.vue').default);
+Vue.component('vfooter', require('./components/Footer.vue').default);
+Vue.component('home', require('./components/Home.vue').default);
+Vue.component('machines', require('./components/Machines.vue').default);
+Vue.component('machine-tasks', require('./components/MachineTasks.vue').default);
+Vue.component('mf-selection', require('./components/mf/MFSelection.vue').default);
+Vue.component('mf', require('./components/mf/MF.vue').default);
+Vue.component('calendar', require('./components/calendar/Calendar.vue').default);
+Vue.component('maintain-page', require('./components/MaintainPage.vue').default);
+Vue.component('maintain-info', require('./components/MaintainInfo.vue').default);
+Vue.component('machine-filter', require('./components/MachineFilter.vue').default);
+Vue.component('failure-report', require('./components/FailureReport.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

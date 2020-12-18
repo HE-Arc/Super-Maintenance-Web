@@ -2,46 +2,93 @@
 
 namespace App\Http\Controllers;
 
-use App\Maintainer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Maintainer;
+use Illuminate\Support\Facades\Validator;
 use DB;
 
 class MaintainerController extends Controller{
 
-    public function createMaintainer(Request $request){
-        $maintainer = Maintainer::create($request->all());
+    public function getMaintainerById($id){
+        
+        if(ctype_digit($id))
+        {
+            $maintainer = DB::table('maintainers')->where('id', $id)->get();
 
-        return response()->json($maintainer);
+            $response["maintainer"] = $maintainer;
+            $response["success"] = 1;
+        }
+        else
+        {
+            $response["success"] = 0;
+        }
+
+        return response()->json($response);
+    }
+    
+    public function createMaintainer(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:60',
+            'first_name' => 'required|string|max:60',
+        ]);
+
+        if ($validator->fails()) {
+            $response["success"] = 0;
+            return response()->json($response);
+        }
+
+        $maintainer = new Maintainer($request->all());
+        $maintainer->save();
+        
+        $response["maintainer"] = $maintainer;
+        $response["success"] = 1;
+
+        return response()->json($response);
     }
 
     public function updateMaintainer(Request $request, $id){
-        $maintainer  = DB::table('maintainers')->where('pid', $request->input('pid'))->get();
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:30',
+            'first_name' => 'required|string|max:60',
+        ]);
 
-        $maintainer->lastname = $request->input('lastname');
-        $maintainer->firstname = $request->input('firstname');
-        $maintainer->save();
+        if ($validator->fails() && !ctype_digit($id)) {
+            $response["success"] = 0;
+            return response()->json($response);
+        }
 
-        $response["maintainers"] = $maintainer;
+        $maintainer = DB::table('maintainers')->where('id', $id)->update([
+                        'name' => $request['name'],
+                        'first_name' => $request['first_name'],
+                        ]);
+        
         $response["success"] = 1;
 
         return response()->json($response);
     }  
 
     public function deleteMaintainer($id){
-        $maintainer = DB::table('maintainers')->where('pid', $request->input('pid'))->get();
-        $maintainer->delete();
+        
+        if(ctype_digit($id))
+        {
+            $maintainer = DB::table('maintainers')->where('id', $id)->delete();
+            $response["success"] = 1;
+        }
+        else
+        {
+            $response["success"] = 0;
+        }
 
-        return response()->json('Removed successfully.');
+        return response()->json($response);
     }
 
     public function index(){
-        $maintainers  = Maintainer::all();
+        $maintainers = DB::table('maintainers')->get();
 
         $response["maintainers"] = $maintainers;
         $response["success"] = 1;
 
         return response()->json($response);
     }
-
 }

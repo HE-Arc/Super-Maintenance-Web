@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\MaintainerController;
+use App\Http\Controllers\MaintainController;
+use App\Http\Controllers\TroubleshootingReportController;
+use App\Http\Controllers\MachineController;
+use App\Http\Controllers\StatisticController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +23,56 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('maintainer','MaintainerController@createMaintainer');   //for creating maintainer
-Route::get('maintainer/{id}','MaintainerController@updateMaintainer'); //for updating maintainer
-Route::post('maintainer/{id}','MaintainerController@deleteMaintainer');  // for deleting maintainer
-Route::get('maintainers','MaintainerController@index'); // for retrieving maintainers
+Route::get('/', function () {
+    return view('welcome');
+})->name("home");
+
+Route::get('/task', function () {
+    return view('task');
+});
+
+Route::get('/maintenance', function () {
+    return view('mf');
+});
+
+Route::get('/calendar', function () {
+    return view('calendar');
+});
+
+Route::get('/requestError', function () {
+    return view('requestError');
+});
+
+Route::post('maintainer',[MaintainerController::class, 'createMaintainer']);   //for creating maintainer
+Route::post('maintainer_delete/{id}',[MaintainerController::class, 'deleteMaintainer']);  // for deleting maintainer
+Route::post('maintainer/{id}',[MaintainerController::class, 'updateMaintainer']); //update maintainer
+Route::get('maintainer/{id}',[MaintainerController::class, 'getMaintainerById']); //get maintainer by id
+Route::get('maintainers',[MaintainerController::class, 'index']); // for retrieving maintainers
+
+Route::get('tasks/{id_machine}', [TaskController::class, 'getTaskByMachineId']); // for retrieving all task of machine
+
+Route::get('statistics/{id_machine}', [StatisticController::class, 'getStatisticByMachineId']); // get all statistics for machine id
+Route::get('statistic/{id}', [StatisticController::class, 'getStatisticById']); // get statistic by id
+
+Route::post('maintain', [MaintainController::class, 'createMaintain']); // create maintain
+Route::post('maintain/{id}', [MaintainController::class, 'updateMaintain']); // update maintain
+Route::post('maintain_delete/{id}', [MaintainController::class, 'deleteMaintain']); // delete maintain
+Route::get('maintains', [MaintainController::class, 'index']); // get all maintains
+Route::get('maintain/{id}', [MaintainController::class, 'getMaintainById']); // get maintain by id
+Route::get('maintains_machine/{id}', [MaintainController::class, 'getMaintainsByMachine']); // get all maintains by id machine
+Route::get('unresolvedmaintain/{id_maintainer}', [MaintainController::class, 'getUnresolvedMaintainByMaintainerId']);
+
+Route::get('troubleshootingReport/{id}', [TroubleshootingReportController::class, 'getTroubleshootingReportById']); // get troubleshootingReport by id
+Route::get('troubleshootingReports', [TroubleshootingReportController::class, 'index']); // get all troubleshootingReports
+Route::post('troubleshootingReport', [TroubleshootingReportController::class, 'createTroubleshootingReport']); // create troubleshootingReport
+Route::post('troubleshootingReport_delete/{id}', [TroubleshootingReportController::class, 'deleteTroubleshootingReport']); // delete troubleshootingReport
+Route::post('troubleshootingReport/{id}', [TroubleshootingReportController::class, 'updateTroubleshootingReport']); // update troubleshootingReport
+Route::get('troubleshootingReports_machine/{id}', [TroubleshootingReportController::class, 'getTroubleshootingReportsByMachine']); // get all troubleshooting by id machine
+Route::get('unresolvedtroubleshooting/{id_maintainer}', [TroubleshootingReportController::class, 'getUnresolvedTRByMaintainerId']); // get unresolved troubleshooting by id maintainer
+Route::get('unresolvedtroubleshootingByMachine/{id_machine}', [TroubleshootingReportController::class, 'getUnresolvedTRByMachineId']); // get unresolved troubleshooting by id machine
+
+
+Route::get('machine/{id}', [MachineController::class, 'getMachineById']); // get machine by id
+Route::post('machine/{id}', [MachineController::class, 'updateMachine']); // update machine by id
+Route::get('machines', [MachineController::class, 'index']); // get all machines
+Route::get('machinesAndTroubleshootings', [MachineController::class, 'getMachineAndTroubleshooting']); // get machines and unresolved troubleshootings

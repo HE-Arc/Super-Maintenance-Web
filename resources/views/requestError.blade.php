@@ -25,7 +25,7 @@
     <body class="antialiased">
         <div id="app">
             <v-app>
-                <home></home>
+                <p>400 Bad Request</p>
             </v-app>
         </div>
     </body>

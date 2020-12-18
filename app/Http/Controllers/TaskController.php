@@ -9,12 +9,19 @@ use DB;
 
 class TaskController extends Controller{
 
-	public function getTaskByMachineId(Request $request, $id_machine)
+	public function getTaskByMachineId($id_machine)
 	{
-		$tasks = DB::table('tasks')->where('id_machine', $id_machine)->get();
+		if(ctype_digit($id_machine))
+        {
+			$tasks = DB::table('tasks')->where('id_machine', $id_machine)->get();
 
-		$response["tasks"] = $tasks;
-		$response["success"] = 1;
+			$response["tasks"] = $tasks;
+			$response["success"] = 1;
+		}
+		else
+		{
+			$response["success"] = 0;
+		}
 
 		return response()->json($response);
 	}

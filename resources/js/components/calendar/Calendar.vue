@@ -262,6 +262,7 @@ export default {
         this.events = events
       },
       OpenAddMaintainDialog(maintain) {
+        this.selectedOpen = false
         this.$refs.addMaintain.show(maintain, this.maintainers)
       },
       OpenDeleteDialog(maintain) {

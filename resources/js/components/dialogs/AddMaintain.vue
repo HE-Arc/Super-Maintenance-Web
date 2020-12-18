@@ -80,6 +80,9 @@
 </template>
 
 <script>
+/*
+    Dialog to add a maintain on the calendar
+*/
 export default {
     data: () => ({
         isVisible: false,

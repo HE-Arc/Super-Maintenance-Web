@@ -43,6 +43,9 @@
 </template>
 
 <script>
+/*
+    Dialog to attribute a failure to a maintainer
+*/
 export default {
     data: () => ({
         isVisible: false,

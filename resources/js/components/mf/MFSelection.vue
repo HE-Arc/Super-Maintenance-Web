@@ -14,6 +14,9 @@
 </template>
 
 <script>
+/*
+    Switch to select maintains or failures in the info page
+*/
 import MachineFilter from '../MachineFilter.vue'
 export default {
     data: () => ({

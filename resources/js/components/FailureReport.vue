@@ -162,6 +162,9 @@
 </template>
 
 <script>
+/*
+  Display information of a failure report (troubleshooting report) in a form
+*/
 export default {
   props:{
 		id_failure: {
@@ -238,7 +241,10 @@ export default {
       });
     },
     stringToDate(s) {
-      //source : https://stackoverflow.com/questions/8003616/javascript-how-to-find-the-difference-between-two-datetimes-in-mysql-timestamp
+      /*
+        Convert a string to a date object
+        source : https://stackoverflow.com/questions/8003616/javascript-how-to-find-the-difference-between-two-datetimes-in-mysql-timestamp
+      */
       let dateParts = s.split(" ")[0].split("-");
       let timeParts = s.split(" ")[1].split(":");
       let d = new Date(dateParts[0], --dateParts[1], dateParts[2]);
@@ -247,6 +253,9 @@ export default {
       return d;
     },
     computeSpendTime(end_date, start_date) {
+      /*
+        Compute spend time between two dates
+      */
       let secondsRemaining =
         (this.stringToDate(end_date) - this.stringToDate(start_date)) / 1000; //delta in seconds
       let hours = Math.floor(secondsRemaining / 3600);

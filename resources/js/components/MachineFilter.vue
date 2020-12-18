@@ -70,6 +70,9 @@
 </template>
 
 <script>
+/*
+    Component to filter maintains or failure by a machine and display them on a list.
+*/
 export default {
     props:{
 		selection: { //maintain or failure
@@ -217,10 +220,6 @@ export default {
             if(this.machines.length > 0)
             {
                 this.fetchItemsByMachine()
-            }
-            else
-            {
-                //this.loading = false;
             }
             
             this.triggerSelectedMachineIdChange()

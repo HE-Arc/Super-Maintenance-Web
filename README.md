@@ -7,6 +7,6 @@ Link to the project presentation : [Presentation](https://github.com/HE-Arc/Supe
 
 
 ## How to run it locally
-Start a terminal and launch the two following commands :
-npm run dev
-php artisan serve
+Start a terminal and launch the two following commands :  
+* *npm run dev*
+* *php artisan serve*

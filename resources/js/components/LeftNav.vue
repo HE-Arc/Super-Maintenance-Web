@@ -70,6 +70,10 @@
 </template>
 
 <script>
+/*
+  Left naviguation of the application that allow the user to naviguate between the different pages
+*/
+
 export default {
 
   data: () => ({

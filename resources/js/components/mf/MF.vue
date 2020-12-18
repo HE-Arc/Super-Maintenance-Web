@@ -41,25 +41,29 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      selection: "maintain",
-      selectedId: -1,
-      emptyMessage: "Aucun élément ne correspond à la sélection"
-    }),
-    methods: {
-      updateSelection: function(selection) {
-        this.selection = selection
-        this.selectedId = -1
-      },
-      updateSelectedId: function(selectedId) {
-        this.selectedId = selectedId
-      },
+/*
+  Maintain and failure page that contain other components 
+*/
+
+export default {
+  data: () => ({
+    selection: "maintain",
+    selectedId: -1,
+    emptyMessage: "Aucun élément ne correspond à la sélection"
+  }),
+  methods: {
+    updateSelection: function(selection) {
+      this.selection = selection
+      this.selectedId = -1
     },
-    computed: {
-      isItemSelected(){
-        return this.selectedId !== -1
-      }
+    updateSelectedId: function(selectedId) {
+      this.selectedId = selectedId
+    },
+  },
+  computed: {
+    isItemSelected(){
+      return this.selectedId !== -1
     }
   }
+}
 </script>

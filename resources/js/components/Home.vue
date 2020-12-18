@@ -1,3 +1,4 @@
+<!-- Home page of the application -->
 <template>
   <div>
     <vheader></vheader>
@@ -12,14 +13,3 @@
     <vfooter></vfooter>
   </div>
 </template>
-
-<script>
-  export default {
-    data: () => ({
-
-    }),
-    methods: {
-
-    },
-  }
-</script>

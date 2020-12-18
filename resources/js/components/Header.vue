@@ -1,3 +1,4 @@
+<!-- Header of the application -->
 <template>
   <div>    
     <v-app-bar

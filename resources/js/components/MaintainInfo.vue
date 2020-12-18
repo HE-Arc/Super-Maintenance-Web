@@ -95,7 +95,7 @@
 			d.setHours(timeParts[0], timeParts[1], timeParts[2]);
 
 			return d;
-			},
+		},
 		computeSpendTime(end_date, start_date) {
 			let secondsRemaining = (this.stringToDate(end_date) - this.stringToDate(start_date)) / 1000; //delta in seconds
 			let hours = Math.floor(secondsRemaining / 3600);
@@ -104,7 +104,7 @@
 			secondsRemaining = secondsRemaining - minutes * 60;
 
 			return hours + "h" + minutes + "m" + secondsRemaining + "s";
-			},
+		},
 		fetchMaintainerName() {
 			console.log()
 			return new Promise((resolve, reject) => {

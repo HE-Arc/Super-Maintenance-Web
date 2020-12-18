@@ -21,7 +21,13 @@
 </template>
 
 <script>
-  export default {
+/*
+	Maintain page that contain two components:
+		- One component that show all maintain informations
+		- One component that show all the task that are checked during maintnance 
+*/
+
+export default {
     data: () => ({
 		maintain: null,
 		machine_name: null,
@@ -32,7 +38,7 @@
 		id_maintain: {
 			type: Number,
 			required: true
-			},
+		},
 	},
 	watch:{ //update the component when the id_failure is updated
 		'id_maintain': function(id_maintain) {
@@ -50,7 +56,6 @@
 						this.machine_id = parseInt(response.data.maintain[0].id_machine)
 						resolve(response)
 						this.fetchMachineById()
-						
 				})
 				.catch(error => {
 					reject(error)
@@ -76,5 +81,5 @@
 	mounted(){
 		this.fetchMaintainById()
 	}
-  }
+}
 </script>

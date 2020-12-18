@@ -27,15 +27,15 @@ Vue.component('vheader', require('./components/Header.vue').default);
 Vue.component('vleftnav', require('./components/LeftNav.vue').default);
 Vue.component('vfooter', require('./components/Footer.vue').default);
 Vue.component('home', require('./components/Home.vue').default);
-Vue.component('machines', require('./components/Machines.vue').default);
-Vue.component('machine-tasks', require('./components/MachineTasks.vue').default);
-Vue.component('mf-selection', require('./components/mf/MFSelection.vue').default);
-Vue.component('mf', require('./components/mf/MF.vue').default);
+Vue.component('machines', require('./components/machine/Machines.vue').default);
+Vue.component('machine-tasks', require('./components/machine/MachineTasks.vue').default);
+Vue.component('mf-selection', require('./components/maintainAndFailure/MFSelection.vue').default);
+Vue.component('mf', require('./components/maintainAndFailure/MaintainAndFailure.vue').default);
 Vue.component('calendar', require('./components/calendar/Calendar.vue').default);
-Vue.component('maintain-page', require('./components/MaintainPage.vue').default);
-Vue.component('maintain-info', require('./components/MaintainInfo.vue').default);
-Vue.component('machine-filter', require('./components/MachineFilter.vue').default);
-Vue.component('failure-report', require('./components/FailureReport.vue').default);
+Vue.component('maintain-page', require('./components/maintainAndFailure/maintain/MaintainPage.vue').default);
+Vue.component('maintain-info', require('./components/maintainAndFailure/maintain/MaintainInfo.vue').default);
+Vue.component('machine-filter', require('./components/machine/MachineFilter.vue').default);
+Vue.component('failure-report', require('./components/maintainAndFailure/failure/FailureReport.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

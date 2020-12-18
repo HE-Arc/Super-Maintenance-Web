@@ -72,7 +72,7 @@
 * you can see machine statistic, date and if maintainer is attributed on machine failure
 */
   import { GChart } from 'vue-google-charts'
-  import MaintainerAttribution from './dialogs/MaintainerAttribution'
+  import MaintainerAttribution from '../dialogs/MaintainerAttribution'
 
   export default {
     data: () => ({

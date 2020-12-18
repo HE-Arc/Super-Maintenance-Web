@@ -1,3 +1,4 @@
+<!-- Footer of the application -->
 <template>
   <div>
     <v-footer

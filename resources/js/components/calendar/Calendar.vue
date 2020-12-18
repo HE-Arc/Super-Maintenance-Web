@@ -168,6 +168,10 @@
 </template>
 
 <script>
+/*
+  Calendar page where the user can plan a new maintain and show all the planned maintains
+*/
+
 import AddMaintain from '../dialogs/AddMaintain'
 import DeleteDialog from '../dialogs/DeleteDialog'
 
@@ -200,6 +204,7 @@ export default {
     },
     methods: {
       viewDay ({ date }) {
+        // Day view mode
         this.focus = date
         this.type = 'day'
       },
@@ -210,9 +215,11 @@ export default {
         this.focus = ''
       },
       prev () {
+        // Previous day, week or month depending on the type
         this.$refs.calendar.prev()
       },
       next () {
+        // Next day, week or month depending on the type
         this.$refs.calendar.next()
       },
       showEvent ({ nativeEvent, event }) {

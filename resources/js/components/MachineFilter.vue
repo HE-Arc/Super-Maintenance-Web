@@ -110,8 +110,7 @@ export default {
         },
         fetchItemsByMachine() {
 			return new Promise((resolve, reject) => {
-                if(this.selectedMachineId !== -1)
-                {
+                if(this.selectedMachineId !== -1) {
                     //get all items for this machine id
                     axios.get("/" + this.selectionUrl +"_machine/" + this.selectedMachineId)
                         .then(response => {
@@ -123,8 +122,7 @@ export default {
                         reject(error)
                     })
                 }
-                else
-                {
+                else {
                     //select all items
                     axios.get("/" + this.selectionUrl)
                         .then(response => {
@@ -139,61 +137,51 @@ export default {
 			})
         },
         fillItems(data) {
-            /*
-                Fill the items array with the completed items
-            */
+            // Fill the items array with the completed items
             this.items = []
             
             let items = this.selection === "maintain" ? data.maintains : data.troubleshooting_reports
             
             items.forEach(item => {
-                if(this.context === "calendar")
-                {
+                if(this.context === "calendar") {
                     this.items.push(item)
                 }
-                else
-                { //info
-                    if(item.start_date !== null && item.end_date !== null)
-                    {
+                else { 
+                    //info
+                    if(item.start_date !== null && item.end_date !== null) {
                         this.items.push(item)
                     }
                 }
             });
 
-            //update the selected maintain
-            if(this.items.length > 0)
-            {
+            // update the selected maintain
+            if(this.items.length > 0) {
                 this.triggerSelectedIdChange(this.items[0].id)
-            }
-            else
-            {
+            } 
+            else {
                 // if there's no item, display nothing
                 this.triggerSelectedIdChange(-1)
             }
         },
         dateDay(item){
-            /*
-                Convert from yyyy-mm-dd tp dd-mm-yyyy format
-            */
+            // Convert from yyyy-mm-dd tp dd-mm-yyyy format
             let datetime = item.hasOwnProperty('planned_at') ? item.planned_at : item.start_date
             return datetime.split(" ")[0]
         },
         machineName(id_machine){
-            /*
-                Get the machine name of the machine id_machine
-            */
+            // Get the machine name of the machine id_machine
             return this.machines.find(x => x.id == id_machine).name
         },
-        triggerSelectedIdChange(selectedId){
+        triggerSelectedIdChange(selectedId) {
             // trigger an event when the selected item id changes
             this.selectedId = selectedId
             this.$emit("selectedIdChange", selectedId)
         },
-        triggerSelectedMachineIdChange(){
+        triggerSelectedMachineIdChange() {
             // trigger an event when the selected machine id changes
             this.$emit("selectedMachineIdChange", this.selectedMachineId)
         },
-        triggerSelectedDateChange(selectedDate){
+        triggerSelectedDateChange(selectedDate) {
             // trigger an event when the selected item id changes
             this.selectedDate = selectedDate
             this.$emit("selectedDateChange", selectedDate)
@@ -204,38 +192,30 @@ export default {
         }
     },
     computed: {
-        updateSelectedMachineId(){
+        updateSelectedMachineId() {
             /*
                 Update the list of items when the selected machine changes
             */
-            if(typeof this.selectedMachineId == 'undefined')
-            {
+            if(typeof this.selectedMachineId == 'undefined') {
                 this.selectedMachineId = -1 //select all
             }
 
             // Get items if at least one machine correspond to the selection
-            if(this.machines.length > 0)
-            {
+            if(this.machines.length > 0) {
                 this.fetchItemsByMachine()
-            }
-            else
-            {
-                //this.loading = false;
             }
             
             this.triggerSelectedMachineIdChange()
         },
-        selectionUrl(){
+        selectionUrl() {
             return this.selection === "maintain" ? "maintains" : "troubleshootingReports"
         },
-        isItemSelected(){
-            /*
-                Check if an item is selected
-            */
+        isItemSelected() {
+            // Check if an item is selected
             return this.selectedId !== -1
         }
     },
-	mounted(){
+	mounted() {
         this.fetchMachines()
 	},
 }

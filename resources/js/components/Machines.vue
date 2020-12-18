@@ -67,6 +67,10 @@
 </template>
 
 <script>
+/*
+* Machine vue is card in the general vue
+* you can see machine statistic, date and if maintainer is attributed on machine failure
+*/
   import { GChart } from 'vue-google-charts'
   import MaintainerAttribution from './dialogs/MaintainerAttribution'
 

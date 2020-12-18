@@ -63,6 +63,9 @@
 </template>
 
 <script>
+/*
+* Maintaininfo is view who show info of selected maintain
+*/
   export default {
     data: () => ({
 		maintainer_name: null,

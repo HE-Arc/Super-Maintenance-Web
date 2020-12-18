@@ -34,6 +34,9 @@
 </template>
 
 <script>
+/*
+* DeleteDialog allows you to delete a object in calendar like maintain
+*/
 export default {
     data: () => ({
         isVisible: false,

@@ -14,6 +14,7 @@ class TroubleshootingReportController extends Controller{
     {
         if(ctype_digit($id))
         {
+            // Get troubleshooting and machine with troubleshooting id
             $troubleshootingReport = DB::table('troubleshooting_reports')
                 ->join('machines', 'troubleshooting_reports.id_machine', '=', 'machines.id')
                 ->select('troubleshooting_reports.*', 'machines.name as machine_name')
@@ -145,6 +146,7 @@ class TroubleshootingReportController extends Controller{
     {
         if(ctype_digit($id_maintainer))
         {
+            // Select unresolved Troubleshooting and maintain with maintain id
             $troubleshootingReports = DB::table('troubleshooting_reports')
                 ->join('machines', 'troubleshooting_reports.id_machine', '=', 'machines.id')
                 ->where('resolved', false)

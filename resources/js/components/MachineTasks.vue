@@ -34,6 +34,9 @@
 </template>
 
 <script>
+/*
+* Show tasks of machine in the maintain page
+*/
   export default {
     data: () => ({
 		tasks: []

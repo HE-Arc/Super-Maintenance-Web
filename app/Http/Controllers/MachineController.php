@@ -11,10 +11,17 @@ class MachineController extends Controller{
 
     public function getMachineById($id)
     {
-        $machine = DB::table('machines')->where('id', $id)->get();
+        if(ctype_digit($id))
+        {
+            $machine = DB::table('machines')->where('id', $id)->get();
 
-        $response["machine"] = $machine;
-        $response["success"] = 1;
+            $response["machine"] = $machine;
+            $response["success"] = 1;
+        }
+        else
+        {
+            $response["success"] = 0;
+        }
 
         return response()->json($response);
 	}

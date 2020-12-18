@@ -12,14 +12,21 @@ class TroubleshootingReportController extends Controller{
 
 	public function getTroubleshootingReportById($id)
     {
-        $troubleshootingReport = DB::table('troubleshooting_reports')
-            ->join('machines', 'troubleshooting_reports.id_machine', '=', 'machines.id')
-            ->select('troubleshooting_reports.*', 'machines.name as machine_name')
-            ->where('troubleshooting_reports.id', $id)
-            ->get();
+        if(ctype_digit($id))
+        {
+            $troubleshootingReport = DB::table('troubleshooting_reports')
+                ->join('machines', 'troubleshooting_reports.id_machine', '=', 'machines.id')
+                ->select('troubleshooting_reports.*', 'machines.name as machine_name')
+                ->where('troubleshooting_reports.id', $id)
+                ->get();
 
-        $response["troubleshootingReport"] = $troubleshootingReport;
-        $response["success"] = 1;
+            $response["troubleshootingReport"] = $troubleshootingReport;
+            $response["success"] = 1;
+        }
+        else
+        {
+            $response["success"] = 0;
+        }
 
         return response()->json($response);
 	}
@@ -68,7 +75,7 @@ class TroubleshootingReportController extends Controller{
             'resolved' => 'nullable|bool',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails() && !ctype_digit($id)) {
             $response["success"] = 0;
             return response()->json($response);
         }
@@ -87,24 +94,39 @@ class TroubleshootingReportController extends Controller{
 			'resolved' => $request['resolved']
             ]);
 
-        $response["troubleshootingReport"] = DB::table('troubleshooting_reports')->where('id', $id)->get();
         $response["success"] = 1;
+
         return response()->json($response);
     } 
 
 	public function deleteTroubleshootingReport($id)
     {
-        DB::table('troubleshooting_reports')->where('id', $id)->delete();
+        if(ctype_digit($id))
+        {
+            DB::table('troubleshooting_reports')->where('id', $id)->delete();
+            $response["success"] = 1;
+        }
+        else
+        {
+            $response["success"] = 0;
+        }
 
-        return response()->json('Removed successfully.');
+        return response()->json($response);
     }
 
     public function getTroubleshootingReportsByMachine($id)
     {
-        $troubleshootingReports = DB::table('troubleshooting_reports')->where('id_machine', $id)->orderBy('start_date', 'desc')->get();
+        if(ctype_digit($id))
+        {
+            $troubleshootingReports = DB::table('troubleshooting_reports')->where('id_machine', $id)->orderBy('start_date', 'desc')->get();
 
-        $response["troubleshooting_reports"] = $troubleshootingReports;
-        $response["success"] = 1;
+            $response["troubleshooting_reports"] = $troubleshootingReports;
+            $response["success"] = 1;
+        }
+        else
+        {
+            $response["success"] = 0;
+        }
 
         return response()->json($response);
     }
@@ -121,29 +143,43 @@ class TroubleshootingReportController extends Controller{
 
     public function getUnresolvedTRByMaintainerId($id_maintainer)
     {
-        $troubleshootingReports = DB::table('troubleshooting_reports')
-            ->join('machines', 'troubleshooting_reports.id_machine', '=', 'machines.id')
-            ->where('resolved', false)
-            ->where('id_maintainer', $id_maintainer)
-            ->select('troubleshooting_reports.*', 'machines.name as machine_name')
-            ->get();
+        if(ctype_digit($id_maintainer))
+        {
+            $troubleshootingReports = DB::table('troubleshooting_reports')
+                ->join('machines', 'troubleshooting_reports.id_machine', '=', 'machines.id')
+                ->where('resolved', false)
+                ->where('id_maintainer', $id_maintainer)
+                ->select('troubleshooting_reports.*', 'machines.name as machine_name')
+                ->get();
 
-        $response["troubleshooting_reports"] = $troubleshootingReports;
-        $response["success"] = 1;
+            $response["troubleshooting_reports"] = $troubleshootingReports;
+            $response["success"] = 1;
+        }
+        else
+        {
+            $response["success"] = 0;
+        }
 
         return response()->json($response);
     }
 
     public function getUnresolvedTRByMachineId($id_machine)
     {
-        $troubleshootingReports = DB::table('troubleshooting_reports')
-            ->where('resolved', false)
-            ->where('id_machine', $id_machine)
-            ->limit(1)
-            ->get();
+        if(ctype_digit($id_machine))
+        {
+            $troubleshootingReports = DB::table('troubleshooting_reports')
+                ->where('resolved', false)
+                ->where('id_machine', $id_machine)
+                ->limit(1)
+                ->get();
 
-        $response["troubleshooting_reports"] = $troubleshootingReports;
-        $response["success"] = 1;
+            $response["troubleshooting_reports"] = $troubleshootingReports;
+            $response["success"] = 1;
+        }
+        else
+        {
+            $response["success"] = 0;
+        }
 
         return response()->json($response);
     }

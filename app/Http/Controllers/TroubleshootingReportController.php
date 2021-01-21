@@ -36,7 +36,7 @@ class TroubleshootingReportController extends Controller{
     {
         $validator = Validator::make($request->all(), [
             'id_machine' => 'required|integer',
-            'id_maintainer' => 'required|integer',
+            'id_maintainer' => 'nullable|integer',
             'end_date' => 'nullable|date',
             'troubleshooting_description' => 'nullable|string',
             'troubleshooting_hypotesis' => 'nullable|string',

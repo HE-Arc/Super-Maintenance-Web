@@ -44,7 +44,7 @@ class TroubleshootingReportsSeeder extends Seeder
         $t->id_machine = 3;
         $t->id_maintainer = null;
         $t->end_date = null;
-        $t->start_date = null;
+        $t->start_date = "2021-01-26 11:45:45";
         $t->troubleshooting_description = null;
         $t->troubleshooting_hypotesis= null;
         $t->troubleshooting_check = null;
@@ -58,7 +58,7 @@ class TroubleshootingReportsSeeder extends Seeder
         $t->id_machine = 2;
         $t->id_maintainer = 2;
         $t->end_date = null;
-        $t->start_date = null;
+        $t->start_date = "2021-01-26 18:22:32";
         $t->troubleshooting_description = null;
         $t->troubleshooting_hypotesis= null;
         $t->troubleshooting_check = null;
